@@ -4,6 +4,7 @@
 
 .header {
     position: fixed;
+    z-index: 1000;
     top: 0;
     left: 0;
     display: flex;
@@ -44,8 +45,9 @@
 
 .header__nav .header__nav-item-container .header__nav-item {
     text-decoration: none;
-    color: #000000;
+    color: #fff;
     font-size: 18px;
+    text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.4s;
@@ -82,7 +84,8 @@
 
 .header .header__logo .header__logo-icon {
     font-size: 24px;
-    color: #000;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     transition: all 0.7s;
     display: flex;
     justify-content: center;
@@ -132,7 +135,8 @@
 
 .header .header__sidebar .header__sidebar-icon {
     font-size: 20px;
-    color: #000;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     transition: all 0.4s;
     display: flex;
     justify-content: center;
@@ -169,6 +173,8 @@
     font-size: 20px;
     cursor: pointer;
     transition: all 0.4s;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
 }
 
 .header__sidebar .header__sidebar-menu .header__sidebar-icon-close:hover {
@@ -190,6 +196,8 @@
 }
 
 .header__sidebar-nav .header__sidebar-nav-item-container .header__sidebar-nav-item {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -200,6 +208,7 @@
 }
 
 .header__sidebar-nav-item-container .header__sidebar-nav-item .header__sidebar-nav-text {
+
     font-size: 16px;
     font-weight: 700;
     margin-left: 10px;

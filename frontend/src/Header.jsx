@@ -13,7 +13,7 @@ function Header() {
             <div class="header">
                 <div class="header__logo">
                     <div class="header__logo-icon">
-                        <i class="fa-solid fa-gear"></i>
+                        <Link to="/"> <i class="fa-solid fa-gear"></i> </Link>
                     </div>
                     <div class="header__logo-title">
                         BOOKMANAGER
@@ -25,7 +25,6 @@ function Header() {
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
                                 <Link to="/book"><i class="fa-solid fa-book"></i></Link>
-
                             </div>
                         </li>
 

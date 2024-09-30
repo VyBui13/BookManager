@@ -9,3 +9,12 @@
 html {
     font-family: "Varela Round";
 }
+
+#root {
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

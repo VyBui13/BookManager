@@ -1,0 +1,177 @@
+:root {
+    --x-translate: 2px;
+    --y-translate: -32px;
+    --second-color: #6d6969;
+    --book-import-color: #2e88e2;
+    --bill-color: #ff6b6b;
+    --customer-color: #7ef13b;
+}
+
+.form-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--second-color);
+}
+
+.form {
+    position: relative;
+    background-color: #fff;
+    max-width: 700px;
+    width: 60%;
+    border-radius: 10px;
+    padding: 25px 30px;
+    margin: 50px;
+}
+
+.form .form__title {
+    font-size: 25px;
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.form form .form__userdetail {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+form .form__userdetail .form__inputbox {
+    position: relative;
+    margin-bottom: 15px;
+    width: calc(50% - 20px);
+}
+
+.form__userdetail .form__inputbox input {
+    position: relative;
+    width: 100%;
+    height: var(--height-input, 45px);
+    outline: none;
+    padding: 0 10px;
+    z-index: 1;
+    border: 4px solid #000000;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.form__userdetail .form__inputbox .form__detail {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form__userdetail .form__inputbox .form__labelline {
+    position: absolute;
+    opacity: 0.5;
+    transform: translate(var(--x-translate), var(--y-translate));
+    padding: 0 5px;
+    margin-left: 10px;
+    background-color: #fff;
+    transition: all 0.3s;
+}
+
+.form__inputbox input:focus+.form__labelline,
+.form__inputbox input:valid+.form__labelline {
+    opacity: 1;
+    font-size: 12px;
+    transform: translate(calc(4px + var(--x-translate)), calc(-20px + var(--y-translate)));
+    z-index: 2;
+    margin-left: 5px;
+}
+
+.form .form__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.form .form__button .form__submit {
+    width: 60%;
+    padding: 10px 0;
+    border-radius: 20px;
+    border: 4px solid #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/*---------------BOOKIMPORT---------------*/
+.form--bookimport .form__title {
+    background: linear-gradient(to left, var(--second-color), var(--book-import-color));
+    background-clip: text;
+    color: transparent;
+}
+
+.form--bookimport .form__inputbox input:focus+.form__labelline,
+.form--bookimport .form__inputbox input:valid+.form__labelline {
+    color: var(--book-import-color);
+}
+
+.form--bookimport .form__inputbox input:focus,
+.form--bookimport .form__inputbox input:valid {
+    border-image: linear-gradient(to bottom left, var(--second-color), var(--book-import-color)) 1;
+}
+
+.form--bookimport .form__button .form__submit:hover {
+    background-color: var(--book-import-color);
+    color: #fff;
+}
+
+/*---------------BOOKIMPORT---------------*/
+
+/*---------------BILL---------------*/
+.form--bill .form__title {
+    background: linear-gradient(to left, var(--second-color), var(--bill-color));
+    background-clip: text;
+    color: transparent;
+}
+
+.form--bill .form__inputbox input:focus+.form__labelline,
+.form--bill .form__inputbox input:valid+.form__labelline {
+    color: var(--bill-color);
+}
+
+.form--bill .form__inputbox input:focus,
+.form--bill .form__inputbox input:valid {
+    border-image: linear-gradient(to bottom left, var(--second-color), var(--bill-color)) 1;
+}
+
+.form--bill .form__button .form__submit:hover {
+    background-color: var(--bill-color);
+    color: #fff;
+}
+
+/*---------------BILL---------------*/
+
+/*---------------CUSTOMER---------------*/
+.form--customer .form__title {
+    background: linear-gradient(to left, var(--second-color), var(--customer-color));
+    background-clip: text;
+    color: transparent;
+}
+
+.form--cusomer .form__inputbox input:focus+.form__labelline,
+.form--cusomer .form__inputbox input:valid+.form__labelline {
+    color: var(--customer-color);
+}
+
+.form--customer .form__inputbox input:focus,
+.form--customer .form__inputbox input:valid {
+    border-image: linear-gradient(to bottom left, var(--second-color), var(--customer-color)) 1;
+}
+
+.form--customer .form__button .form__submit:hover {
+    background-color: var(--customer-color);
+    color: #fff;
+}
+
+/*---------------CUSTOMER---------------*/
