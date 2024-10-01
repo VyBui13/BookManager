@@ -104,6 +104,12 @@ form .form__userdetail .form__inputbox {
     transition: all 0.3s;
 }
 
+@media (max-width: 900px) {
+    form .form__userdetail .form__inputbox {
+        width: 90%;
+    }
+}
+
 /*---------------BOOKIMPORT---------------*/
 .form--bookimport .form__title {
     background: linear-gradient(to left, var(--second-color), var(--book-import-color));

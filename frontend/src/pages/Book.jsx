@@ -1,48 +1,87 @@
 import React from 'react';
+import { useState } from 'react';
+import { nofi } from '../components/Notify.jsx';
 import '../styles/Form.css';
 
 function Book() {
+    const [book, setBook] = useState({
+        name: '',
+        kind: '',
+        author: '',
+        amount: ''
+    });
+
+    function handleSummit() {
+        console.log(book);
+        if (book.name === '' || book.kind === '' || book.author === '' || book.amount === '') {
+            nofi({ type: 'error', msg: 'Please fill all fields!' });
+        }
+        else {
+            setBook({
+                name: '',
+                kind: '',
+                author: '',
+                amount: ''
+            });
+            nofi({ type: 'success', msg: 'Everything is good!' });
+        }
+    }
+
     return (
-        <div className="form-container">
-            <div class="form form--bookimport">
-                <div class="form__title">
-                    book import
-                </div>
-
-                <form action="#">
-                    <div class="form__userdetail">
-                        <div class="form__inputbox">
-                            <span class="form__detail">Name</span>
-                            <input type="text" id="book-name" required />
-                            <div class="form__labelline">Enter book name</div>
-                        </div>
-
-                        <div class="form__inputbox">
-                            <span class="form__detail">Kind</span>
-                            <input type="text" id="book-kind" required />
-                            <div class="form__labelline">Enter book kind</div>
-                        </div>
-
-                        <div class="form__inputbox">
-                            <span class="form__detail">Author</span>
-                            <input type="text" id="book-author" required />
-                            <div class="form__labelline">Enter book author</div>
-                        </div>
-
-                        <div class="form__inputbox">
-                            <span class="form__detail">Amount</span>
-                            <input type="number" id="book-amount" required />
-                            <div class="form__labelline">Enter book amount</div>
-                        </div>
+        <>
+            <div className="form-container">
+                <div class="form form--bookimport">
+                    <div class="form__title">
+                        book import
                     </div>
-                </form>
 
-                <div class="form__button">
-                    <button class="form__submit" onclick="submitForm()">Submit</button>
+                    <form action="#">
+                        <div class="form__userdetail">
+                            <div class="form__inputbox">
+                                <span class="form__detail">Name</span>
+                                <input
+                                    value={book.name}
+                                    onChange={(e) => setBook({ ...book, name: e.target.value })}
+                                    type="text" required />
+                                <div class="form__labelline">Enter book name</div>
+                            </div>
+
+                            <div class="form__inputbox">
+                                <span class="form__detail">Kind</span>
+                                <input
+                                    value={book.kind}
+                                    onChange={(e) => setBook({ ...book, kind: e.target.value })}
+                                    type="text" required />
+                                <div class="form__labelline">Enter book kind</div>
+                            </div>
+
+                            <div class="form__inputbox">
+                                <span class="form__detail">Author</span>
+                                <input
+                                    value={book.author}
+                                    onChange={(e) => setBook({ ...book, author: e.target.value })}
+                                    type="text" required />
+                                <div class="form__labelline">Enter book author</div>
+                            </div>
+
+                            <div class="form__inputbox">
+                                <span class="form__detail">Amount</span>
+                                <input
+                                    value={book.amount}
+                                    onChange={(e) => setBook({ ...book, amount: e.target.value })}
+                                    type="number" id="book-amount" required />
+                                <div class="form__labelline">Enter book amount</div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form__button">
+                        <button class="form__submit" onClick={handleSummit}>Submit</button>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
+        </>
     );
 };
 

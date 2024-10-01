@@ -24,7 +24,6 @@ function ImageSlider({ slides }) {
         setCurrent(current === 0 ? slides.length - 1 : current - 1);
     }
 
-
     return (
         <>
             <div className="arrow arrow--left">
