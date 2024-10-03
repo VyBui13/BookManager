@@ -30,7 +30,7 @@ function Header() {
 
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <i class="fa-solid fa-wallet"></i>
+                                <Link to="/bill"><i class="fa-solid fa-wallet"></i></Link>
                             </div>
                         </li>
                         <li class="header__nav-item-container">
@@ -80,8 +80,10 @@ function Header() {
                         <ul class="header__sidebar-nav">
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-book"></i>
-                                    <div class="header__sidebar-nav-text">Book</div>
+                                    <Link to="/book">
+                                        <i class="fa-solid fa-book"></i>
+                                        <div class="header__sidebar-nav-text">Book</div>
+                                    </Link>
                                 </div>
                             </li>
                             <li class="header__sidebar-nav-item-container">

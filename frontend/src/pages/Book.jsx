@@ -27,6 +27,8 @@ function Book() {
         }
     }
 
+    const currDate = new Date().toLocaleDateString();
+
     return (
         <>
             <div className="form-container">
@@ -35,6 +37,14 @@ function Book() {
                         book import
                     </div>
 
+                    <div className="form__localtime">
+                        <div className="form__localtime-content">
+                            {currDate}
+                        </div>
+                        <div className="form__localtime-icon">
+                            <i class="fa-regular fa-calendar"></i>
+                        </div>
+                    </div>
                     <form action="#">
                         <div class="form__userdetail">
                             <div class="form__inputbox">
@@ -69,7 +79,7 @@ function Book() {
                                 <input
                                     value={book.amount}
                                     onChange={(e) => setBook({ ...book, amount: e.target.value })}
-                                    type="number" id="book-amount" required />
+                                    type="number" required />
                                 <div class="form__labelline">Enter book amount</div>
                             </div>
                         </div>
