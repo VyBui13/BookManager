@@ -200,11 +200,20 @@
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     padding: 2px;
     transition: all 0.3s;
     position: relative;
     width: 120px;
+}
+
+.header__sidebar-nav .header__sidebar-nav-item-container .header__sidebar-nav-item a {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .header__sidebar-nav-item-container .header__sidebar-nav-item .header__sidebar-nav-text {

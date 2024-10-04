@@ -40,7 +40,7 @@ function Header() {
                         </li>
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <i class="fa-solid fa-user-tie"></i>
+                                <Link to="/customer"><i class="fa-solid fa-user-tie"></i></Link>
                             </div>
                         </li>
                         <li class="header__nav-item-container">
@@ -88,32 +88,42 @@ function Header() {
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-wallet"></i>
-                                    <div class="header__sidebar-nav-text">Bill</div>
+                                    <Link to="/bill">
+                                        <i class="fa-solid fa-wallet"></i>
+                                        <div class="header__sidebar-nav-text">Bill</div>
+                                    </Link>
                                 </div>
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-rectangle-list"></i>
-                                    <div class="header__sidebar-nav-text">List</div>
+                                    <Link to="#">
+                                        <i class="fa-solid fa-rectangle-list"></i>
+                                        <div class="header__sidebar-nav-text">List</div>
+                                    </Link>
                                 </div>
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                    <div class="header__sidebar-nav-text">Customer</div>
+                                    <Link to="/customer">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                        <div class="header__sidebar-nav-text">Customer</div>
+                                    </Link>
                                 </div>
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-newspaper"></i>
-                                    <div class="header__sidebar-nav-text">Report</div>
+                                    <Link to="#">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                        <div class="header__sidebar-nav-text">Report</div>
+                                    </Link>
                                 </div>
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <i class="fa-solid fa-calendar"></i>
-                                    <div class="header__sidebar-nav-text">Regulation</div>
+                                    <Link to="#">
+                                        <i class="fa-solid fa-calendar"></i>
+                                        <div class="header__sidebar-nav-text">Regulation</div>
+                                    </Link>
                                 </div>
                             </li>
                         </ul>

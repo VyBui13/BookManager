@@ -5,6 +5,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Book from './pages/Book.jsx'
 import Home from './pages/Home.jsx'
 import Bill from './pages/Bill.jsx'
+import Customer from './pages/Customer.jsx'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/" element={<Home />}></Route>
       <Route path="/book" element={<Book />}></Route>
       <Route path="/bill" element={<Bill />}></Route>
+      <Route path="/customer" element={<Customer />}></Route>
     </Routes>
   )
 }

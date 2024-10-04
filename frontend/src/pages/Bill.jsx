@@ -80,7 +80,7 @@ function Bill() {
                                 <span class="form__detail">Price</span>
                                 <input
                                     value={bill.priceBook}
-                                    onChange={(e) => setBook({ ...bill, priceBook: e.target.value })}
+                                    onChange={(e) => setBill({ ...bill, priceBook: e.target.value })}
                                     type="number" required />
                                 <div class="form__labelline">Enter book price</div>
                             </div>
