@@ -35,7 +35,7 @@ function Header() {
                         </li>
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <i class="fa-solid fa-rectangle-list"></i>
+                                <Link to="#"><i class="fa-solid fa-rectangle-list"></i></Link>
                             </div>
                         </li>
                         <li class="header__nav-item-container">
@@ -45,12 +45,12 @@ function Header() {
                         </li>
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <i class="fa-solid fa-newspaper"></i>
+                                <Link to="#"><i class="fa-solid fa-newspaper"></i></Link>
                             </div>
                         </li>
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <i class="fa-solid fa-calendar"></i>
+                                <Link to="/regulation"><i class="fa-solid fa-calendar"></i></Link>
                             </div>
                         </li>
                     </ul>

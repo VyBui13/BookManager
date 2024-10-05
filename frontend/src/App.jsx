@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+
 import './styles/Global.css'
 import { Routes, Route, Link } from 'react-router-dom'
 import Book from './pages/Book.jsx'
 import Home from './pages/Home.jsx'
 import Bill from './pages/Bill.jsx'
 import Customer from './pages/Customer.jsx'
+import Regulation from './pages/Regulation.jsx'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Route path="/book" element={<Book />}></Route>
       <Route path="/bill" element={<Bill />}></Route>
       <Route path="/customer" element={<Customer />}></Route>
+      <Route path="/regulation" element={<Regulation />}></Route>
     </Routes>
   )
 }

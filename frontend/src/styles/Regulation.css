@@ -1,0 +1,57 @@
+.regulation-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-book-form.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px;
+}
+
+.regulation {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.regulation .regulation__details {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: red;
+}
+
+.regulation .regulation__details .regulation__config {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.regulation .regulation__details .regulation__config+.regulation__config {
+    margin-top: 20px;
+}
+
+.regulation__details .regulation__config .regulation__header-config {
+    font-size: 25px;
+}
+
+.regulation__details .regulation__config .regulation__feature-config {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.regulation__config .regulation__feature-config .regulation__feature-title {
+    flex: 1;
+}
+
+.regulation__config .regulation__feature-config .regulation__feature-value {
+    margin-left: 10px;
+}

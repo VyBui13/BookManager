@@ -45,7 +45,7 @@
 
 .header__nav .header__nav-item-container .header__nav-item {
     text-decoration: none;
-    color: #fff;
+    color: #7a7a7a;
     font-size: 18px;
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     font-weight: 500;
@@ -78,13 +78,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000000;
     margin-left: 10px;
 }
 
 .header .header__logo .header__logo-icon {
     font-size: 24px;
-    color: #fff;
+    color: #7a7a7a;
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     transition: all 0.7s;
     display: flex;
@@ -135,7 +134,7 @@
 
 .header .header__sidebar .header__sidebar-icon {
     font-size: 20px;
-    color: #fff;
+    color: #7a7a7a;
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     transition: all 0.4s;
     display: flex;
@@ -173,7 +172,7 @@
     font-size: 20px;
     cursor: pointer;
     transition: all 0.4s;
-    color: #fff;
+    color: #7a7a7a;
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
 }
 
@@ -196,7 +195,7 @@
 }
 
 .header__sidebar-nav .header__sidebar-nav-item-container .header__sidebar-nav-item {
-    color: #fff;
+    color: #7a7a7a;
     text-shadow: 0 0 10px rgba(14, 53, 119, 0.5);
     display: flex;
     align-items: center;
