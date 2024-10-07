@@ -5,15 +5,7 @@ function ImageSlider({ slides }) {
     const [current, setCurrent] = useState(0);
 
     const sliderStyle = {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${slides[current].url})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
     };
 
     const nextSlide = () => {
