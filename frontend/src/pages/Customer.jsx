@@ -33,8 +33,8 @@ function Customer() {
 
     return (
         <>
-            <div className="form-container">
-                <div class="form form--customer">
+            <div className="form-container form--customer">
+                <div class="form">
                     <div class="form__title">
                         customer
                     </div>

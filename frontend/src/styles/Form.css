@@ -9,14 +9,10 @@
 
 .form-container {
     width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--second-color);
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-book-form.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     padding: 40px 0;
 }
 
@@ -138,6 +134,14 @@ form .form__userdetail .form__inputbox {
 }
 
 /*---------------BOOKIMPORT---------------*/
+
+.form--bookimport {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-book-form.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .form--bookimport .form__title {
     background: linear-gradient(to left, var(--second-color), var(--book-import-color));
     background-clip: text;
@@ -162,6 +166,13 @@ form .form__userdetail .form__inputbox {
 /*---------------BOOKIMPORT---------------*/
 
 /*---------------BILL---------------*/
+.form--bill {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-bill-form.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .form--bill .form__title {
     background: linear-gradient(to left, var(--second-color), var(--bill-color));
     background-clip: text;
@@ -186,6 +197,13 @@ form .form__userdetail .form__inputbox {
 /*---------------BILL---------------*/
 
 /*---------------CUSTOMER---------------*/
+.form--customer {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-customer-form.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .form--customer .form__title {
     background: linear-gradient(to left, var(--second-color), var(--customer-color));
     background-clip: text;

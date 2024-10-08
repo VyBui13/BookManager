@@ -31,8 +31,8 @@ function Book() {
 
     return (
         <>
-            <div className="form-container">
-                <div class="form form--bookimport">
+            <div className="form-container form--bookimport">
+                <div class="form">
                     <div class="form__title">
                         book import
                     </div>

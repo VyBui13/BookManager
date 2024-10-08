@@ -35,7 +35,7 @@ function Header() {
                         </li>
                         <li class="header__nav-item-container">
                             <div class="header__nav-item">
-                                <Link to="#"><i class="fa-solid fa-rectangle-list"></i></Link>
+                                <Link to="/booklist"><i class="fa-solid fa-rectangle-list"></i></Link>
                             </div>
                         </li>
                         <li class="header__nav-item-container">
@@ -96,7 +96,7 @@ function Header() {
                             </li>
                             <li class="header__sidebar-nav-item-container">
                                 <div class="header__sidebar-nav-item">
-                                    <Link to="#">
+                                    <Link to="/booklist">
                                         <i class="fa-solid fa-rectangle-list"></i>
                                         <div class="header__sidebar-nav-text">List</div>
                                     </Link>

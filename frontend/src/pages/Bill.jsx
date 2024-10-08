@@ -33,8 +33,8 @@ function Bill() {
 
     return (
         <>
-            <div className="form-container">
-                <div class="form form--bill">
+            <div className="form-container form--bill">
+                <div class="form">
                     <div class="form__title">
                         bill
                     </div>
