@@ -3,7 +3,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const route = require('./routes/index');
+const dotenv = require('dotenv');
+const path = require('path');
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
+const PORT = process.env.PORT || 3001;
 const db = require('./config/db/index');
 db.connect();
 
@@ -14,8 +18,8 @@ app.use(express.json());
 route(app);
 
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
+app.listen(PORT, () => {
+    console.log('Server is running on port ' + PORT);
 });
 
 

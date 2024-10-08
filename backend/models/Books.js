@@ -22,9 +22,11 @@ const BookSchema = new Schema({
         default: 0
     },
     UpdateDate: {
-        type: Date,
-        default: Date.now
-    }
+        type: String,
+    },
+    CreatedDate: {
+        type: String,
+    },
 });
 
 const Book = mongoose.model('Book', BookSchema);
