@@ -13,8 +13,12 @@ function Regulation() {
     return (
         <div className="regulation-container">
             <div className="regulation">
-                <div className="regulation__details">
-                    <div className="regulation__config">
+                <div className="regulation__details regulation__item">
+                    <div className="regulation__title">
+                        Regulation
+                    </div>
+
+                    <div className="regulation__config regulation__config--bookform">
                         <div className="regulation__header-config">
                             BookForm
                         </div>
@@ -37,7 +41,8 @@ function Regulation() {
                             </div>
                         </div>
                     </div>
-                    <div className="regulation__config">
+
+                    <div className="regulation__config regulation__config--billform">
                         <div className="regulation__header-config">
                             BillForm
                         </div>
@@ -60,7 +65,8 @@ function Regulation() {
                             </div>
                         </div>
                     </div>
-                    <div className="regulation__config">
+
+                    <div className="regulation__config regulation__config--customerform">
                         <div className="regulation__header-config">
                             CustomerForm
                         </div>
@@ -76,8 +82,125 @@ function Regulation() {
                     </div>
                 </div>
 
-                <div className="regulation__setting">
-                    
+                <div className="regulation__setting regulation__item">
+                    <div className="regulation__title">
+                        Setting
+                    </div>
+                    <div className="regulation__config regulation__config--bookform">
+                        <div className="regulation__header-config">
+                            BookForm
+                        </div>
+
+                        <div className="regulation__range">
+                            <div className="regulation__fieldrange">
+                                <div className="regulation__fieldrange-value regulation__fieldrange-left">
+                                    0
+                                </div>
+                                <div className="regulation__range-value">
+                                    <span
+                                        style={{ left: `${regulation.bookMinAmountInput / 5}%` }}
+                                    >{regulation.bookMinAmountInput}</span>
+                                    <input
+                                        value={regulation.bookMinAmountInput}
+                                        onChange={(e) => setRegulation({ ...regulation, bookMinAmountInput: e.target.value })}
+                                        type="range"
+                                        min="0"
+                                        max="500"
+                                        step="1" />
+                                </div>
+                                <div className="regulation__fieldrange-value regulation__fieldrange-right">
+                                    500
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="regulation__range">
+                            <div className="regulation__fieldrange">
+                                <div className="regulation__fieldrange-value regulation__fieldrange-left">
+                                    0
+                                </div>
+                                <div className="regulation__range-value">
+                                    <span
+                                        style={{ left: `${regulation.bookMaxAmountAllow / 5}%` }}
+                                    >{regulation.bookMaxAmountAllow}</span>
+                                    <input
+                                        value={regulation.bookMaxAmountAllow}
+                                        onChange={(e) => setRegulation({ ...regulation, bookMaxAmountAllow: e.target.value })}
+                                        type="range"
+                                        min="0"
+                                        max="500"
+                                        step="1" />
+                                </div>
+                                <div className="regulation__fieldrange-value regulation__fieldrange-right">
+                                    500
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className="regulation__config regulation__config--billform">
+                        <div className="regulation__header-config">
+                            BillForm
+                        </div>
+
+                        <div className="regulation__range">
+                            <div className="regulation__fieldrange">
+                                <div className="regulation__fieldrange-value regulation__fieldrange-left">
+                                    0K
+                                </div>
+                                <div className="regulation__range-value">
+                                    <span
+                                        style={{ left: `${regulation.debtMax / 5000}%` }}
+                                    >{Number(regulation.debtMax) / 1000}K</span>
+                                    <input
+                                        value={regulation.debtMax}
+                                        onChange={(e) => {
+                                            setRegulation({ ...regulation, debtMax: e.target.value })
+                                        }
+
+                                        }
+                                        type="range"
+                                        min="0"
+                                        max="500000"
+                                        step="10000" />
+                                </div>
+                                <div className="regulation__fieldrange-value regulation__fieldrange-right">
+                                    500K
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="regulation__range">
+                            <div className="regulation__fieldrange">
+                                <div className="regulation__fieldrange-value regulation__fieldrange-left">
+                                    0
+                                </div>
+                                <div className="regulation__range-value">
+                                    <span
+                                        style={{ left: `${regulation.bookMinAmountAfterSell / 5}%` }}
+                                    >{regulation.bookMinAmountAfterSell}</span>
+                                    <input
+                                        value={regulation.bookMinAmountAfterSell}
+                                        onChange={(e) => setRegulation({ ...regulation, bookMinAmountAfterSell: e.target.value })}
+                                        type="range"
+                                        min="0"
+                                        max="500"
+                                        step="1" />
+                                </div>
+                                <div className="regulation__fieldrange-value regulation__fieldrange-right">
+                                    500
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="regulation__config regulation__config--customerform">
+                        <div className="regulation__header-config">
+                            CustomerForm
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -85,3 +208,4 @@ function Regulation() {
 }
 
 export default Regulation
+

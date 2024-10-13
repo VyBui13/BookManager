@@ -1,7 +1,7 @@
 :root {
     --x-translate: 2px;
     --y-translate: -32px;
-    --second-color: #6d6969;
+    --second-color: #d0d676;
     --book-import-color: #2e88e2;
     --bill-color: #ff6b6b;
     --customer-color: #7ef13b;
@@ -47,10 +47,8 @@
     font-weight: 700;
 }
 
-.form .form__localtime .form__localtime-content {}
-
-.form .form__localtime .form__localtime-icon {
-    margin-left: 10px;
+.form .form__localtime .form__localtime-content {
+    margin-right: 10px;
 }
 
 .form form .form__userdetail {
@@ -130,6 +128,10 @@ form .form__userdetail .form__inputbox {
 
     form .form__userdetail .form__inputbox {
         width: 90%;
+    }
+
+    .form .form__localtime .form__localtime-content {
+        display: none;
     }
 }
 

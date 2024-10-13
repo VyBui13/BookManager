@@ -8,13 +8,13 @@
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url("/pic/img/background-booklist.jpg");
     background-size: cover;
-
     background-repeat: no-repeat;
 }
 
 .booklist {
-    width: 80%;
-    border-radius: 20px;
+    margin: 20px 0;
+    width: 90%;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -28,10 +28,16 @@
     font-weight: 700;
     text-transform: uppercase;
     position: relative;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
+}
+
+
+.booklist .booklist__title i {
+    margin: 0 10px;
+    font-size: 30px;
 }
 
 /* .booklist .booklist__title:before {
@@ -45,9 +51,28 @@
     transform: translateX(-50%);
 } */
 
+.booklist .booklist__body {
+    width: 95%;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.booklist .booklist__body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.booklist .booklist__body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+
 .booklist .booklist__content {
-    width: 100%;
-    padding: 10px 40px;
+    padding: 10px 20px;
+    width: 950px;
 }
 
 .booklist .booklist__content .booklist__field {
@@ -71,6 +96,7 @@
     text-align: center;
     font-size: 20px;
     font-weight: 700;
+    padding: 0 10px;
 }
 
 .booklist__content .booklist__field .booklist__attribute+.booklist__attribute {

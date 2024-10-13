@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { nofi } from '../components/Notify.jsx';
 import '../styles/Form.css';
 
 function Book() {
+    function getCurrentDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    }
+
+    const currDate = getCurrentDate();
     const [book, setBook] = useState({
         name: '',
         kind: '',
         author: '',
-        amount: ''
+        amount: 0,
+        updateDate: currDate,
     });
 
     function handleSummit() {
-        console.log(book);
         if (book.name === '' || book.kind === '' || book.author === '' || book.amount === '') {
             nofi({ type: 'error', msg: 'Please fill all fields!' });
         }
         else {
+
+            fetch('http://localhost:5000/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(book)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                });
+
             setBook({
+                ...book,
                 name: '',
                 kind: '',
                 author: '',
@@ -27,7 +49,6 @@ function Book() {
         }
     }
 
-    const currDate = new Date().toLocaleDateString();
 
     return (
         <>
@@ -77,7 +98,7 @@ function Book() {
                             <div class="form__inputbox">
                                 <span class="form__detail">Amount</span>
                                 <input
-                                    value={book.amount}
+                                    value={book.amount === 0 ? '' : book.amount}
                                     onChange={(e) => setBook({ ...book, amount: e.target.value })}
                                     type="number" required />
                                 <div class="form__labelline">Enter book amount</div>
