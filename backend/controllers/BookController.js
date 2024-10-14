@@ -16,16 +16,16 @@ class BookController {
 
     async postColletion(req, res) {
         try {
-
             const Name = req.body.name;
             const Kind = req.body.kind;
             const Author = req.body.author;
             const Amount = req.body.amount;
             const UpdateDate = req.body.updateDate;
+
             const query = { Name: Name, Kind: Kind, Author: Author };
 
             const isBeginMonth = false;
-            const Book = await Books.findOne(query)
+            const Book = await Books.findOne(query) // Find book by Name, Kind, Author
 
             if (Book) {
                 if (isBeginMonth) {
