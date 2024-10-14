@@ -4,49 +4,63 @@ const Schema = mongoose.Schema;
 const BillSchema = new Schema({
     BookName: {
         type: String,
+        default: '',
     },
-
     BookKind: {
         type: String,
+        default: '',
     },
 
     BookAuthor: {
         type: String,
+        default: '',
     },
 
     Amount: {
         type: Number,
-        required: true
+        default: '',
     },
     Price: {
         type: Number,
+        default: '',
     },
-
     CreatedDate: {
         type: String,
+        default: '',
     }
 });
 
 const FeeSchema = new Schema({
-    PresentDebt: {
-        type: Number,
-    },
     Payment: {
         type: Number,
+        default: 0,
     },
+
     CreatedDate: {
         type: String,
-        required: true
+        default: '',
     }
 });
 
 const CustomerSchema = new Schema({
     Name: {
         type: String,
+        default: '',
     },
 
     Address: {
         type: String,
+        default: '',
+    },
+
+    Phone: {
+        type: String,
+        default: '',
+    },
+
+    Email: {
+        type: String,
+        default: '',
     },
 
     FirstDebt: {
@@ -57,6 +71,16 @@ const CustomerSchema = new Schema({
     PresentDebt: {
         type: Number,
         default: 0,
+    },
+
+    CreatedDate: {
+        type: String,
+        default: '',
+    },
+
+    UpdateDate: {
+        type: String,
+        default: '',
     },
 
     BillList: [BillSchema],

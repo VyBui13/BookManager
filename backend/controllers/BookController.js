@@ -1,11 +1,10 @@
-const Books = require('../models/Books');
-
+const Book = require('../models/Book');
 
 class BookController {
     getCollection(req, res) {
-        Books.find()
-            .then(books => {
-                res.json(books);
+        Book.find()
+            .then(book => {
+                res.json(book);
             })
             .catch(err => {
                 res.status(500).json({
@@ -25,22 +24,22 @@ class BookController {
             const query = { Name: Name, Kind: Kind, Author: Author };
 
             const isBeginMonth = false;
-            const Book = await Books.findOne(query) // Find book by Name, Kind, Author
+            const book = await Book.findOne(query) // Find book by Name, Kind, Author
 
-            if (Book) {
+            if (book) {
                 if (isBeginMonth) {
-                    const PresentAmountBook = Book.PresentAmount;
-                    Book.StoredAmount = Number(PresentAmountBook) + Number(Amount);
-                    Book.PresentAmount = Number(PresentAmountBook) + Number(Amount);
+                    const PresentAmountBook = book.PresentAmount;
+                    book.StoredAmount = Number(PresentAmountBook) + Number(Amount);
+                    book.PresentAmount = Number(PresentAmountBook) + Number(Amount);
                 } else {
-                    Book.PresentAmount = Number(Book.PresentAmount) + Number(Amount);
+                    book.PresentAmount = Number(book.PresentAmount) + Number(Amount);
                 }
 
-                Book.UpdateDate = UpdateDate;
-                Book.save();
-                console.log('Book updated');
+                book.UpdateDate = UpdateDate;
+                book.save();
             } else {
-                const newBook = new Books({
+                console.log('Book ascess');
+                const newBook = new Book({
                     Name: Name,
                     Kind: Kind,
                     Author: Author,
