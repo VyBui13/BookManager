@@ -1,9 +1,119 @@
 .formdashboard {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-dashboard.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.formdashboard .formdashboard__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
-.formdashboard .formdashboard__pannel {
+.formdashboard .formdashboard__header .formdashboard__title {
+    font-size: 24px;
+    font-weight: 300;
+    opacity: 0.4;
+}
+
+.formdashboard__header .formdashboard__title .formdashboard__description {
+    font-size: 34px;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom right, #392c86, #4f4f4f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* .formdashboard .formdashboard__header .formdashboard__logo {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to bottom right, #664AFF, #9c9c9c);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 111;
+}
+
+.formdashboard .formdashboard__header .formdashboard__logo i {
+    font-size: 24px;
+    color: #fff;
+} */
+
+.formdashboard .formdashboard__header .formdashboard__navbar {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 250px;
+    background: linear-gradient(to bottom right, #55516eb4, #3a3a3aa7);
+    border-radius: 20px;
+    padding: 0px 10px;
+}
+
+.formdashboard__header .formdashboard__navbar .formdashboard__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.formdashboard__header .formdashboard__navbar .formdashboard__item a {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+    padding: 2px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+
+.formdashboard__navbar .formdashboard__item .formdashboard__item-text {
+    width: 0;
+    height: 0;
+    margin: 0 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s;
+}
+
+
+.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover .formdashboard__item-text {
+    width: 50px;
+}
+
+.formdashboard .formdashboard__display {
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+}
+
+
+/* .formdashboard .formdashboard__pannel {
     position: fixed;
     top: 0;
     height: 100vh;
@@ -55,4 +165,4 @@
 .formdashboard .formdashboard__display {
     height: 100vh;
     flex: 1;
-}
+} */

@@ -3,7 +3,7 @@ import '../../styles/Formhome.css';
 function Formhome() {
     return (
         <>
-            <div className="formhome">
+            {/* <div className="formhome">
                 <div className="formhome__header">
                     <div className="formhome__title">
                         Primary Form
@@ -32,7 +32,7 @@ function Formhome() {
 
                 </div>
 
-            </div>
+            </div> */}
         </>
     )
 };

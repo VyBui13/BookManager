@@ -3,6 +3,7 @@ import Bill from './Bill'
 import Book from './Book'
 import Customer from './Customer';
 import Formhome from './Formhome';
+import Setprice from './Setprice';
 
 function FormController() {
     return (
@@ -11,6 +12,7 @@ function FormController() {
             <Route path="/bill" element={<Bill />}></Route>
             <Route path="/book" element={<Book />}></Route>
             <Route path="/customer" element={<Customer />}></Route>
+            <Route path="/setprice" element={<Setprice />}></Route>
         </Routes>
     );
 }
