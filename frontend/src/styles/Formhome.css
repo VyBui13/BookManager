@@ -1,5 +1,41 @@
 .formhome {
     width: 100%;
-    background-color: aqua;
     height: 100vh;
+    padding: 50px 20px;
+}
+
+.formhome .formhome__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formhome .formhome__header .formhome__title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.formhome__header .formhome__title .formhome__description {
+    font-size: 34px;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom right, #664AFF, #9c9c9c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.formhome .formhome__header .formhome__logo {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to bottom right, #664AFF, #9c9c9c);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.formhome .formhome__header .formhome__logo i {
+    font-size: 24px;
+    color: #fff;
 }
