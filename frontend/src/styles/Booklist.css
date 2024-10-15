@@ -15,10 +15,7 @@
     margin: 20px 0;
     width: 90%;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .booklist .booklist__title {
@@ -30,14 +27,30 @@
     position: relative;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: #77f740;
 }
 
 
 .booklist .booklist__title i {
     margin: 0 10px;
-    font-size: 30px;
+    font-size: 20px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #77f740;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid #fff;
 }
 
 /* .booklist .booklist__title:before {

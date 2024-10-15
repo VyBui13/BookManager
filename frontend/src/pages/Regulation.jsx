@@ -199,6 +199,24 @@ function Regulation() {
                         <div className="regulation__header-config">
                             CustomerForm
                         </div>
+
+                        <div className="regulation__buttonchange">
+                            <div className="regulation__buttonchange-choice">
+                                <i class="fa-regular fa-face-smile"></i>
+                            </div>
+                            <input
+                                type="checkbox"
+                                onChange={() =>
+                                    setRegulation({ ...regulation, checkFee: !regulation.checkFee })}
+                                id="checkFeature" />
+                            <label htmlFor="checkFeature">
+                                <div className="labelPoint"></div>
+                            </label>
+                            <div className="regulation__buttonchange-choice">
+                                <i class="fa-regular fa-face-sad-tear"></i>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>

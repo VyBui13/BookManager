@@ -19,7 +19,6 @@ function BookList() {
             <div className="booklist-container">
                 <div className="booklist">
                     <div className="booklist__title">
-                        <i class="fa-solid fa-book-open"></i>
                         Book List
                         <i class="fa-solid fa-book-open"></i>
                     </div>

@@ -2,17 +2,9 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { nofi } from '../components/Notify.jsx';
 import '../styles/Form.css';
+import { getCurrentDate } from '../utils/DateCurrent.js';
 
 function Book() {
-    function getCurrentDate() {
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const year = today.getFullYear();
-
-        return `${day}/${month}/${year}`;
-    }
-
     const currDate = getCurrentDate();
     const [book, setBook] = useState({
         name: '',
@@ -27,7 +19,6 @@ function Book() {
             nofi({ type: 'error', msg: 'Please fill all fields!' });
         }
         else {
-
             fetch('http://localhost:5000/books', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -36,7 +27,10 @@ function Book() {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                });
+                })
+                .catch((error) => { console.log(error) })
+                ;
+
 
             setBook({
                 ...book,
