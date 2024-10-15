@@ -10,53 +10,63 @@ function Header() {
     return (
         <>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></link>
-            <div class="header">
-                <div class="header__logo">
-                    <div class="header__logo-icon">
-                        <Link to="/"> <i class="fa-solid fa-gear"></i> </Link>
+            <div className="header">
+                <div className="header__logo">
+                    <div className="header__logo-icon">
+                        <Link to="/"> <i className="fa-solid fa-gear"></i> </Link>
                     </div>
-                    <div class="header__logo-title">
+                    <div className="header__logo-title">
                         BOOKMANAGER
                     </div>
                 </div>
 
-                <div class="header__menu">
-                    <ul class="header__nav">
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="/book"><i class="fa-solid fa-book"></i></Link>
+                <div className="header__menu">
+                    <ul className="header__nav">
+                        {/* <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/book"><i className="fa-solid fa-book"></i></Link>
+                            </div>
+                        </li> */}
+
+                        {/* <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/bill"><i className="fa-solid fa-wallet"></i></Link>
+                            </div>
+                        </li> */}
+
+                        <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/form"><i className="fa-solid fa-file-invoice"></i></Link>
                             </div>
                         </li>
 
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="/bill"><i class="fa-solid fa-wallet"></i></Link>
+                        <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/booklist"><i className="fa-solid fa-rectangle-list"></i></Link>
                             </div>
                         </li>
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="/booklist"><i class="fa-solid fa-rectangle-list"></i></Link>
+
+                        {/* <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/customer"><i className="fa-solid fa-user-tie"></i></Link>
+                            </div>
+                        </li> */}
+
+                        <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="#"><i className="fa-solid fa-newspaper"></i></Link>
                             </div>
                         </li>
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="/customer"><i class="fa-solid fa-user-tie"></i></Link>
-                            </div>
-                        </li>
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="#"><i class="fa-solid fa-newspaper"></i></Link>
-                            </div>
-                        </li>
-                        <li class="header__nav-item-container">
-                            <div class="header__nav-item">
-                                <Link to="/regulation"><i class="fa-solid fa-calendar"></i></Link>
+
+                        <li className="header__nav-item-container">
+                            <div className="header__nav-item">
+                                <Link to="/regulation"><i className="fa-solid fa-calendar"></i></Link>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <div class="header__sidebar">
+                <div className="header__sidebar">
                     <div onClick={
                         () => {
                             if (!isSidebar) {
@@ -64,65 +74,79 @@ function Header() {
                             }
                             console.log(isSidebar);
                         }
-                    } class="header__sidebar-icon">
-                        <i class="fa-solid fa-list"></i>
+                    } className="header__sidebar-icon">
+                        <i className="fa-solid fa-list"></i>
                     </div>
-                    <div class="header__sidebar-menu" style={isSidebar ? { transform: "translateX(0)" } : { transform: "translateX(100%)" }}>
+                    <div className="header__sidebar-menu" style={isSidebar ? { transform: "translateX(0)" } : { transform: "translateX(100%)" }}>
                         <div onClick={
                             () => {
                                 if (isSidebar) {
                                     setIsSidebar(false)
                                 }
                             }
-                        } class="header__sidebar-icon-close">
-                            <i class="fa-solid fa-x"></i>
+                        } className="header__sidebar-icon-close">
+                            <i className="fa-solid fa-x"></i>
                         </div>
-                        <ul class="header__sidebar-nav">
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
+                        <ul className="header__sidebar-nav">
+                            {/* <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
                                     <Link to="/book">
-                                        <i class="fa-solid fa-book"></i>
-                                        <div class="header__sidebar-nav-text">Book</div>
+                                        <i className="fa-solid fa-book"></i>
+                                        <div className="header__sidebar-nav-text">Book</div>
                                     </Link>
                                 </div>
-                            </li>
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
+                            </li> */}
+
+                            {/* <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
                                     <Link to="/bill">
-                                        <i class="fa-solid fa-wallet"></i>
-                                        <div class="header__sidebar-nav-text">Bill</div>
+                                        <i className="fa-solid fa-wallet"></i>
+                                        <div className="header__sidebar-nav-text">Bill</div>
+                                    </Link>
+                                </div>
+                            </li> */}
+
+                            <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
+                                    <Link to="/form">
+                                        <i className="fa-solid fa-file-invoice"></i>
+                                        <div className="header__sidebar-nav-text">Form</div>
                                     </Link>
                                 </div>
                             </li>
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
+
+                            <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
                                     <Link to="/booklist">
-                                        <i class="fa-solid fa-rectangle-list"></i>
-                                        <div class="header__sidebar-nav-text">List</div>
+                                        <i className="fa-solid fa-rectangle-list"></i>
+                                        <div className="header__sidebar-nav-text">List</div>
                                     </Link>
                                 </div>
                             </li>
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
+
+                            {/* <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
                                     <Link to="/customer">
-                                        <i class="fa-solid fa-user-tie"></i>
-                                        <div class="header__sidebar-nav-text">Customer</div>
+                                        <i className="fa-solid fa-user-tie"></i>
+                                        <div className="header__sidebar-nav-text">Customer</div>
+                                    </Link>
+                                </div>
+                            </li> */}
+
+                            <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
+                                    <Link to="#">
+                                        <i className="fa-solid fa-newspaper"></i>
+                                        <div className="header__sidebar-nav-text">Report</div>
                                     </Link>
                                 </div>
                             </li>
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
-                                    <Link to="#">
-                                        <i class="fa-solid fa-newspaper"></i>
-                                        <div class="header__sidebar-nav-text">Report</div>
-                                    </Link>
-                                </div>
-                            </li>
-                            <li class="header__sidebar-nav-item-container">
-                                <div class="header__sidebar-nav-item">
-                                    <Link to="#">
-                                        <i class="fa-solid fa-calendar"></i>
-                                        <div class="header__sidebar-nav-text">Regulation</div>
+
+                            <li className="header__sidebar-nav-item-container">
+                                <div className="header__sidebar-nav-item">
+                                    <Link to="/regulation">
+                                        <i className="fa-solid fa-calendar"></i>
+                                        <div className="header__sidebar-nav-text">Regulation</div>
                                     </Link>
                                 </div>
                             </li>

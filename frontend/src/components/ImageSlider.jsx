@@ -19,10 +19,10 @@ function ImageSlider({ slides }) {
     return (
         <>
             <div className="arrow arrow--left">
-                <i onClick={prevSlide} class="fa-solid fa-arrow-left"></i>
+                <i onClick={prevSlide} className="fa-solid fa-arrow-left"></i>
             </div>
             <div className="arrow arrow--right">
-                <i onClick={nextSlide} class="fa-solid fa-arrow-right"></i>
+                <i onClick={nextSlide} className="fa-solid fa-arrow-right"></i>
             </div>
             <div className="slider" style={sliderStyle}>
                 <div className="slider__title">

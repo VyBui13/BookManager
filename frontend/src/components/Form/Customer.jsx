@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import { nofi } from '../components/Notify.jsx';
-import '../styles/Form.css';
+import { nofi } from '../Notify.jsx';
+import '../../styles/Form.css';
 
 function Customer() {
     const [customer, setCustomer] = useState({

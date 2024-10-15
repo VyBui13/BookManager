@@ -1,0 +1,58 @@
+.formdashboard {
+    display: flex;
+    width: 100%;
+}
+
+.formdashboard .formdashboard__pannel {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background-image: linear-gradient(to bottom right, #664AFF, #9c9c9c);
+    padding: 50px 20px;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+.formdashboard .formdashboard__pannel .formdashboard__item {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.formdashboard__pannel .formdashboard__item a {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    color: #fff;
+    transition: all 0.4s;
+}
+
+.formdashboard__pannel .formdashboard__item a:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.formdashboard__pannel .formdashboard__item+.formdashboard__item {
+    margin-top: 20px;
+}
+
+.formdashboard__pannel .formdashboard__item a .formdashboard__item-icon {
+    margin-right: 25px;
+    padding: 2px 5px;
+}
+
+.formdashboard__pannel .formdashboard__item a .formdashboard__item-text {
+    font-weight: 700;
+    width: 150px;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+.formdashboard__pannel:hover .formdashboard__item a .formdashboard__item-text {
+    opacity: 1;
+}
+
+.formdashboard .formdashboard__display {
+    height: 100vh;
+    flex: 1;
+}
