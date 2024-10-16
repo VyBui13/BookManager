@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import '../styles/BookList.css';
+import '../styles/List.css';
 
 function BookList() {
     const [books, setBooks] = useState([]);
@@ -16,45 +16,45 @@ function BookList() {
 
     return (
         <>
-            <div className="booklist-container">
-                <div className="booklist">
-                    <div className="booklist__title">
+            <div className="list-container">
+                <div className="list">
+                    <div className="list__title">
                         Book List
                         <i class="fa-solid fa-book-open"></i>
                     </div>
-                    <div className="booklist__body">
+                    <div className="list__body">
 
-                        <div className="booklist__content">
+                        <div className="list__content">
 
-                            <div className="booklist__field">
-                                <div className="booklist__attribute">
+                            <div className="list__field">
+                                <div className="list__attribute">
                                     Name
                                 </div>
-                                <div className="booklist__attribute">
+                                <div className="list__attribute">
                                     Kind
                                 </div>
-                                <div className="booklist__attribute">
+                                <div className="list__attribute">
                                     Author
                                 </div>
-                                <div className="booklist__attribute">
+                                <div className="list__attribute">
                                     {/* PresentAmount */}
                                     Amount
                                 </div>
                             </div>
 
-                            <div className="booklist__items">
+                            <div className="list__items">
                                 {books.map((book) => (
-                                    <div className="booklist__item">
-                                        <div className="booklist__attribute">
+                                    <div className="list__item">
+                                        <div className="list__attribute">
                                             {book.Name}
                                         </div>
-                                        <div className="booklist__attribute">
+                                        <div className="list__attribute">
                                             {book.Kind}
                                         </div>
-                                        <div className="booklist__attribute">
+                                        <div className="list__attribute">
                                             {book.Author}
                                         </div>
-                                        <div className="booklist__attribute">
+                                        <div className="list__attribute">
                                             {book.PresentAmount}
                                         </div>
                                     </div>

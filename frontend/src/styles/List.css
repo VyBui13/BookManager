@@ -1,4 +1,4 @@
-.booklist-container {
+.list-container {
     display: flex;
     width: 100%;
     min-height: 100vh;
@@ -6,19 +6,19 @@
     justify-content: center;
     padding: 50px 30px;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url("/pic/img/background-booklist.jpg");
+        url("/pic/img/background-list.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.booklist {
+.list {
     margin: 20px 0;
     width: 90%;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-.booklist .booklist__title {
+.list .list__title {
     font-size: 30px;
     text-align: center;
     padding: 10px 0;
@@ -37,7 +37,7 @@
 }
 
 
-.booklist .booklist__title i {
+.list .list__title i {
     margin: 0 10px;
     font-size: 20px;
     padding: 5px;
@@ -53,7 +53,7 @@
     border: 2px solid #fff;
 }
 
-/* .booklist .booklist__title:before {
+/* .list .list__title:before {
     content: '';
     position: absolute;
     width: 70%;
@@ -64,7 +64,7 @@
     transform: translateX(-50%);
 } */
 
-.booklist .booklist__body {
+.list .list__body {
     width: 95%;
     margin: 20px auto;
     background: rgba(255, 255, 255, 0.6);
@@ -72,29 +72,29 @@
     overflow: auto;
 }
 
-.booklist .booklist__body::-webkit-scrollbar {
+.list .list__body::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 
-.booklist .booklist__body::-webkit-scrollbar-thumb {
+.list .list__body::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
 
 
-.booklist .booklist__content {
+.list .list__content {
     padding: 10px 20px;
     width: 950px;
 }
 
-.booklist .booklist__content .booklist__field {
+.list .list__content .list__field {
     display: flex;
     justify-content: space-between;
     position: relative;
 }
 
-.booklist .booklist__content .booklist__field:before {
+.list .list__content .list__field:before {
     content: '';
     position: absolute;
     width: 100%;
@@ -105,35 +105,35 @@
     transform: translateX(-50%);
 }
 
-.booklist__content .booklist__field .booklist__attribute {
+.list__content .list__field .list__attribute {
     text-align: center;
     font-size: 20px;
     font-weight: 700;
     padding: 0 10px;
 }
 
-.booklist__content .booklist__field .booklist__attribute+.booklist__attribute {
+.list__content .list__field .list__attribute+.list__attribute {
     border-left: 2px dashed #000;
 }
 
-.booklist .booklist__content .booklist__attribute {
+.list .list__content .list__attribute {
     flex: 3;
 
 }
 
-.booklist .booklist__content .booklist__field .booklist__attribute:nth-child(2) {
+.list .list__content .list__field .list__attribute:nth-child(2) {
     flex: 2;
 }
 
-.booklist .booklist__content .booklist__field .booklist__attribute:last-child {
+.list .list__content .list__field .list__attribute:last-child {
     flex: 1;
 }
 
-.booklist .booklist__content .booklist__items {
+.list .list__content .list__items {
     margin-top: 20px;
 }
 
-.booklist .booklist__content .booklist__items .booklist__item {
+.list .list__content .list__items .list__item {
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -141,20 +141,20 @@
     padding: 5px;
 }
 
-.booklist .booklist__content .booklist__items .booklist__item+.booklist__item {
+.list .list__content .list__items .list__item+.list__item {
     border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.booklist__content .booklist__items .booklist__item .booklist__attribute {
+.list__content .list__items .list__item .list__attribute {
     font-size: 20px;
     font-style: italic;
     font-weight: 500;
 }
 
-.booklist .booklist__content .booklist__items .booklist__attribute:nth-child(2) {
+.list .list__content .list__items .list__attribute:nth-child(2) {
     flex: 2;
 }
 
-.booklist .booklist__content .booklist__items .booklist__attribute:last-child {
+.list .list__content .list__items .list__attribute:last-child {
     flex: 1;
 }
