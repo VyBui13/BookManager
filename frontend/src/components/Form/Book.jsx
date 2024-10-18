@@ -7,16 +7,17 @@ import { getCurrentDate } from '../../utils/DateCurrent.js';
 function Book() {
     const currDate = getCurrentDate();
     const [book, setBook] = useState({
-        name: '',
-        kind: '',
-        author: '',
-        amount: 0,
+        bookName: '',
+        bookKind: '',
+        bookAuthor: '',
+        bookAmount: 0,
         updateDate: currDate,
     });
 
     function handleSummit() {
-        if (book.name === '' || book.kind === '' || book.author === '' || book.amount === '') {
-            nofi({ type: 'error', msg: 'Please fill all fields!' });
+        if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
+            nofi({ type: 'error', msg: 'Please fill all field!' });
+
         }
         else {
             fetch('http://localhost:5000/books', {
@@ -34,10 +35,10 @@ function Book() {
 
             setBook({
                 ...book,
-                name: '',
-                kind: '',
-                author: '',
-                amount: ''
+                bookName: '',
+                bookKind: '',
+                bookAuthor: '',
+                bookAmount: 0,
             });
             nofi({ type: 'success', msg: 'Everything is good!' });
         }
@@ -47,8 +48,8 @@ function Book() {
     return (
         <>
             <div className="form-container form--bookimport">
-                <div class="form">
-                    <div class="form__title">
+                <div className="form">
+                    <div className="form__title">
                         book import
                     </div>
 
@@ -57,51 +58,51 @@ function Book() {
                             {currDate}
                         </div>
                         <div className="form__localtime-icon">
-                            <i class="fa-regular fa-calendar"></i>
+                            <i className="fa-regular fa-calendar"></i>
                         </div>
                     </div>
                     <form action="#">
-                        <div class="form__userdetail">
-                            <div class="form__inputbox">
-                                <span class="form__detail">Name</span>
+                        <div className="form__userdetail">
+                            <div className="form__inputbox">
+                                <span className="form__detail">Name</span>
                                 <input
-                                    value={book.name}
-                                    onChange={(e) => setBook({ ...book, name: e.target.value })}
+                                    value={book.bookName}
+                                    onChange={(e) => setBook({ ...book, bookName: e.target.value })}
                                     type="text" required />
-                                <div class="form__labelline">Enter book name</div>
+                                <div className="form__labelline">Enter book name</div>
                             </div>
 
-                            <div class="form__inputbox">
-                                <span class="form__detail">Kind</span>
+                            <div className="form__inputbox">
+                                <span className="form__detail">Kind</span>
                                 <input
-                                    value={book.kind}
-                                    onChange={(e) => setBook({ ...book, kind: e.target.value })}
+                                    value={book.bookKind}
+                                    onChange={(e) => setBook({ ...book, bookKind: e.target.value })}
                                     type="text" required />
-                                <div class="form__labelline">Enter book kind</div>
+                                <div className="form__labelline">Enter book kind</div>
                             </div>
 
-                            <div class="form__inputbox">
-                                <span class="form__detail">Author</span>
+                            <div className="form__inputbox">
+                                <span className="form__detail">Author</span>
                                 <input
-                                    value={book.author}
-                                    onChange={(e) => setBook({ ...book, author: e.target.value })}
+                                    value={book.bookAuthor}
+                                    onChange={(e) => setBook({ ...book, bookAuthor: e.target.value })}
                                     type="text" required />
-                                <div class="form__labelline">Enter book author</div>
+                                <div className="form__labelline">Enter book author</div>
                             </div>
 
-                            <div class="form__inputbox">
-                                <span class="form__detail">Amount</span>
+                            <div className="form__inputbox">
+                                <span className="form__detail">Amount</span>
                                 <input
-                                    value={book.amount === 0 ? '' : book.amount}
-                                    onChange={(e) => setBook({ ...book, amount: e.target.value })}
+                                    value={book.bookAmount === 0 ? '' : book.bookAmount}
+                                    onChange={(e) => setBook({ ...book, bookAmount: e.target.value })}
                                     type="number" required />
-                                <div class="form__labelline">Enter book amount</div>
+                                <div className="form__labelline">Enter book amount</div>
                             </div>
                         </div>
                     </form>
 
-                    <div class="form__button">
-                        <button class="form__submit" onClick={handleSummit}>Submit</button>
+                    <div className="form__button">
+                        <button className="form__submit" onClick={handleSummit}>Submit</button>
                     </div>
 
                 </div>

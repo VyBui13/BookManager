@@ -1,8 +1,73 @@
 import '../styles/Bookselected.css';
 import { useState } from 'react';
 
-function BookSelected({ bookPrice }) {
+function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
     const [bookSelected, setBookSelected] = useState({ ...bookPrice });
+
+    // async function handleSave() {
+
+    //     try {
+    //         const response = await fetch('http://localhost:5000/books/setprice', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(bookSelected)
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
+
+    //         // const data = await response.json();
+
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+
+
+    //     console.log("1");
+    //     setBooks((prevBooks) => {
+    //         return prevBooks.map((book) => {
+    //             if (book._id === bookSelected._id) {
+    //                 return bookSelected;
+    //             }
+    //             return book;
+    //         });
+    //     });
+
+    //     updateBookPrice({});
+    // }
+
+    function handleCancel() {
+        updateBookPrice({});
+    }
+
+    function handleSave() {
+        fetch('http://localhost:5000/books/setprice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookSelected)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+
+        setBooks((prevBooks) => {
+            return prevBooks.map((book) => {
+                if (book._id === bookSelected._id) {
+                    return bookSelected;
+                }
+                return book;
+            });
+        });
+        updateBookPrice({});
+
+    }
 
     return (
         <>
@@ -25,7 +90,7 @@ function BookSelected({ bookPrice }) {
                                 Name
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected.Name}
+                                {bookSelected._bookName}
                             </div>
 
                         </div>
@@ -36,7 +101,7 @@ function BookSelected({ bookPrice }) {
                                 Kind
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected.Kind}
+                                {bookSelected._bookKind}
                             </div>
 
                         </div>
@@ -47,7 +112,7 @@ function BookSelected({ bookPrice }) {
                                 Author
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected.Author}
+                                {bookSelected._bookAuthor}
                             </div>
 
                         </div>
@@ -58,7 +123,7 @@ function BookSelected({ bookPrice }) {
                                 Amount
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected.PresentAmount}
+                                {bookSelected._bookPresentAmount}
                             </div>
 
                         </div>
@@ -70,8 +135,8 @@ function BookSelected({ bookPrice }) {
                             </div>
                             <div className="bookprice__attribute-value">
                                 <input
-                                    value={bookSelected.Price}
-                                    onChange={(e) => setBookSelected({ ...bookSelected, Price: e.target.value })}
+                                    value={bookSelected._bookPrice}
+                                    onChange={(e) => setBookSelected({ ...bookSelected, _bookPrice: e.target.value })}
                                     type="number" />
                             </div>
 
@@ -80,8 +145,8 @@ function BookSelected({ bookPrice }) {
                 </div>
 
                 <div className="bookprice__submit">
-                    <button>Cancel</button>
-                    <button id="bookprice__savebtn">Save</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                    <button id="bookprice__savebtn" onClick={handleSave}>Save</button>
                 </div>
             </div>
         </>

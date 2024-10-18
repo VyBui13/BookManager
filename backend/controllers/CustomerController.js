@@ -4,38 +4,38 @@ class CustomerController {
 
     async postCustomerBill(req, res) {
         try {
-            console.log('ascess');
-            const bookList = req.body.bookInfo;
-            const CustomerName = req.body.customer;
-            const totalPriceBook = bookList.map(book => book.Price * book.Amount).reduce((a, b) => a + b, 0);
-            // const NameBook = req.body.nameBook;
-            // const KindBook = req.body.kindBook;
-            // const AuthorBook = req.body.authorBook;
-            // const AmountBook = req.body.amountBook;
-            // const PriceBook = req.body.priceBook;
-            const UpdateDate = req.body.updateDate;
+            const bookList = req.body.bookList;
+            const nameCustomer = req.body.nameCustomer;
+            const totalPriceBook = bookList.map(book => book.price * book.amount).reduce((a, b) => a + b, 0);
+            const updateDate = req.body.updateDate;
 
-            // const totalPriceBook = Number(PriceBook) * Number(AmountBook);
-
-            const query = { Name: CustomerName };
+            const query = { _nameCustomer: nameCustomer };
 
             const isBeginMonth = false;
             const customer = await Customer.findOne(query);
-            console.log(Customer);
 
             if (customer) {
 
             } else {
                 const newCustomer = new Customer({
-                    Name: CustomerName,
-                    UpdateDate: UpdateDate,
-                    CreatedDate: UpdateDate,
-                    FirstDebt: 0,
-                    PresentDebt: totalPriceBook,
-                    BillList: [
+                    _nameCustomer: nameCustomer,
+                    _updateDate: updateDate,
+                    _customerInfoCreatedDate: updateDate,
+                    _customerFirstDebt: 0,
+                    _customerPresentDebt: totalPriceBook,
+                    _billList: [
                         {
-                            BookList: bookList,
-                            CreatedDate: UpdateDate,
+                            _bookList: bookList.map(book => {
+                                return {
+                                    _nameBook: book.name,
+                                    _kindBook: book.kind,
+                                    _authorBook: book.author,
+                                    _amount: book.amount,
+                                    _price: book.price,
+                                }
+                            }),
+                            _createdDate: updateDate,
+                            _totalPrice: totalPriceBook,
                         }
                     ],
                     FeeList: [

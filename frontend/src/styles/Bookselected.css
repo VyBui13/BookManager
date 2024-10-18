@@ -8,6 +8,19 @@
     border-radius: 30px;
     padding: 20px 30px;
     z-index: 1000;
+    animation: slideInFromTop 0.3s ease-in-out forwards;
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .bookprice .bookprice__title {

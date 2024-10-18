@@ -6,21 +6,38 @@ import { getCurrentDate } from '../../utils/DateCurrent.js';
 
 function Bill() {
     const currDate = getCurrentDate();
+    const [books, setBooks] = useState([]);
+    const [bookSelected, setBookSelected] = useState(
+        {
+            nameBook: '',
+            kindBook: '',
+            authorBook: '',
+            amount: '',
+            price: '',
+        }
+    );
 
     const [bill, setBill] = useState({
-        nameBook: '',
-        kindBook: '',
-        authorBook: '',
-        amountBook: '',
-        priceBook: '',
-        customer: '',
+        bookList: [],
+        nameCustomer: '',
         updateDate: currDate,
     });
 
+    useEffect(() => {
+        fetch('http://localhost:5000/books')
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data);
+            });
+    }, []);
+
     function handleSummit() {
 
-        if (bill.nameBook === '' || bill.kindBook === '' || bill.authorBook === '' || bill.amountBook === '' || bill.priceBook === '' || bill.customer === '') {
-            nofi({ type: 'error', msg: 'Please fill all fields!' });
+        if (nameCustomer === '') {
+            nofi({ type: 'error', msg: 'Please fill customer name!' });
+        }
+        else if (bookList.length === 0) {
+            nofi({ type: 'warning', msg: 'Please choose book!' });
         }
         else {
             fetch('http://localhost:5000/customers/bill', {
@@ -36,12 +53,8 @@ function Bill() {
 
             setBill({
                 ...bill,
-                nameBook: '',
-                kindBook: '',
-                authorBook: '',
-                amountBook: '',
-                priceBook: '',
-                customer: '',
+                bookList: [],
+                nameCustomer: '',
             });
             nofi({ type: 'success', msg: 'Everything is good!' });
         }
@@ -66,7 +79,7 @@ function Bill() {
                     <form action="#">
                         <div className="form__userdetail">
 
-                            <div className="form__inputbox">
+                            {/* <div className="form__inputbox">
                                 <span className="form__detail">Name</span>
                                 <input
                                     value={bill.nameBook}
@@ -109,15 +122,15 @@ function Bill() {
                                     onChange={(e) => setBill({ ...bill, priceBook: e.target.value })}
                                     type="number" required />
                                 <div className="form__labelline">Enter book price</div>
-                            </div>
+                            </div> */}
 
                             <div className="form__inputbox">
-                                <span className="form__detail">Customer</span>
+                                <span className="form__detail">NameCustomer</span>
                                 <input
                                     value={bill.customer}
-                                    onChange={(e) => setBill({ ...bill, customer: e.target.value })}
+                                    onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
                                     type="text" required />
-                                <div className="form__labelline">Enter book customer</div>
+                                <div className="form__labelline">Enter customer name</div>
                             </div>
                         </div>
                     </form>

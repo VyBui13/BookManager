@@ -96,14 +96,17 @@
     transition: all 0.4s;
 }
 
-
-.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+.formdashboard__header .formdashboard__navbar .formdashboard__item a i {
+    transition: all 0.4s;
 }
 
-.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover .formdashboard__item-text {
+.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover i {
+    color: #664AFF;
+}
+
+/* .formdashboard__header .formdashboard__navbar .formdashboard__item a:hover .formdashboard__item-text {
     width: 50px;
-}
+} */
 
 .formdashboard .formdashboard__display {
     width: 100%;

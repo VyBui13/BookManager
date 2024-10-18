@@ -7,7 +7,6 @@ import '../../styles/List.css';
 function setPrice() {
     const [books, setBooks] = useState([]);
     const [bookPrice, setBookPrice] = useState({});
-    console.log(bookPrice);
 
     useEffect(() => {
         fetch('http://localhost:5000/books')
@@ -20,11 +19,11 @@ function setPrice() {
     return (
         <>
             <div className="list-container">
-                {bookPrice._id && <BookSelected bookPrice={bookPrice} />}
+                {bookPrice._id && <BookSelected bookPrice={bookPrice} updateBookPrice={setBookPrice} setBooks={setBooks} />}
                 <div className="list">
                     <div className="list__title">
                         Book List
-                        <i class="fa-solid fa-book-open"></i>
+                        <i className="fa-solid fa-book-open"></i>
                     </div>
                     <div className="list__body">
 
@@ -49,13 +48,13 @@ function setPrice() {
                                 {books.map((book) => (
                                     <div className="list__item" key={book._id}>
                                         <div className="list__attribute">
-                                            {book.Name}
+                                            {book._bookName}
                                         </div>
                                         <div className="list__attribute">
-                                            {book.Kind}
+                                            {book._bookKind}
                                         </div>
                                         <div className="list__attribute">
-                                            {book.Author}
+                                            {book._bookAuthor}
                                         </div>
                                         <div className="list__attribute">
                                             <button

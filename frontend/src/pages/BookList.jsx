@@ -46,16 +46,16 @@ function BookList() {
                                 {books.map((book) => (
                                     <div className="list__item">
                                         <div className="list__attribute">
-                                            {book.Name}
+                                            {book._bookName}
                                         </div>
                                         <div className="list__attribute">
-                                            {book.Kind}
+                                            {book._bookKind}
                                         </div>
                                         <div className="list__attribute">
-                                            {book.Author}
+                                            {book._bookAuthor}
                                         </div>
                                         <div className="list__attribute">
-                                            {book.PresentAmount}
+                                            {book._bookPresentAmount}
                                         </div>
                                     </div>
                                 ))}

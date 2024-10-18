@@ -5,5 +5,6 @@ const BooksController = require('../controllers/BookController');
 
 router.get('/', BooksController.getCollection);
 router.post('/', BooksController.postColletion);
+router.post('/setprice', BooksController.setPrice);
 
 module.exports = router;

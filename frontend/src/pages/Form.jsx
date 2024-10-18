@@ -4,8 +4,6 @@ import { useState } from 'react'
 import '../styles/FormPannel.css'
 
 function Form() {
-    const [isPannel, setIsPannel] = useState(false);
-    console.log(isPannel);
     return (
         <div className="formdashboard">
             {/* <div className="formdashboard__virtualpannel"
@@ -70,7 +68,7 @@ function Form() {
                 <div className="formdashboard__navbar">
 
                     <div className="formdashboard__item">
-                        <Link to="book">
+                        <Link to="book" title='Book'>
                             <i className="fa-solid fa-book"></i>
                             <div className="formdashboard__item-text">Book</div>
                         </Link>
