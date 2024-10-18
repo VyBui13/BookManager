@@ -2,31 +2,42 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BillSchema = new Schema({
-    BookName: {
-        type: String,
-        default: '',
-    },
-    BookKind: {
-        type: String,
-        default: '',
-    },
+    BookList: [
+        {
+            BookName: {
+                type: String,
+                default: '',
+            },
+            BookKind: {
+                type: String,
+                default: '',
+            },
 
-    BookAuthor: {
-        type: String,
-        default: '',
-    },
+            BookAuthor: {
+                type: String,
+                default: '',
+            },
 
-    Amount: {
-        type: Number,
-        default: '',
-    },
-    Price: {
-        type: Number,
-        default: '',
-    },
+            Amount: {
+                type: Number,
+                default: '',
+            },
+
+            Price: {
+                type: Number,
+                default: '',
+            },
+        }
+    ],
+
     CreatedDate: {
         type: String,
         default: '',
+    },
+
+    TotalPrice: {
+        type: Number,
+        default: 0,
     }
 });
 

@@ -6,10 +6,12 @@ const BookSchema = new Schema({
         type: String,
         required: true
     },
+
     Kind: {
         type: String,
         required: true
     },
+
     Author: {
         type: String,
     },
@@ -17,13 +19,21 @@ const BookSchema = new Schema({
         type: Number,
         default: 0
     },
+
     PresentAmount: {
         type: Number,
         default: 0
     },
+
+    Price: {
+        type: Number,
+        default: 0
+    },
+
     UpdateDate: {
         type: String,
     },
+
     CreatedDate: {
         type: String,
     },

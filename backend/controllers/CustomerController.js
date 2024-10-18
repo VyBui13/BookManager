@@ -5,15 +5,17 @@ class CustomerController {
     async postCustomerBill(req, res) {
         try {
             console.log('ascess');
+            const bookList = req.body.bookInfo;
             const CustomerName = req.body.customer;
-            const NameBook = req.body.nameBook;
-            const KindBook = req.body.kindBook;
-            const AuthorBook = req.body.authorBook;
-            const AmountBook = req.body.amountBook;
-            const PriceBook = req.body.priceBook;
+            const totalPriceBook = bookList.map(book => book.Price * book.Amount).reduce((a, b) => a + b, 0);
+            // const NameBook = req.body.nameBook;
+            // const KindBook = req.body.kindBook;
+            // const AuthorBook = req.body.authorBook;
+            // const AmountBook = req.body.amountBook;
+            // const PriceBook = req.body.priceBook;
             const UpdateDate = req.body.updateDate;
 
-            const totalPriceBook = Number(PriceBook) * Number(AmountBook);
+            // const totalPriceBook = Number(PriceBook) * Number(AmountBook);
 
             const query = { Name: CustomerName };
 
@@ -24,7 +26,6 @@ class CustomerController {
             if (customer) {
 
             } else {
-                console.log('create new customer');
                 const newCustomer = new Customer({
                     Name: CustomerName,
                     UpdateDate: UpdateDate,
@@ -33,11 +34,7 @@ class CustomerController {
                     PresentDebt: totalPriceBook,
                     BillList: [
                         {
-                            BookName: NameBook,
-                            BookKind: KindBook,
-                            BookAuthor: AuthorBook,
-                            Amount: AmountBook,
-                            Price: PriceBook,
+                            BookList: bookList,
                             CreatedDate: UpdateDate,
                         }
                     ],
