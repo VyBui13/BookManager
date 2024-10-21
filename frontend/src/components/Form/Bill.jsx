@@ -3,40 +3,33 @@ import { useState } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
 import { getCurrentDate } from '../../utils/DateCurrent.js';
+import BillBookList from '../BillBookList.jsx';
 
 function Bill() {
     const currDate = getCurrentDate();
-    const [books, setBooks] = useState([]);
-    const [bookSelected, setBookSelected] = useState(
-        {
-            nameBook: '',
-            kindBook: '',
-            authorBook: '',
-            amount: '',
-            price: '',
-        }
-    );
-
+    const [isHide, setIsHide] = useState(true);
     const [bill, setBill] = useState({
         bookList: [],
         nameCustomer: '',
         updateDate: currDate,
     });
 
-    useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
-                setBooks(data);
-            });
-    }, []);
+    console.log(bill);
 
-    function handleSummit() {
-
-        if (nameCustomer === '') {
+    function handleAdd() {
+        if (bill.nameCustomer === '') {
             nofi({ type: 'error', msg: 'Please fill customer name!' });
         }
-        else if (bookList.length === 0) {
+        else {
+            setIsHide(!isHide);
+        }
+    }
+
+    function handleSummit() {
+        if (bill.nameCustomer === '') {
+            nofi({ type: 'error', msg: 'Please fill customer name!' });
+        }
+        else if (bill.bookList.length === 0) {
             nofi({ type: 'warning', msg: 'Please choose book!' });
         }
         else {
@@ -63,6 +56,7 @@ function Bill() {
     return (
         <>
             <div className="form-container form--bill">
+                {!isHide && <BillBookList setIsHide={setIsHide} setBill={setBill} />}
                 <div className="form">
                     <div className="form__title">
                         bill
@@ -128,10 +122,59 @@ function Bill() {
                                 <span className="form__detail">NameCustomer</span>
                                 <input
                                     value={bill.customer}
-                                    onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
+                                    onChange={(e) => setBill({ ...bill, nameCustomer: e.target.value })}
                                     type="text" required />
                                 <div className="form__labelline">Enter customer name</div>
                             </div>
+
+                            <div className="form__inputbox">
+                                <span className="form__detail">AddBook</span>
+                                <div className="form__addbook"
+                                    onClick={handleAdd}
+                                >ADD</div>
+                            </div>
+
+                            <div className="form__booklist">
+                                <div className="form__booklist-field form__booklist-header">
+                                    <div className="form__booklist-attribute">
+                                        Name
+                                    </div>
+                                    <div className="form__booklist-attribute">
+                                        Kind
+                                    </div>
+                                    <div className="form__booklist-attribute">
+                                        Author
+                                    </div>
+                                    <div className="form__booklist-attribute">
+                                        Price
+                                    </div>
+                                    <div className="form__booklist-attribute">
+                                        Amount
+                                    </div>
+                                </div>
+
+                                {bill.bookList.map((book, index) => (
+                                    <div className="form__booklist-field" key={index}>
+                                        <div className="form__booklist-attribute">
+                                            {book._bookName}
+                                        </div>
+                                        <div className="form__booklist-attribute">
+                                            {book._bookKind}
+                                        </div>
+                                        <div className="form__booklist-attribute">
+                                            {book._bookAuthor}
+                                        </div>
+                                        <div className="form__booklist-attribute">
+                                            {book._bookPrice}
+                                        </div>
+                                        <div className="form__booklist-attribute">
+                                            {book._amountBought}
+                                        </div>
+                                    </div>
+                                ))}
+
+                            </div>
+
                         </div>
                     </form>
 
