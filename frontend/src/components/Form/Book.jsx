@@ -41,8 +41,8 @@ function Book() {
                 && obj._bookAuthor === book.bookAuthor);
 
             if (foundObject) {
-                if (Number(foundObject._bookPresentAmount) + Number(book.bookAmount) > Number(regulation.bookMaxAmountAllow)) {
-                    nofi({ type: 'warning', msg: 'The maximum number of present amount books is ' + regulation.bookMaxAmountAllow });
+                if (Number(foundObject._bookPresentAmount) > Number(regulation.bookMaxAmountAllow)) {
+                    nofi({ type: 'warning', msg: 'Only importing book which amount is below ' + regulation.bookMaxAmountAllow });
                     return;
                 }
                 foundObject._bookPresentAmount = Number(foundObject._bookPresentAmount) + Number(book.bookAmount);
