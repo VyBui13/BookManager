@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import '../styles/Regulation.css'
+import { ConfigContext } from '../components/Config.jsx'
 
 function Regulation() {
-    const [regulation, setRegulation] = useState({
-        bookMinAmountInput: 150,
-        bookMaxAmountAllow: 300,
-        debtMax: 20000,
-        bookMinAmountAfterSell: 20,
-        checkFee: true,
-    });
+    const { regulation, setRegulation } = useContext(ConfigContext);
+    // const [regulation, setRegulation] = useState({
+    //     bookMinAmountInput: 150,
+    //     bookMaxAmountAllow: 300,
+    //     debtMax: 20000,
+    //     bookMinAmountAfterSell: 20,
+    //     checkFee: true,
+    // });
 
     return (
         <div className="regulation-container">
@@ -202,7 +204,7 @@ function Regulation() {
 
                         <div className="regulation__buttonchange">
                             <div className="regulation__buttonchange-choice">
-                                <i class="fa-regular fa-face-smile"></i>
+                                <i className="fa-regular fa-face-smile"></i>
                             </div>
                             <input
                                 type="checkbox"
@@ -213,7 +215,7 @@ function Regulation() {
                                 <div className="labelPoint"></div>
                             </label>
                             <div className="regulation__buttonchange-choice">
-                                <i class="fa-regular fa-face-sad-tear"></i>
+                                <i className="fa-regular fa-face-sad-tear"></i>
                             </div>
 
                         </div>

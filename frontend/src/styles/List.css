@@ -53,17 +53,6 @@
     border: 2px solid #fff;
 }
 
-/* .list .list__title:before {
-    content: '';
-    position: absolute;
-    width: 70%;
-    height: 4px;
-    background-color: #000;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-} */
-
 .list .list__body {
     width: 95%;
     margin: 20px auto;

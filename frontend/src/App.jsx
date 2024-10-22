@@ -8,18 +8,18 @@ import Home from './pages/Home.jsx'
 import Regulation from './pages/Regulation.jsx'
 import BookList from './pages/BookList.jsx'
 import Form from './pages/Form.jsx'
+import { ConfigProvider } from './components/Config.jsx'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />}></Route>
-      {/* <Route path="/book" element={<Book />}></Route> */}
-      <Route path="/booklist" element={<BookList />}></Route>
-      <Route path="/form/*" element={<Form />}></Route>
-      {/* <Route path="/bill" element={<Bill />}></Route>
-      <Route path="/customer" element={<Customer />}></Route> */}
-      <Route path="/regulation" element={<Regulation />}></Route>
-    </Routes>
+    <ConfigProvider>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/booklist" element={<BookList />}></Route>
+        <Route path="/form/*" element={<Form />}></Route>
+        <Route path="/regulation" element={<Regulation />}></Route>
+      </Routes >
+    </ConfigProvider>
   )
 }
 
