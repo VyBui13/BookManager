@@ -5,9 +5,9 @@ import { useRef } from 'react';
 import { nofi } from './Notify';
 import '../styles/BillBookList.css';
 
-function BillBookList({ setIsHide, setBill }) {
+function BillBookList({ setIsHide, setBill, booklist }) {
     const [books, setBooks] = useState([]);
-    const [billbooks, setBillBooks] = useState([]);
+    const [billbooks, setBillBooks] = useState(booklist);
     const [bookSelected, setBookSelected] = useState(
         {
             nameBook: '',
@@ -90,11 +90,13 @@ function BillBookList({ setIsHide, setBill }) {
                                             {book._bookAuthor}
                                         </div>
                                         <div className="bbooklist__attribute">
-                                            {book._amountBought}
+                                            <div className="wrapper__item">
+                                                {book._amountBought}
+                                            </div>
                                         </div>
 
                                         <div className="bbooklist__attribute">
-                                            <button
+                                            <button className='bbooklist__remove-btn'
                                                 onClick={() => {
                                                     const filterArr = billbooks.filter(obj => obj._id !== book._id);
                                                     setBillBooks(filterArr);
@@ -152,7 +154,7 @@ function BillBookList({ setIsHide, setBill }) {
                                             </div>
 
                                             <div className="bbooklist__attribute">
-                                                <button
+                                                <button className='bbooklist__add-btn'
                                                     onClick={() => {
                                                         const amountBought = inputRefs.current[index].current.value;
                                                         if (amountBought === '') {

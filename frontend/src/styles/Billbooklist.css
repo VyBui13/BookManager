@@ -8,6 +8,19 @@
     z-index: 2000;
     padding: 20px;
     border-radius: 10px;
+    animation: slideZoom 0.5s forwards;
+}
+
+@keyframes slideZoom {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .bbooklist .bbooklist__header {
@@ -142,15 +155,20 @@
     margin-top: 10px;
 }
 
-.bbooklist__body .bbooklist__feature .bbooklist__item {
+.bbooklist__body .bbooklist__feature .bbooklist__items .bbooklist__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 1px solid #00000045;
     flex: 1;
 }
 
-.bbooklist__body .bbooklist__feature .bbooklist__item {
-    border-top: 1px solid #00000045;
+.bbooklist__body .bbooklist__feature .bbooklist__item .bbooklist__attribute:nth-child(4) .wrapper__item {
+    width: 35px;
+    background-color: #f1a53b;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
 }
 
 .bbooklist__feature .bbooklist__attribute {
@@ -210,4 +228,15 @@
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
+    transition: all 0.4s;
+}
+
+.bbooklist__feature .bbooklist__attribute .bbooklist__remove-btn:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.bbooklist__feature .bbooklist__attribute .bbooklist__add-btn:hover {
+    background-color: rgb(72, 255, 0);
+    color: #fff;
 }

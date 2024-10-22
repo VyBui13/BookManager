@@ -14,8 +14,6 @@ function Bill() {
         updateDate: currDate,
     });
 
-    console.log(bill);
-
     function handleAdd() {
         if (bill.nameCustomer === '') {
             nofi({ type: 'error', msg: 'Please fill customer name!' });
@@ -56,7 +54,7 @@ function Bill() {
     return (
         <>
             <div className="form-container form--bill">
-                {!isHide && <BillBookList setIsHide={setIsHide} setBill={setBill} />}
+                {!isHide && <BillBookList setIsHide={setIsHide} setBill={setBill} booklist={bill.bookList} />}
                 <div className="form">
                     <div className="form__title">
                         bill
@@ -128,13 +126,13 @@ function Bill() {
                             </div>
 
                             <div className="form__inputbox">
-                                <span className="form__detail">AddBook</span>
+                                <span className="form__detail">Add/Edit Book</span>
                                 <div className="form__addbook"
                                     onClick={handleAdd}
-                                >ADD</div>
+                                >ADD/EDIT</div>
                             </div>
 
-                            <div className="form__booklist">
+                            {(bill.bookList.length !== 0) && <div className="form__booklist">
                                 <div className="form__booklist-field form__booklist-header">
                                     <div className="form__booklist-attribute">
                                         Name
@@ -154,7 +152,7 @@ function Bill() {
                                 </div>
 
                                 {bill.bookList.map((book, index) => (
-                                    <div className="form__booklist-field" key={index}>
+                                    <div className="form__booklist-field form__booklist-detail" key={index}>
                                         <div className="form__booklist-attribute">
                                             {book._bookName}
                                         </div>
@@ -168,12 +166,15 @@ function Bill() {
                                             {book._bookPrice}
                                         </div>
                                         <div className="form__booklist-attribute">
-                                            {book._amountBought}
+                                            <div className="wrapper__item">
+
+                                                {book._amountBought}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
 
-                            </div>
+                            </div>}
 
                         </div>
                     </form>
