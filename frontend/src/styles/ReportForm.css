@@ -1,0 +1,77 @@
+.reportform {
+    width: 100%;
+}
+
+.reportform .reportform__feature {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.reportform .reportform__feature .reportform__attribute {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.reportform .reportform__fieldheader {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.reportform .reportform__fieldbody:nth-child(odd) {
+    background-color: #afafaf;
+    border-radius: 10px;
+}
+
+.reportform .reportform__fieldheader .reportform__attribute+.reportform__attribute {
+    border-left: 1px solid #000;
+}
+
+.reportform .reportform__feature .reportform__attribute:nth-child(1) {
+    min-width: 30%;
+}
+
+.reportform .reportform__feature .reportform__attribute:nth-child(2) {
+    min-width: 15%;
+}
+
+.reportform .reportform__feature .reportform__attribute:nth-child(3) {
+    min-width: 15%;
+}
+
+.reportform .reportform__feature .reportform__attribute:nth-child(4) {
+    min-width: 20%;
+}
+
+.reportform .reportform__feature .reportform__attribute:nth-child(5) {
+    min-width: 20%;
+}
+
+@media (max-width: 1100px) {
+    .reportform .reportform__feature {
+        width: 1100px;
+    }
+
+    .reportform .reportform__feature .reportform__attribute:nth-child(1) {
+        min-width: 300px;
+    }
+
+    .reportform .reportform__feature .reportform__attribute:nth-child(2) {
+        min-width: 200px;
+    }
+
+    .reportform .reportform__feature .reportform__attribute:nth-child(3) {
+        min-width: 200px;
+    }
+
+    .reportform .reportform__feature .reportform__attribute:nth-child(4) {
+        min-width: 200px;
+    }
+
+    .reportform .reportform__feature .reportform__attribute:nth-child(5) {
+        min-width: 200px;
+    }
+}

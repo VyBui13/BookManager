@@ -174,7 +174,6 @@ input[type=range]::-webkit-slider-thumb {
     --height-label: 30px;
     /*Chan*/
     --distance-btn-label: 3px;
-    --distance-icon-gender: 3px;
 }
 
 .regulation__item .regulation__config .regulation__buttonchange {

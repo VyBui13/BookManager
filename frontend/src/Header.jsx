@@ -54,7 +54,7 @@ function Header() {
 
                         <li className="header__nav-item-container">
                             <div className="header__nav-item">
-                                <Link to="#"><i className="fa-solid fa-newspaper"></i></Link>
+                                <Link to="/report"><i className="fa-solid fa-newspaper"></i></Link>
                             </div>
                         </li>
 
@@ -135,7 +135,7 @@ function Header() {
 
                             <li className="header__sidebar-nav-item-container">
                                 <div className="header__sidebar-nav-item">
-                                    <Link to="#">
+                                    <Link to="/report">
                                         <i className="fa-solid fa-newspaper"></i>
                                         <div className="header__sidebar-nav-text">Report</div>
                                     </Link>

@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx'
 import Regulation from './pages/Regulation.jsx'
 import BookList from './pages/BookList.jsx'
 import Form from './pages/Form.jsx'
+import Report from './pages/Report.jsx'
 import { ConfigProvider } from './components/Config.jsx'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/booklist" element={<BookList />}></Route>
         <Route path="/form/*" element={<Form />}></Route>
+        <Route path="/report" element={<Report />}></Route>
         <Route path="/regulation" element={<Regulation />}></Route>
       </Routes >
     </ConfigProvider>
