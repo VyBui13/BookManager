@@ -57,7 +57,7 @@ function setPrice() {
                                             {book._bookAuthor}
                                         </div>
                                         <div className="list__attribute">
-                                            <button
+                                            <button style={book._bookPrice === 0 ? { backgroundColor: 'red' } : { backgroundColor: '#77f740' }}
                                                 onClick={(e) => {
                                                     const updateBook = books.find(b => b._id === book._id);
                                                     setBookPrice(updateBook);

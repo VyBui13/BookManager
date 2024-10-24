@@ -173,22 +173,22 @@
 
 
 .list .list__content .list__items .list__attribute:last-child {
-    background-color: #77f740;
     color: #fff;
     font-weight: 700;
+    background-color: #77f740;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 
 .list__content .list__items .list__item .list__attribute button {
+    width: 100%;
+    border-radius: 10px;
     padding: 5px 10px;
     border: none;
-    background-color: #77f740;
     color: #fff;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    border-radius: 5px;
     transition: all 0.3s;
 }

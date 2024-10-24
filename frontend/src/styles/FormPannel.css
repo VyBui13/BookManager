@@ -61,11 +61,13 @@
     min-height: 250px;
     background: linear-gradient(to bottom right, #55516eb4, #3a3a3aa7);
     border-radius: 20px;
-    padding: 0px 10px;
     z-index: 1111;
+    overflow: hidden;
 }
 
 .formdashboard__header .formdashboard__navbar .formdashboard__item {
+    width: 20px;
+    margin: 0 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,6 +86,25 @@
     transition: all 0.4s;
 }
 
+@media (max-width: 900px) {
+    .formdashboard .formdashboard__header .formdashboard__navbar {
+        width: 10px;
+        transition: all 0.4s;
+    }
+
+    .formdashboard__header .formdashboard__navbar .formdashboard__item {
+        opacity: 0;
+        transition: all 0.4s;
+    }
+
+    .formdashboard .formdashboard__header .formdashboard__navbar:hover {
+        width: 40px;
+    }
+
+    .formdashboard .formdashboard__header .formdashboard__navbar:hover .formdashboard__item {
+        opacity: 1;
+    }
+}
 
 .formdashboard__navbar .formdashboard__item .formdashboard__item-text {
     width: 0;
