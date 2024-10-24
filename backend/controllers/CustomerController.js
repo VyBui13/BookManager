@@ -5,20 +5,21 @@ class CustomerController {
     async postCustomerBill(req, res) {
         try {
             const bookList = req.body.bookList;
-            const nameCustomer = req.body.nameCustomer;
-            const totalPriceBook = bookList.map(book => book.price * book.amount).reduce((a, b) => a + b, 0);
+            const customerName = req.body.customerName;
+            const totalPriceBook = bookList.map(book => Number(book._bookPrice) * Number(book._amountBought)).reduce((a, b) => a + b, 0);
             const updateDate = req.body.updateDate;
 
-            const query = { _nameCustomer: nameCustomer };
+            const query = { _customerName: customerName };
 
             const isBeginMonth = false;
             const customer = await Customer.findOne(query);
+            console.log(customer);
 
             if (customer) {
 
             } else {
                 const newCustomer = new Customer({
-                    _nameCustomer: nameCustomer,
+                    _customerName: customerName,
                     _updateDate: updateDate,
                     _customerInfoCreatedDate: updateDate,
                     _customerFirstDebt: 0,
@@ -27,18 +28,18 @@ class CustomerController {
                         {
                             _bookList: bookList.map(book => {
                                 return {
-                                    _nameBook: book.name,
-                                    _kindBook: book.kind,
-                                    _authorBook: book.author,
-                                    _amount: book.amount,
-                                    _price: book.price,
+                                    _bookName: book._bookName,
+                                    _bookKind: book._bookKind,
+                                    _bookAuthor: book._bookAuthor,
+                                    _amount: book._amountBought,
+                                    _price: Number(book._bookPrice),
                                 }
                             }),
                             _createdDate: updateDate,
                             _totalPrice: totalPriceBook,
                         }
                     ],
-                    FeeList: [
+                    _feeList: [
                         {}
                     ],
                 });

@@ -1,8 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const FeeSchema = new Schema({
+    _payment: {
+        type: Number,
+        default: 0,
+    },
+
+    _createdDate: {
+        type: String,
+        default: '',
+    },
+});
+
 const BillSchema = new Schema({
-    bookList: [
+    _bookList: [
         {
             _bookName: {
                 type: String,
@@ -38,19 +50,7 @@ const BillSchema = new Schema({
     _totalPrice: {
         type: Number,
         default: 0,
-    }
-});
-
-const FeeSchema = new Schema({
-    _payment: {
-        type: Number,
-        default: 0,
     },
-
-    _createdDate: {
-        type: String,
-        default: '',
-    }
 });
 
 const CustomerSchema = new Schema({
@@ -95,7 +95,7 @@ const CustomerSchema = new Schema({
     },
 
     _billList: [BillSchema],
-    _feeList: [FeeSchema]
+    _feeList: [FeeSchema],
 });
 
 const Customer = mongoose.model('Customer', CustomerSchema);
