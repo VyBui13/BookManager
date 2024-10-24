@@ -17,6 +17,8 @@ function Home() {
         <div id="description">
             <ImageSlider slides={slides} />
         </div>
+
+
     );
 }
 
