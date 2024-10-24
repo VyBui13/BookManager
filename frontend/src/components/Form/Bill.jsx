@@ -10,12 +10,12 @@ function Bill() {
     const [isHide, setIsHide] = useState(true);
     const [bill, setBill] = useState({
         bookList: [],
-        nameCustomer: '',
+        customerName: '',
         updateDate: currDate,
     });
 
     function handleAdd() {
-        if (bill.nameCustomer === '') {
+        if (bill.customerName === '') {
             nofi({ type: 'error', msg: 'Please fill customer name!' });
         }
         else {
@@ -24,7 +24,7 @@ function Bill() {
     }
 
     function handleSummit() {
-        if (bill.nameCustomer === '') {
+        if (bill.customerName === '') {
             nofi({ type: 'error', msg: 'Please fill customer name!' });
         }
         else if (bill.bookList.length === 0) {
@@ -45,7 +45,7 @@ function Bill() {
             setBill({
                 ...bill,
                 bookList: [],
-                nameCustomer: '',
+                customerName: '',
             });
             nofi({ type: 'success', msg: 'Everything is good!' });
         }
@@ -117,10 +117,10 @@ function Bill() {
                             </div> */}
 
                             <div className="form__inputbox">
-                                <span className="form__detail">NameCustomer</span>
+                                <span className="form__detail">customerName</span>
                                 <input
                                     value={bill.customer}
-                                    onChange={(e) => setBill({ ...bill, nameCustomer: e.target.value })}
+                                    onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
                                     type="text" required />
                                 <div className="form__labelline">Enter customer name</div>
                             </div>
