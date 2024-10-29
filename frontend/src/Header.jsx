@@ -36,7 +36,7 @@ function Header() {
 
                 <div className="header__item">
                     <div className="header__icon">
-                        <Link to=""><i class="fa-solid fa-gear"></i></Link>
+                        <Link to="/regulation"><i class="fa-solid fa-gear"></i></Link>
                     </div>
                 </div>
 
