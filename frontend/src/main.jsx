@@ -1,14 +1,34 @@
+import { createRoot } from 'react-dom/client';
+import Notify from './components/Notify.jsx';
+import Login from './pages/Login.jsx';
+import Dashboard from './Dashboard.jsx';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import Header from './Header.jsx'
-import Notify from './components/Notify.jsx'
-import { BrowserRouter } from 'react-router-dom'
+function MainApp() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Header />
-    <Notify />
-    <App />
-  </BrowserRouter>,
-)
+  // Function to handle login
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route
+          path="/*"
+          element={
+            isAuthenticated ? (
+              <>
+                <Notify />
+                <Dashboard />
+              </>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+createRoot(document.getElementById('root')).render(<MainApp />);
