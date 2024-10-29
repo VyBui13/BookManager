@@ -1,0 +1,60 @@
+.booklist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.booklist .booklist__item {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px 20px;
+}
+
+.booklist .booklist__item .booklist__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    font-size: 110px;
+    color: #66A;
+}
+
+.booklist .booklist__item .booklist__header {}
+
+
+.booklist__item .booklist__header .booklist__bookname {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0;
+    color: #000;
+    width: 200px;
+    overflow: auto;
+}
+
+.booklist .booklist__item .booklist__content {
+    margin: 10px 0;
+}
+
+.booklist__item .booklist__content .booklist__price {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.booklist__item .booklist__content .booklist__detail {
+    font-size: 12px;
+    color: rgba(58, 58, 58, 0.7);
+    margin: 3px 0;
+}
+
+.booklist__item .booklist__content .booklist__detail span {
+    font-weight: 700;
+    margin-left: 5px;
+    border-radius: 3px;
+    padding: 0 5px;
+    color: #fff;
+    background-color: #66A;
+}

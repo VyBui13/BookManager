@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import '../styles/List.css';
+import '../styles/BookList.css';
 
 function BookList() {
     const [books, setBooks] = useState([]);
@@ -16,53 +16,48 @@ function BookList() {
 
     return (
         <>
-            <div className="list-container">
-                <div className="list">
-                    <div className="list__title">
-                        Book List
-                        <i className="fa-solid fa-book-open"></i>
-                    </div>
-                    <div className="list__body">
+            <div className="booklist">
+                {
+                    books.map(book => (
+                        <div className="booklist__item">
+                            <div className="booklist__icon">
+                                <i className="fa-solid fa-book"></i>
+                            </div>
 
-                        <div className="list__content">
-
-                            <div className="list__field">
-                                <div className="list__attribute">
-                                    Name
-                                </div>
-                                <div className="list__attribute">
-                                    Kind
-                                </div>
-                                <div className="list__attribute">
-                                    Author
-                                </div>
-                                <div className="list__attribute">
-                                    {/* PresentAmount */}
-                                    Amount
+                            <div className="booklist__header">
+                                <div className="booklist__bookname">
+                                    {book._bookName}
                                 </div>
                             </div>
 
-                            <div className="list__items">
-                                {books.map((book) => (
-                                    <div className="list__item" key={book._id}>
-                                        <div className="list__attribute">
-                                            {book._bookName}
-                                        </div>
-                                        <div className="list__attribute">
-                                            {book._bookKind}
-                                        </div>
-                                        <div className="list__attribute">
-                                            {book._bookAuthor}
-                                        </div>
-                                        <div className="list__attribute">
-                                            {book._bookPresentAmount}
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className="booklist__content">
+                                <div className="booklist__price">
+                                    {book._bookPrice} VND
+                                </div>
+
+                                <div className="booklist__detail">
+                                    Latest udated date: {book._updateDate}
+                                </div>
+
+                                <div className="booklist__detail">
+                                    Author: {book._bookAuthor}
+                                </div>
+
+                                <div className="booklist__detail">
+                                    Kind: {book._bookKind}
+                                </div>
+
+                                <div className="booklist__detail">
+                                    Amount:
+                                    <span>{book._bookPresentAmount}</span>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
-                </div>
+                    ))
+                }
+
+
             </div>
         </>
     )

@@ -1,0 +1,21 @@
+#dashboard {
+    display: flex;
+
+}
+
+#header {
+    padding: 10px 10px;
+    background-color: #66A;
+    height: 100vh;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+}
+
+#content {
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+}
