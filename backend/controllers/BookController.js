@@ -84,6 +84,20 @@ class BookController {
             });
         }
     }
+
+    getTop(req, res) {
+        Book.find()
+            .sort({ _bookPresentAmount: -1 })
+            .limit(req.query.limit)
+            .then(book => {
+                res.json(book);
+            })
+            .catch(err => {
+                res.status(500).json({
+                    message: err.message
+                });
+            });
+    }
 }
 
 module.exports = new BookController;

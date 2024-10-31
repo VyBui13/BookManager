@@ -9,21 +9,20 @@
 
 .form-container {
     width: 100%;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0;
     position: relative;
 }
 
 .form {
     position: relative;
     background-color: #fff;
-    width: 60%;
+    width: 100%;
     border-radius: 10px;
     padding: 25px 30px;
-    margin: 50px;
+    margin: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .form .form__title {
@@ -237,12 +236,6 @@ form .form__userdetail .form__inputbox {
 
 /*---------------BOOKIMPORT---------------*/
 
-.form--bookimport {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-book-form.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
 .form--bookimport .form__title {
     background: linear-gradient(to left, var(--second-color), var(--book-import-color));
@@ -268,13 +261,6 @@ form .form__userdetail .form__inputbox {
 /*---------------BOOKIMPORT---------------*/
 
 /*---------------BILL---------------*/
-.form--bill {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-bill-form.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 .form--bill .form__title {
     background: linear-gradient(to left, var(--second-color), var(--bill-color));
     background-clip: text;
@@ -299,12 +285,6 @@ form .form__userdetail .form__inputbox {
 /*---------------BILL---------------*/
 
 /*---------------CUSTOMER---------------*/
-.form--customer {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-customer-form.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
 .form--customer .form__title {
     background: linear-gradient(to left, var(--second-color), var(--customer-color));

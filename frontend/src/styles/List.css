@@ -1,21 +1,16 @@
 .list-container {
     display: flex;
     width: 100%;
-    min-height: 100vh;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 50px 30px;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url("/pic/img/background-list.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    padding: 10px 30px;
 }
 
 .list {
-    margin: 20px 0;
-    width: 90%;
+    width: 100%;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .list .list__title {
@@ -33,7 +28,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    color: #77f740;
+    color: #66A;
 }
 
 
@@ -48,7 +43,7 @@
     color: #fff;
     align-items: center;
     border-radius: 50%;
-    background-color: #77f740;
+    background-color: #66A;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border: 2px solid #fff;
 }

@@ -1,3 +1,7 @@
+.home {
+    margin-bottom: 20px;
+}
+
 .home .home__header {
     display: flex;
     justify-content: space-between;

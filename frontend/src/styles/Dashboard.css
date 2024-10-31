@@ -4,14 +4,27 @@
 }
 
 #header {
-    padding: 10px 10px;
-    background-color: #66A;
     height: 100vh;
     width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+    transition: all 0.4s;
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    #header {
+        width: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    #header:hover {
+        width: 70px;
+    }
+
+    #header:hover .header__item {
+        opacity: 1;
+    }
+
 }
 
 #content {

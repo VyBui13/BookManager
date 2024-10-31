@@ -4,8 +4,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("/pic/img/background-report.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -13,10 +11,11 @@
 }
 
 .report {
-    width: 90%;
+    width: 100%;
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .report .report__header {
