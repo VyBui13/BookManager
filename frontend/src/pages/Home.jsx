@@ -10,10 +10,12 @@ function Home() {
             .then((res) => res.json())
             .then((data) => {
                 setBooks(data);
-            });
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            ;
     }, []);
-
-    console.log(books);
 
 
     return (
@@ -166,16 +168,16 @@ function Home() {
                             return (
                                 <div className="home__recent__field" key={book._id}>
                                     <div className="home__recent__attribute">
-                                        {book._bookName}
+                                        {book.bookName}
                                     </div>
                                     <div className="home__recent__attribute">
-                                        {book._bookKind}
+                                        {book.bookKind}
                                     </div>
                                     <div className="home__recent__attribute">
-                                        {book._bookAuthor}
+                                        {book.bookAuthor}
                                     </div>
                                     <div className="home__recent__attribute">
-                                        {book._bookPresentAmount}
+                                        {book.bookCurrentAmount}
                                     </div>
                                 </div>
                             );

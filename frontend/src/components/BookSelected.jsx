@@ -1,71 +1,37 @@
 import '../styles/Bookselected.css';
 import { useState } from 'react';
+import nofi from './Notify';
 
 function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
     const [bookSelected, setBookSelected] = useState({ ...bookPrice });
 
-    // async function handleSave() {
-
-    //     try {
-    //         const response = await fetch('http://localhost:5000/books/setprice', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify(bookSelected)
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
-
-    //         // const data = await response.json();
-
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //     }
-
-
-    //     console.log("1");
-    //     setBooks((prevBooks) => {
-    //         return prevBooks.map((book) => {
-    //             if (book._id === bookSelected._id) {
-    //                 return bookSelected;
-    //             }
-    //             return book;
-    //         });
-    //     });
-
-    //     updateBookPrice({});
-    // }
 
     function handleCancel() {
         updateBookPrice({});
     }
 
     function handleSave() {
-        fetch('http://localhost:5000/books/setprice', {
+        fetch('http://localhost:5000/books/price', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookSelected)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
+            .then(response =>
+                response.json()
+            )
+            .then(data => {
+                nofi({ type: data.status, msg: data.message });
+                return fetch('http://localhost:5000/books')
+            })
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data);
+                updateBookPrice({});
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.log(error);
+                nofi({ type: error.status, msg: error.message });
             })
-
-        setBooks((prevBooks) => {
-            return prevBooks.map((book) => {
-                if (book._id === bookSelected._id) {
-                    return bookSelected;
-                }
-                return book;
-            });
-        });
-        updateBookPrice({});
 
     }
 
@@ -90,7 +56,7 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                                 Name
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected._bookName}
+                                {bookSelected.bookName}
                             </div>
 
                         </div>
@@ -101,7 +67,7 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                                 Kind
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected._bookKind}
+                                {bookSelected.bookKind}
                             </div>
 
                         </div>
@@ -112,7 +78,7 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                                 Author
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected._bookAuthor}
+                                {bookSelected.bookAuthor}
                             </div>
 
                         </div>
@@ -123,7 +89,7 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                                 Amount
                             </div>
                             <div className="bookprice__attribute-value">
-                                {bookSelected._bookPresentAmount}
+                                {bookSelected.bookCurrentAmount}
                             </div>
 
                         </div>
@@ -135,8 +101,8 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                             </div>
                             <div className="bookprice__attribute-value">
                                 <input
-                                    value={bookSelected._bookPrice}
-                                    onChange={(e) => setBookSelected({ ...bookSelected, _bookPrice: e.target.value })}
+                                    value={bookSelected.bookPrice}
+                                    onChange={(e) => setBookSelected({ ...bookSelected, bookPrice: e.target.value })}
                                     type="number" />
                             </div>
 

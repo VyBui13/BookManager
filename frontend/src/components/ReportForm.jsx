@@ -1,7 +1,20 @@
 import '../styles/ReportForm.css';
+import { useState, useEffect } from 'react';
 
+function ReportForm() {
+    const [listBook, setListBook] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/books')
+            .then(response => response.json())
+            .then(data => {
+                setListBook(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+    }, []);
 
-function ReportForm({ object }) {
     return (
         <div className="reportform">
             <div className="reportform__feature reportform__fieldheader">
@@ -26,19 +39,19 @@ function ReportForm({ object }) {
                 </div>
             </div>
 
-            {object.map((item) => (
+            {listBook.map((item) => (
                 <div className="reportform__feature reportform__fieldbody" key={item._id}>
                     <div className="reportform__attribute">
-                        {item._bookName}
+                        {item.bookName}
                     </div>
                     <div className="reportform__attribute">
-                        {item._bookStoredAmount}
+                        {item.bookBeginningAmount}
                     </div>
                     <div className="reportform__attribute">
-                        {item._bookPresentAmount}
+                        {item.bookCurrentAmount}
                     </div>
                     <div className="reportform__attribute">
-                        {item._createdDate}
+                        {item.createdDate}
                     </div>
 
                     <div className="reportform__attribute">

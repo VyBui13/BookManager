@@ -11,6 +11,9 @@ function BookList() {
             .then(response => response.json())
             .then(data => {
                 setBooks(data);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }, []); // []: run only once
 
@@ -26,30 +29,30 @@ function BookList() {
 
                             <div className="booklist__header">
                                 <div className="booklist__bookname">
-                                    {book._bookName}
+                                    {book.bookName}
                                 </div>
                             </div>
 
                             <div className="booklist__content">
                                 <div className="booklist__price">
-                                    {book._bookPrice} VND
+                                    {book.bookPrice} VND
                                 </div>
 
                                 <div className="booklist__detail">
-                                    Latest udated date: {book._updateDate}
+                                    Latest udated date: {book.updateDate}
                                 </div>
 
                                 <div className="booklist__detail">
-                                    Author: {book._bookAuthor}
+                                    Author: {book.bookAuthor}
                                 </div>
 
                                 <div className="booklist__detail">
-                                    Kind: {book._bookKind}
+                                    Kind: {book.bookKind}
                                 </div>
 
                                 <div className="booklist__detail">
                                     Amount:
-                                    <span>{book._bookPresentAmount}</span>
+                                    <span>{book.bookCurrentAmount}</span>
                                 </div>
 
                             </div>

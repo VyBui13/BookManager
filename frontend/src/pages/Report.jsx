@@ -1,25 +1,11 @@
 import '../styles/Report.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReportForm from '../components/ReportForm';
 import { getMonthYear } from '../utils/DateCurrent';
 
 function Report() {
     const [isBookReport, setIsBookReport] = useState(true);
-    const [listBook, setListBook] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
-                setListBook(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            }
-            );
-    }, []);
-
     const curMonthYear = getMonthYear();
-
     return (
         <>
             <div className="report-container">
@@ -42,7 +28,7 @@ function Report() {
                     </div>
 
                     <div className="report__body">
-                        {isBookReport && <ReportForm object={listBook} />}
+                        {isBookReport && <ReportForm />}
                     </div>
                 </div>
             </div>

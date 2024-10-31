@@ -48,16 +48,16 @@ function setPrice() {
                                 {books.map((book) => (
                                     <div className="list__item" key={book._id}>
                                         <div className="list__attribute">
-                                            {book._bookName}
+                                            {book.bookName}
                                         </div>
                                         <div className="list__attribute">
-                                            {book._bookKind}
+                                            {book.bookKind}
                                         </div>
                                         <div className="list__attribute">
-                                            {book._bookAuthor}
+                                            {book.bookAuthor}
                                         </div>
                                         <div className="list__attribute">
-                                            <button style={book._bookPrice === 0 ? { backgroundColor: 'red' } : { backgroundColor: '#77f740' }}
+                                            <button style={book.bookPrice === 0 ? { backgroundColor: 'red' } : { backgroundColor: '#77f740' }}
                                                 onClick={(e) => {
                                                     const updateBook = books.find(b => b._id === book._id);
                                                     setBookPrice(updateBook);
