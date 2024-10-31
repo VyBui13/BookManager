@@ -1,6 +1,5 @@
 import FormController from '../components/Form/FormController.jsx'
 import { Link } from "react-router-dom"
-import { useState } from 'react'
 import '../styles/FormPannel.css'
 
 function Form() {
@@ -15,6 +14,12 @@ function Form() {
                     </div>
 
                     <div className="formdashboard__navbar">
+                        <div className="formdashboard__item">
+                            <Link to="">
+                                <i className="fa-solid fa-list"></i>
+                            </Link>
+                        </div>
+
 
                         <div className="formdashboard__item">
                             <Link to="book" title='Book'>
@@ -44,6 +49,7 @@ function Form() {
                             </Link>
 
                         </div>
+
 
                     </div>
                 </div>

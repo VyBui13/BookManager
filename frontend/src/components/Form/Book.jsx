@@ -23,7 +23,7 @@ function Book() {
             .then(data => {
                 setListBook(data);
             })
-            .catch((error) => { console.log(error) })
+            .catch((error) => { nofi({ type: error.status, msg: error.message }); })
             ;
     }, []);
 
@@ -36,47 +36,23 @@ function Book() {
             return;
         }
         else {
-            const foundObject = listBook.find(obj => obj._bookName === book.bookName
-                && obj._bookKind === book.bookKind
-                && obj._bookAuthor === book.bookAuthor);
-
-            if (foundObject) {
-                if (Number(foundObject._bookPresentAmount) > Number(regulation.bookMaxAmountAllow)) {
-                    nofi({ type: 'warning', msg: 'Only importing book which amount is below ' + regulation.bookMaxAmountAllow });
-                    return;
-                }
-                foundObject._bookPresentAmount = Number(foundObject._bookPresentAmount) + Number(book.bookAmount);
-                foundObject._updateDate = currDate;
-            }
-
             fetch('http://localhost:5000/books', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(book)
+                body: JSON.stringify({ ...book, regulation: regulation.bookMaxAmountAllow })
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    nofi({ type: data.status, msg: data.message });
+                    return fetch('http://localhost:5000/books');
                 })
-                .catch((error) => { console.log(error) })
-                ;
-
-            if (foundObject) {
-                const newListBook = listBook.map(obj => obj._id === foundObject._id ? foundObject : obj);
-                setListBook(newListBook);
-            } else {
-                const bookAdd = {
-                    _bookName: book.bookName,
-                    _bookKind: book.bookKind,
-                    _bookAuthor: book.bookAuthor,
-                    _bookStoredAmount: book.bookAmount,
-                    _bookPresentAmount: book.bookAmount,
-                    _updateDate: currDate,
-                    _createdDate: currDate,
-                }
-                setListBook([...listBook, bookAdd]);
-            }
-
+                .then(response => response.json())
+                .then(updatedList => {
+                    setListBook(updatedList); // Cập nhật lại listBook với danh sách mới
+                })
+                .catch((error) => {
+                    nofi({ type: 'error', msg: error.message });
+                });
             setBook({
                 ...book,
                 bookName: '',
@@ -84,7 +60,6 @@ function Book() {
                 bookAuthor: '',
                 bookAmount: 0,
             });
-            nofi({ type: 'success', msg: 'Everything is good!' });
         }
     }
 

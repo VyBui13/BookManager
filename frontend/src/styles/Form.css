@@ -221,9 +221,6 @@ form .form__userdetail .form__inputbox {
 }
 
 @media (max-width: 900px) {
-    .form {
-        width: 80%;
-    }
 
     form .form__userdetail .form__inputbox {
         width: 90%;

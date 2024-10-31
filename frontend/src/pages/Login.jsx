@@ -11,7 +11,6 @@ function Login() {
 
     };
 
-
     return (
         <div className="login-container">
             <div className="login">
@@ -21,7 +20,8 @@ function Login() {
 
                 <div className="login__body">
                     <div className="login__input">
-
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     </div>
 
                     <div className="login__input">

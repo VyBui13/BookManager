@@ -21,7 +21,11 @@
         width: 70px;
     }
 
-    #header:hover .header__item {
+    #header:hover .header {
+        opacity: 1;
+    }
+
+    #header:hover .logout {
         opacity: 1;
     }
 
