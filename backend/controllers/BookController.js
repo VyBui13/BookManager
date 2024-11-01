@@ -1,13 +1,15 @@
-const Book = require('../models/Book');
+const bookService = require('../models/BookService');
+const bookServiceInstance = new bookService();
 
 class BookController {
     getCollection(req, res) {
-        Book.find()
+        bookServiceInstance.getBookList()
             .then(book => {
                 res.json(book);
             })
             .catch(err => {
                 res.status(500).json({
+                    status: 'error',
                     message: err.message
                 });
             });
@@ -15,43 +17,15 @@ class BookController {
 
     async postColletion(req, res) {
         try {
-            const bookName = req.body.bookName;
-            const bookKind = req.body.bookKind;
-            const bookAuthor = req.body.bookAuthor;
-            const bookAmount = req.body.bookAmount;
-            const updateDate = req.body.updateDate;
+            const { bookName, bookKind, bookAuthor, bookAmount, updateDate, regulation } = req.body;
+            const bookData = { bookName, bookKind, bookAuthor, bookAmount, updateDate, regulation };
 
-            const query = { _bookName: bookName, _bookKind: bookKind, _bookAuthor: bookAuthor };
+            const status = await bookServiceInstance.addBook(bookData);
 
-            const isBeginMonth = false;
-            const book = await Book.findOne(query) // Find book by Name, Kind, Author
-
-            if (book) {
-                if (isBeginMonth) {
-                    const presentAmountBook = book._bookPresentAmount;
-                    book._bookStoredAmount = Number(presentAmountBook) + Number(bookAmount);
-                    book._bookPresentAmount = Number(presentAmountBook) + Number(bookAmount);
-                } else {
-                    book._bookPresentAmount = Number(book._bookPresentAmount) + Number(bookAmount);
-                }
-
-                book._updateDate = updateDate;
-                book.save();
-            } else {
-                const newBook = new Book({
-                    _bookName: bookName,
-                    _bookKind: bookKind,
-                    _bookAuthor: bookAuthor,
-                    _bookStoredAmount: bookAmount,
-                    _bookPresentAmount: bookAmount,
-                    _updateDate: updateDate,
-                    _createdDate: updateDate
-                });
-                newBook.save()
-            }
-        }
-        catch (err) {
+            res.status(200).json(status);
+        } catch (err) {
             res.status(500).json({
+                status: 'error',
                 message: err.message
             });
         }
@@ -59,36 +33,20 @@ class BookController {
 
     async setPrice(req, res) {
         try {
-            const bookName = req.body._bookName;
-            const bookKind = req.body._bookKind;
-            const bookAuthor = req.body._bookAuthor;
-            const bookPrice = req.body._bookPrice;
+            const bookData = req.body;
+            const status = await bookServiceInstance.setBookPrice(bookData);
 
-            const query = { _bookName: bookName, _bookKind: bookKind, _bookAuthor: bookAuthor };
-
-            const book = await Book.findOne(query);
-
-            if (book) {
-                book._bookPrice = bookPrice;
-                book.save();
-            } else {
-                console.log('Book not found');
-                res.status(404).json({
-                    message: 'Book not found'
-                });
-            }
-        }
-        catch (err) {
+            res.status(200).json(status);
+        } catch (err) {
             res.status(500).json({
+                status: 'error',
                 message: err.message
             });
         }
     }
 
     getTop(req, res) {
-        Book.find()
-            .sort({ _bookPresentAmount: -1 })
-            .limit(req.query.limit)
+        bookServiceInstance.getTopBook(req.query.limit)
             .then(book => {
                 res.json(book);
             })

@@ -2,40 +2,40 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BookSchema = new Schema({
-    _bookName: {
+    bookName: {
         type: String,
         required: true
     },
 
-    _bookKind: {
+    bookKind: {
         type: String,
         required: true
     },
 
-    _bookAuthor: {
+    bookAuthor: {
         type: String,
     },
 
-    _bookStoredAmount: {
+    bookBeginningAmount: {
         type: Number,
         default: 0
     },
 
-    _bookPresentAmount: {
+    bookCurrentAmount: {
         type: Number,
         default: 0
     },
 
-    _bookPrice: {
+    bookPrice: {
         type: Number,
         default: 0
     },
 
-    _updateDate: {
+    updateDate: {
         type: String,
     },
 
-    _createdDate: {
+    createdDate: {
         type: String,
     },
 });

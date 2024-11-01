@@ -2,100 +2,100 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FeeSchema = new Schema({
-    _payment: {
+    payment: {
         type: Number,
         default: 0,
     },
 
-    _createdDate: {
+    createdDate: {
         type: String,
         default: '',
     },
 });
 
 const BillSchema = new Schema({
-    _bookList: [
+    bookList: [
         {
-            _bookName: {
+            bookName: {
                 type: String,
                 default: '',
             },
-            _bookKind: {
-                type: String,
-                default: '',
-            },
-
-            _bookAuthor: {
+            bookKind: {
                 type: String,
                 default: '',
             },
 
-            _amount: {
+            bookAuthor: {
+                type: String,
+                default: '',
+            },
+
+            amountBought: {
                 type: Number,
                 default: '',
             },
 
-            _price: {
+            bookPrice: {
                 type: Number,
                 default: '',
             },
         }
     ],
 
-    _createdDate: {
+    createdDate: {
         type: String,
         default: '',
     },
 
-    _totalPrice: {
+    totalPrice: {
         type: Number,
         default: 0,
     },
 });
 
 const CustomerSchema = new Schema({
-    _customerName: {
+    customerName: {
         type: String,
         default: '',
     },
 
-    _customerAddress: {
+    customerAddress: {
         type: String,
         default: '',
     },
 
-    _customerPhone: {
+    customerPhone: {
         type: String,
         default: '',
     },
 
-    _customerEmail: {
+    customerEmail: {
         type: String,
         default: '',
     },
 
-    _customerFirstDebt: {
+    customerFirstDebt: {
         type: Number,
         default: 0,
     },
 
-    _customerPresentDebt: {
+    customerPresentDebt: {
         type: Number,
         default: 0,
     },
 
-    _customerInfoCreatedDate: {
+    customerInfoCreatedDate: {
         type: String,
         default: '',
     },
 
-    _updateDate: {
+    updateDate: {
         type: String,
         default: '',
     },
 
-    _billList: [BillSchema],
-    _feeList: [FeeSchema],
+    billList: [BillSchema],
+    feeList: [FeeSchema],
 });
 
 const Customer = mongoose.model('Customer', CustomerSchema);
