@@ -1,0 +1,158 @@
+.bill {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.bill .bill__booklist {
+    flex: 3;
+    height: 350px;
+    overflow: auto;
+    margin: 0 10px;
+}
+
+.bill .bill__booklist::-webkit-scrollbar {
+    width: 10px;
+}
+
+.bill .bill__booklist::-webkit-scrollbar-thumb {
+    background-color: #00000030;
+    border-radius: 10px;
+}
+
+.bill .bill__booklist .booklist {
+    padding: 0;
+}
+
+
+.bill .bill__form {
+    width: 450px;
+    padding: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+}
+
+.bill .bill__form .bill__formtitle {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #66A;
+}
+
+.bill .bill__form .bill__formitem {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.bill .bill__form .bill__formitem input {
+    position: relative;
+    width: 100%;
+    outline: none;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.bill .bill__form .bill__formbody .bill__listcontainer {
+    overflow: auto;
+    max-width: 100%;
+}
+
+.bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar-thumb {
+    background-color: #00000085;
+    border-radius: 10px;
+}
+
+.bill .bill__form .bill__formbody .bill__list {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin: 10px 0;
+}
+
+
+.bill .bill__form .bill__formbody .bill__listitem:first-child,
+.bill .bill__form .bill__formbody .bill__listitem:nth-child(3) {
+    flex: 3;
+}
+
+
+
+.bill .bill__form .bill__formbody .bill__listitem {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.bill .bill__form .bill__formbody .bill__listitem button {
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #66A;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.bill .bill__form .bill__formitem .bill__formdetail {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.bill .booklist .booklist__item .booklist__button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.bill .booklist .booklist__item .booklist__button .booklist__buttonwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 10px;
+    background-color: #66A;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bill .booklist .booklist__item .booklist__button .booklist__buttonwrapper span {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+
+@media (max-width: 900px) {
+    .bill {
+        flex-direction: column-reverse;
+    }
+
+    .bill .bill__booklist {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .bill .bill__form {
+        width: 100%;
+    }
+}

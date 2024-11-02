@@ -11,6 +11,7 @@
     padding: 20px;
     border-radius: 20px;
     margin: 10px 20px;
+    position: relative;
 }
 
 .booklist .booklist__item .booklist__icon {

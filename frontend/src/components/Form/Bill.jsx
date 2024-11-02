@@ -3,25 +3,39 @@ import { useState } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
 import { getCurrentDate } from '../../utils/DateCurrent.js';
-import BillBookList from '../BillBookList.jsx';
+import '../../styles/Bill.css';
+import BillAmount from '../BillAmount.jsx';
 
 function Bill() {
     const currDate = getCurrentDate();
-    const [isHide, setIsHide] = useState(true);
     const [bill, setBill] = useState({
         bookList: [],
         customerName: '',
         updateDate: currDate,
     });
+    console.log(bill);
+    const [book, setBook] = useState({});
+    const [books, setBooks] = useState([]);
 
-    function handleAdd() {
-        if (bill.customerName === '') {
-            nofi({ type: 'error', msg: 'Please fill customer name!' });
-        }
-        else {
-            setIsHide(!isHide);
-        }
-    }
+    useEffect(() => {
+        fetch('http://localhost:5000/books')
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []); //
+
+    // function handleAdd() {
+    //     if (bill.customerName === '') {
+    //         nofi({ type: 'error', msg: 'Please fill customer name!' });
+    //     }
+    //     else {
+    //         setIsHide(!isHide);
+    //     }
+    // }
 
     function handleSummit() {
         if (bill.customerName === '') {
@@ -53,138 +67,157 @@ function Bill() {
 
     return (
         <>
-            <div className="form-container form--bill">
-                {!isHide && <BillBookList setIsHide={setIsHide} setBill={setBill} booklist={bill.bookList} />}
-                <div className="form">
-                    <div className="form__title">
-                        bill
-                    </div>
-
-                    <div className="form__localtime">
-                        <div className="form__localtime-content">
-                            {currDate}
-                        </div>
-                        <div className="form__localtime-icon">
-                            <i className="fa-regular fa-calendar"></i>
-                        </div>
-                    </div>
-                    <form action="#">
-                        <div className="form__userdetail">
-
-                            {/* <div className="form__inputbox">
-                                <span className="form__detail">Name</span>
-                                <input
-                                    value={bill.nameBook}
-                                    onChange={(e) => setBill({ ...bill, nameBook: e.target.value })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book name</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Kind</span>
-                                <input
-                                    value={bill.kindBook}
-                                    onChange={(e) => setBill({ ...bill, kindBook: e.target.value })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book kind</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Author</span>
-                                <input
-                                    value={bill.authorBook}
-                                    onChange={(e) => setBill({ ...bill, authorBook: e.target.value })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book author</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Amount</span>
-                                <input
-                                    value={bill.amountBook}
-                                    onChange={(e) => setBill({ ...bill, amountBook: e.target.value })}
-                                    type="number" required />
-                                <div className="form__labelline">Enter amount book</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Price</span>
-                                <input
-                                    value={bill.priceBook}
-                                    onChange={(e) => setBill({ ...bill, priceBook: e.target.value })}
-                                    type="number" required />
-                                <div className="form__labelline">Enter book price</div>
-                            </div> */}
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">customerName</span>
-                                <input
-                                    value={bill.customer}
-                                    onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter customer name</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Add/Edit Book</span>
-                                <div className="form__addbook"
-                                    onClick={handleAdd}
-                                >ADD/EDIT</div>
-                            </div>
-
-                            {(bill.bookList.length !== 0) && <div className="form__booklist">
-                                <div className="form__booklist-field form__booklist-header">
-                                    <div className="form__booklist-attribute">
-                                        Name
+            {book.bookName && <BillAmount book={book} setBook={setBook} bill={bill} setBill={setBill} />}
+            <div className="bill">
+                <div className="bill__booklist">
+                    <div className="booklist">
+                        {
+                            books.map(book => (
+                                <div className="booklist__item" key={book._id}>
+                                    <div className="booklist__icon">
+                                        <i className="fa-solid fa-book"></i>
                                     </div>
-                                    <div className="form__booklist-attribute">
-                                        Kind
+
+                                    <div className="booklist__header">
+                                        <div className="booklist__bookname">
+                                            {book.bookName}
+                                        </div>
                                     </div>
-                                    <div className="form__booklist-attribute">
-                                        Author
+
+                                    <div className="booklist__content">
+
+                                        <div className="booklist__price">
+                                            {book.bookPrice} VND
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Latest udated date: {book.updateDate}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Author: {book.bookAuthor}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Kind: {book.bookKind}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Amount:
+                                            <span>{book.bookCurrentAmount}</span>
+                                        </div>
+
                                     </div>
-                                    <div className="form__booklist-attribute">
-                                        Price
-                                    </div>
-                                    <div className="form__booklist-attribute">
-                                        Amount
+
+                                    <div className="booklist__button">
+                                        <div onClick={
+                                            () => {
+                                                books.forEach((item) => {
+                                                    if (item._id === book._id) {
+                                                        setBook({
+                                                            _id: item._id,
+                                                            bookName: item.bookName,
+                                                            bookKind: item.bookKind,
+                                                            bookAuthor: item.bookAuthor,
+                                                            bookPrice: item.bookPrice,
+                                                            amountBought: 0,
+                                                        });
+                                                        return;
+                                                    }
+                                                });
+                                            }
+                                        }
+                                            className="booklist__buttonwrapper">
+                                            <span>+</span>
+                                        </div>
                                     </div>
                                 </div>
-
-                                {bill.bookList.map((book, index) => (
-                                    <div className="form__booklist-field form__booklist-detail" key={index}>
-                                        <div className="form__booklist-attribute">
-                                            {book._bookName}
-                                        </div>
-                                        <div className="form__booklist-attribute">
-                                            {book._bookKind}
-                                        </div>
-                                        <div className="form__booklist-attribute">
-                                            {book._bookAuthor}
-                                        </div>
-                                        <div className="form__booklist-attribute">
-                                            {book._bookPrice}
-                                        </div>
-                                        <div className="form__booklist-attribute">
-                                            <div className="wrapper__item">
-
-                                                {book._amountBought}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-
-                            </div>}
-
-                        </div>
-                    </form>
-
-                    <div className="form__button">
-                        <button className="form__submit" onClick={handleSummit}>Submit</button>
+                            ))
+                        }
                     </div>
 
                 </div>
-            </div>
+
+                <div className="bill__form">
+                    <div className="bill__formtitle">
+                        Bill
+                    </div>
+
+                    <div className="bill__formbody">
+                        <div className="bill__formitem">
+                            <span className="bill__formdetail">CustomerName:</span>
+                            <input
+                                value={bill.customerName}
+                                onChange={(e) => setBill({ ...bill, customerName: e.target.value.trim() })}
+                                type="text" required />
+                        </div>
+
+                        {(bill.bookList.length !== 0) && <div className="bill__formitem">
+                            <span className="bill__formdetail">BookList:</span>
+                        </div>}
+
+                        {(bill.bookList.length !== 0) && <div className="bill__listcontainer">
+                            <div className="bill__list">
+                                <div className="bill__listitem">
+                                    <span>Name</span>
+                                </div>
+                                <div className="bill__listitem">
+                                    <span>Kind</span>
+                                </div>
+                                <div className="bill__listitem">
+                                    <span>Author</span>
+                                </div>
+                                <div className="bill__listitem">
+                                    <span>Price</span>
+                                </div>
+                                <div className="bill__listitem">
+                                    <span>Amount</span>
+                                </div>
+                                <div className="bill__listitem">
+                                    <span>BTN</span>
+                                </div>
+
+                            </div>
+
+                            {
+                                bill.bookList.map(book => (
+                                    <>
+                                        <div className="bill__list">
+                                            <div className="bill__listitem">
+                                                <span>{book.bookName}</span>
+                                            </div>
+                                            <div className="bill__listitem">
+                                                <span>{book.bookKind}</span>
+                                            </div>
+                                            <div className="bill__listitem">
+                                                <span>{book.bookAuthor}</span>
+                                            </div>
+                                            <div className="bill__listitem">
+                                                <span>{book.bookPrice}</span>
+                                            </div>
+                                            <div className="bill__listitem">
+                                                <span>{book.amountBought}</span>
+                                            </div>
+                                            <div className="bill__listitem">
+                                                <button onClick={
+                                                    () => {
+                                                        setBill({
+                                                            ...bill,
+                                                            bookList: bill.bookList.filter(item => item._id !== book._id)
+                                                        });
+                                                    }
+                                                }>-</button>
+                                            </div>
+                                        </div>
+                                    </>
+                                ))
+                            }
+                        </div>}
+                    </div>
+                </div>
+
+            </div >
+
         </>
     );
 };
