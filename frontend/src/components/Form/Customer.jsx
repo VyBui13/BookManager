@@ -1,39 +1,73 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
+import '../../styles/Customer.css';
+import { getCurrentTime } from '../../utils/DateCurrent.js';
 
-function Customer() {
-    const [customer, setCustomer] = useState({
-        name: '',
-        Address: '',
-        phone: '',
-        email: '',
-        fee: '',
-    });
+function Customer(props) {
+    const [search, setSearch] = useState('');
+    const [payment, setPayment] = useState('');
+    const [customer, setCustomer] = useState({});
+
+    useEffect(() => {
+        if (props.customerName !== undefined) {
+            fetch(`http://localhost:5000/customers?customerName=${props.customerName}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data === null) {
+                        nofi({ type: 'error', msg: 'Customer not found!' });
+                        return;
+                    }
+                    setCustomer(data);
+                })
+                .catch((err) => {
+                    nofi({ type: 'error', msg: err.message });
+                }
+                );
+        }
+    }, []);
+
+    function handleSearch() {
+        fetch(`http://localhost:5000/customers?customerName=${search}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data === null) {
+                    nofi({ type: 'error', msg: 'Customer not found!' });
+                    return;
+                }
+                setCustomer(data);
+                setSearch('');
+            })
+            .catch((err) => {
+                nofi({ type: 'error', msg: err.message });
+            }
+            );
+    };
 
     function handleSummit() {
-
-        if (customer.name === '' || customer.Address === '' || customer.phone === '' || customer.email === '' || customer.fee === '') {
-            nofi({ type: 'error', msg: 'Please fill all fields!' });
-        }
-        else {
-            setCustomer({
-                name: '',
-                Address: '',
-                phone: '',
-                amountBook: '',
-                fee: '',
+        fetch('http://localhost:5000/customers/fee', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...customer, payment: payment, updateDate: getCurrentTime() }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                nofi({ type: data.status, msg: data.message });
+                setCustomer({});
+                setPayment('');
+            })
+            .catch((err) => {
+                nofi({ type: 'error', msg: err.message });
             });
-            nofi({ type: 'success', msg: 'Everything is good!' });
-        }
+
     }
 
     const currDate = new Date().toLocaleDateString();
 
     return (
         <>
-            <div className="form-container form--customer">
+            {/* <div className="form-container form--customer">
                 <div className="form">
                     <div className="form__title">
                         customer
@@ -100,6 +134,85 @@ function Customer() {
                         <button className="form__submit" onClick={handleSummit}>Submit</button>
                     </div>
 
+                </div>
+            </div> */}
+
+            <div className="customer-wrapper">
+
+                <div className="customer">
+                    <div className="customer__header">
+                        <div className="customer__title">
+                            CustomerBill
+                        </div>
+
+                        <div className="customer__search">
+                            <input
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                type="text" placeholder="Search..." />
+                            <button onClick={handleSearch}>
+                                <i className="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="customer__body">
+                        <div className="customer__field">
+                            <div className="customer__field__name">Name</div>
+                            <input
+                                value={customer.customerName}
+                                type="text" disabled />
+
+                        </div>
+
+                        <div className="customer__field">
+                            <div className="customer__field__name">Email</div>
+                            <input
+                                value={customer.customerEmail}
+                                onChange={(e) => setCustomer({ ...customer, customerEmail: e.target.value })}
+                                type="text" required />
+
+                        </div>
+
+                        <div className="customer__field">
+                            <div className="customer__field__name">Phone</div>
+                            <input
+                                value={customer.customerPhone}
+                                onChange={(e) => setCustomer({ ...customer, customerPhone: e.target.value })}
+                                type="text" required />
+
+                        </div>
+
+                        <div className="customer__field">
+                            <div className="customer__field__name">Address</div>
+                            <input
+                                value={customer.customerAddress}
+                                onChange={(e) => setCustomer({ ...customer, customerAddress: e.target.value })}
+                                type="text" required />
+
+                        </div>
+
+                        <div className="customer__field">
+                            <div className="customer__field__name">Fee</div>
+                            <input
+                                value={customer.customerCurrentDebt}
+                                type="text" disabled />
+
+                        </div>
+
+                        <div className="customer__field">
+                            <div className="customer__field__name">Payment</div>
+                            <input
+                                value={payment}
+                                onChange={(e) => setPayment(e.target.value.trim())}
+                                type="text" required />
+
+                        </div>
+                    </div>
+
+                    <div className="customer__btn">
+                        <button className="customer__btn__submit" onClick={handleSummit}>Submit</button>
+                    </div>
                 </div>
             </div>
         </>

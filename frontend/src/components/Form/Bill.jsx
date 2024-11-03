@@ -5,15 +5,16 @@ import '../../styles/Form.css';
 import { getCurrentDate } from '../../utils/DateCurrent.js';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function Bill() {
+    const Navigate = useNavigate();
     const currDate = getCurrentDate();
     const [bill, setBill] = useState({
         bookList: [],
         customerName: '',
         updateDate: currDate,
     });
-    console.log(bill);
     const [book, setBook] = useState({});
     const [books, setBooks] = useState([]);
 
@@ -53,16 +54,13 @@ function Bill() {
                 .then(response => response.json())
                 .then(data => {
                     nofi({ type: data.status, msg: data.message });
+                    Navigate('/form/customer', { replace: true });
                 })
                 .catch((error) => {
                     nofi({ type: error.status, msg: error.message });
                 });
 
-            setBill({
-                ...bill,
-                bookList: [],
-                customerName: '',
-            });
+
         }
     }
 

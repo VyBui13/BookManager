@@ -1,0 +1,51 @@
+.customer-wrapper {
+    width: 100%;
+
+    padding: 20px;
+}
+
+.customer {
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.customer .customer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.customer .customer__body {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.customer .customer__body .customer__field {
+    display: flex;
+    justify-content: center;
+    width: calc(50% - 20px);
+    margin: 5px;
+}
+
+.customer .customer__body .customer__field .customer__field__name {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000000;
+    padding: 5px 10px;
+    background-color: #66A;
+    color: #fff;
+}
+
+.customer .customer__body .customer__field input {
+    width: 100%;
+    border: none;
+    border-right: 2px solid #000000;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    padding: 0 10px;
+}
