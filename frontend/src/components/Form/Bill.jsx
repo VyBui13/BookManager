@@ -52,16 +52,17 @@ function Bill() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    nofi({ type: data.status, msg: data.message });
                 })
-                .catch((error) => { console.log(error) });
+                .catch((error) => {
+                    nofi({ type: error.status, msg: error.message });
+                });
 
             setBill({
                 ...bill,
                 bookList: [],
                 customerName: '',
             });
-            nofi({ type: 'success', msg: 'Everything is good!' });
         }
     }
 
@@ -214,7 +215,13 @@ function Bill() {
                             }
                         </div>}
                     </div>
+
+                    <div className="bill__btn">
+                        <button onClick={handleSummit}>Submit</button>
+                    </div>
                 </div>
+
+
 
             </div >
 

@@ -9,7 +9,7 @@
     flex: 3;
     height: 350px;
     overflow: auto;
-    margin: 0 10px;
+    margin: 0 20px;
 }
 
 .bill .bill__booklist::-webkit-scrollbar {
@@ -17,7 +17,7 @@
 }
 
 .bill .bill__booklist::-webkit-scrollbar-thumb {
-    background-color: #00000030;
+    background-color: rgba(102, 102, 170, 0.457);
     border-radius: 10px;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar-thumb {
-    background-color: #00000085;
+    background-color: rgba(102, 102, 170, 0.457);
     border-radius: 10px;
 }
 
@@ -140,7 +140,25 @@
     font-weight: 700;
 }
 
+.bill .bill__form .bill__btn {
+    width: 100%;
+    padding: 10px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bill .bill__form .bill__btn button {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #66A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
 
 @media (max-width: 900px) {
     .bill {
