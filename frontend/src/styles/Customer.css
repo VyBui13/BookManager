@@ -6,13 +6,49 @@
 
 .customer {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
-    padding: 20px;
+    padding: 30px;
+    border-radius: 10px;
 }
 
 .customer .customer__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.customer .customer__header .customer__title {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #66A;
+}
+
+.customer .customer__header .customer__search {
+    border-radius: 10px;
+    border: 2px solid #000;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.customer .customer__header .customer__search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 0;
+    transition: all 0.4s;
+    opacity: 0;
+}
+
+.customer .customer__header .customer__search input:focus,
+.customer .customer__header .customer__search:hover input {
+    width: 200px;
+    opacity: 1;
+}
+
+.customer .customer__header .customer__search button {
+    border: none;
+    cursor: pointer;
 }
 
 .customer .customer__body {
@@ -27,7 +63,7 @@
     display: flex;
     justify-content: center;
     width: calc(50% - 20px);
-    margin: 5px;
+    margin: 10px 5px;
 }
 
 .customer .customer__body .customer__field .customer__field__name {
@@ -39,6 +75,7 @@
     padding: 5px 10px;
     background-color: #66A;
     color: #fff;
+    font-weight: 700;
 }
 
 .customer .customer__body .customer__field input {
@@ -48,4 +85,36 @@
     border-top: 2px solid #000000;
     border-bottom: 2px solid #000000;
     padding: 0 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.customer .customer__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.customer .customer__btn button {
+    padding: 5px;
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #000;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.customer .customer__btn button:hover {
+    background-color: #66A;
+    color: #fff;
+    border-color: #fff;
+}
+
+@media (max-width: 900px) {
+    .customer .customer__body .customer__field {
+        width: 100%;
+    }
 }

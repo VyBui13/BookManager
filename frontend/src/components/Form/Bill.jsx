@@ -2,18 +2,16 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
-import { getCurrentDate } from '../../utils/DateCurrent.js';
+import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function Bill() {
     const Navigate = useNavigate();
-    const currDate = getCurrentDate();
     const [bill, setBill] = useState({
         bookList: [],
         customerName: '',
-        updateDate: currDate,
     });
     const [book, setBook] = useState({});
     const [books, setBooks] = useState([]);
@@ -49,7 +47,7 @@ function Bill() {
             fetch('http://localhost:5000/customers/bill', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bill)
+                body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime() })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -90,7 +88,7 @@ function Bill() {
                                         </div>
 
                                         <div className="booklist__detail">
-                                            Latest udated date: {book.updateDate}
+                                            Latest udated date: {book.updateDate.split(" - ")[0]}
                                         </div>
 
                                         <div className="booklist__detail">

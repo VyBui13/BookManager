@@ -74,12 +74,12 @@ const CustomerSchema = new Schema({
         default: '',
     },
 
-    customerFirstDebt: {
+    customerBeginningDebt: {
         type: Number,
         default: 0,
     },
 
-    customerPresentDebt: {
+    customerCurrentDebt: {
         type: Number,
         default: 0,
     },

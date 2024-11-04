@@ -2,30 +2,19 @@ import React, { useEffect } from 'react';
 import { useState, useContext } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
-import { getCurrentDate } from '../../utils/DateCurrent.js';
+import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import { ConfigContext } from '../Config.jsx'
 
 function Book() {
-    const currDate = getCurrentDate();
+    const currDate = getCurrentDateTime();
     const { regulation } = useContext(ConfigContext);
-    const [listBook, setListBook] = useState([]);
+    // const [listBook, setListBook] = useState([]);
     const [book, setBook] = useState({
         bookName: '',
         bookKind: '',
         bookAuthor: '',
         bookAmount: 0,
-        updateDate: currDate,
     });
-
-    useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
-                setListBook(data);
-            })
-            .catch((error) => { nofi({ type: error.status, msg: error.message }); })
-            ;
-    }, []);
 
     function handleSummit() {
         if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
@@ -39,16 +28,11 @@ function Book() {
             fetch('http://localhost:5000/books', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...book, regulation: regulation.bookMaxAmountAllow })
+                body: JSON.stringify({ ...book, updateDate: getCurrentDateTime(), regulation: regulation.bookMaxAmountAllow })
             })
                 .then(response => response.json())
                 .then(data => {
                     nofi({ type: data.status, msg: data.message });
-                    return fetch('http://localhost:5000/books');
-                })
-                .then(response => response.json())
-                .then(updatedList => {
-                    setListBook(updatedList); // Cập nhật lại listBook với danh sách mới
                 })
                 .catch((error) => {
                     nofi({ type: 'error', msg: error.message });

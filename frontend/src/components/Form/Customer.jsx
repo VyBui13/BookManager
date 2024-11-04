@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
-import { getCurrentTime } from '../../utils/DateCurrent.js';
+import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 
 function Customer(props) {
     const [search, setSearch] = useState('');
@@ -49,7 +49,7 @@ function Customer(props) {
         fetch('http://localhost:5000/customers/fee', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...customer, payment: payment, updateDate: getCurrentTime() }),
+            body: JSON.stringify({ ...customer, payment: payment, updateDate: getCurrentDateTime() }),
         })
             .then(res => res.json())
             .then(data => {
@@ -62,8 +62,6 @@ function Customer(props) {
             });
 
     }
-
-    const currDate = new Date().toLocaleDateString();
 
     return (
         <>
@@ -142,7 +140,7 @@ function Customer(props) {
                 <div className="customer">
                     <div className="customer__header">
                         <div className="customer__title">
-                            CustomerBill
+                            Payment
                         </div>
 
                         <div className="customer__search">
