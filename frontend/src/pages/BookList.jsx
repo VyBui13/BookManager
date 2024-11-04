@@ -2,6 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import '../styles/BookList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 
 function BookList() {
     const [books, setBooks] = useState([]);
@@ -24,7 +26,7 @@ function BookList() {
                     books.map(book => (
                         <div className="booklist__item">
                             <div className="booklist__icon">
-                                <i className="fa-solid fa-book"></i>
+                                <FontAwesomeIcon icon={faBook} className='icon__book' />
                             </div>
 
                             <div className="booklist__header">

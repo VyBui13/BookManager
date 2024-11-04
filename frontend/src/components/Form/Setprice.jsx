@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import BookSelected from '../BookSelected';
 import '../../styles/List.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 
 function setPrice() {
     const [books, setBooks] = useState([]);
@@ -23,7 +25,7 @@ function setPrice() {
                 <div className="list">
                     <div className="list__title">
                         Book List
-                        <i className="fa-solid fa-book-open"></i>
+                        <FontAwesomeIcon icon={faBookOpen} className="icon__header" />
                     </div>
                     <div className="list__body">
 

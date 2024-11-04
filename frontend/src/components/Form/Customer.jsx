@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { nofi } from '../Notify.jsx';
+import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 function Customer(props) {
+    const { notify } = useNotification();
     const [search, setSearch] = useState('');
     const [payment, setPayment] = useState('');
     const [customer, setCustomer] = useState({});
@@ -16,13 +19,13 @@ function Customer(props) {
                 .then(res => res.json())
                 .then(data => {
                     if (data === null) {
-                        nofi({ type: 'error', msg: 'Customer not found!' });
+                        notify({ type: 'error', msg: 'Customer not found!' });
                         return;
                     }
                     setCustomer(data);
                 })
                 .catch((err) => {
-                    nofi({ type: 'error', msg: err.message });
+                    notify({ type: 'error', msg: err.message });
                 }
                 );
         }
@@ -149,7 +152,7 @@ function Customer(props) {
                                 onChange={(e) => setSearch(e.target.value)}
                                 type="text" placeholder="Search..." />
                             <button onClick={handleSearch}>
-                                <i className="fas fa-search"></i>
+                                <FontAwesomeIcon icon={faSearch} />
                             </button>
                         </div>
                     </div>

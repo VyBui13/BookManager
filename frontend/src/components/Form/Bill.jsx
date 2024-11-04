@@ -1,14 +1,17 @@
 import { useState, useContext, useEffect } from 'react';
-import { nofi } from '../Notify.jsx';
+import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { useNavigate } from 'react-router-dom';
 import { ConfigContext } from '../Config.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 
 function Bill() {
     const { regulation } = useContext(ConfigContext);
+    const { notify } = useNotification();
     const Navigate = useNavigate();
     const [bill, setBill] = useState({
         bookList: [],
@@ -39,10 +42,10 @@ function Bill() {
 
     function handleSummit() {
         if (bill.customerName === '') {
-            nofi({ type: 'error', msg: 'Please fill customer name!' });
+            notify({ type: 'error', msg: 'Please fill customer name!' });
         }
         else if (bill.bookList.length === 0) {
-            nofi({ type: 'warning', msg: 'Please choose book!' });
+            notify({ type: 'error', msg: 'Please choose book!' });
         }
         else {
             fetch('http://localhost:5000/customers/bill', {
@@ -52,13 +55,13 @@ function Bill() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    nofi({ type: data.status, msg: data.message });
+                    notify({ type: data.status, msg: data.message });
                     if (data.status === 'success') {
                         Navigate('/form/customer', { replace: true });
                     }
                 })
                 .catch((error) => {
-                    nofi({ type: error.status, msg: error.message });
+                    notify({ type: error.status, msg: error.message });
                 });
 
 
@@ -75,7 +78,7 @@ function Bill() {
                             books.map(book => (
                                 <div className="booklist__item" key={book._id}>
                                     <div className="booklist__icon">
-                                        <i className="fa-solid fa-book"></i>
+                                        <FontAwesomeIcon icon={faBook} className='icon__card' />
                                     </div>
 
                                     <div className="booklist__header">

@@ -1,7 +1,7 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nofi } from '../components/Notify.jsx';
+import { useNotification } from '../components/NotificationContext';
 import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +11,7 @@ function Login({ setIsAuthenticated }) {
     const [useraccount, setUseraccount] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { notify } = useNotification();
 
     function handleSubmit() {
         fetch('http://localhost:5000/users/', {
@@ -22,16 +23,17 @@ function Login({ setIsAuthenticated }) {
             .then(data => {
                 console.log(data);
                 if (data.status === 'error') {
-                    nofi({ type: 'error', msg: data.message });
+                    notify({ type: 'error', msg: data.message });
                     return;
                 }
-                nofi({ type: 'success', msg: data.message });
+                notify({ type: 'success', msg: 'Login successfully' });
                 setIsAuthenticated(true);
                 navigate('/');
 
             })
             .catch((err) => {
-                nofi({ type: 'error', msg: err.message });
+                console.log(err);
+                notify({ type: 'error', msg: 'Server error' });
             });
     };
 

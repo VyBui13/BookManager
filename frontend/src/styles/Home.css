@@ -50,7 +50,7 @@
     opacity: 1;
 }
 
-.home__header .home__feature .home__search i {
+.home__header .home__feature .home__search {
     font-size: 1.2rem;
     margin: 0 5px;
 }
@@ -94,7 +94,7 @@
     align-items: center;
 }
 
-.home__general .home__general__card .home__general__icon i {
+.home__general .home__general__card .home__general__icon {
     font-size: 1.3rem;
     color: #fff;
 }

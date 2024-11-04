@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState, useContext } from 'react';
-import { nofi } from '../Notify.jsx';
-import '../../styles/Form.css';
+import { useNotification } from '../NotificationContext.jsx';
+import '../../styles/Book.css';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import { ConfigContext } from '../Config.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 function Book() {
+    const { notify } = useNotification();
     const currDate = getCurrentDateTime();
     const { regulation } = useContext(ConfigContext);
     // const [listBook, setListBook] = useState([]);
@@ -18,10 +21,10 @@ function Book() {
 
     function handleSummit() {
         if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
-            nofi({ type: 'error', msg: 'Please fill all field!' });
+            notify({ type: 'error', msg: 'Please fill all field!' });
         }
         else if (book.bookAmount < regulation.bookMinAmountInput) {
-            nofi({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
+            notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
             return;
         }
         else {
@@ -32,10 +35,10 @@ function Book() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    nofi({ type: data.status, msg: data.message });
+                    notify({ type: data.status, msg: data.message });
                 })
                 .catch((error) => {
-                    nofi({ type: 'error', msg: error.message });
+                    notify({ type: 'error', msg: error.message });
                 });
             setBook({
                 ...book,
@@ -61,7 +64,8 @@ function Book() {
                             {currDate}
                         </div>
                         <div className="form__localtime-icon">
-                            <i className="fa-regular fa-calendar"></i>
+                            <FontAwesomeIcon icon={faCalendar} className='icon__time' />
+
                         </div>
                     </div>
                     <form action="#">

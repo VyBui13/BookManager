@@ -1,6 +1,8 @@
 import FormController from '../components/Form/FormController.jsx'
 import { Link } from "react-router-dom"
-import '../styles/FormPannel.css'
+import '../styles/Form.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook, faList, faWallet, faUser, faTag } from '@fortawesome/free-solid-svg-icons'
 
 function Form() {
     return (
@@ -16,35 +18,35 @@ function Form() {
                     <div className="formdashboard__navbar">
                         <div className="formdashboard__item">
                             <Link to="">
-                                <i className="fa-solid fa-list"></i>
+                                <FontAwesomeIcon icon={faList} className='icon__navbar' />
                             </Link>
                         </div>
 
 
                         <div className="formdashboard__item">
                             <Link to="book" title='Book'>
-                                <i className="fa-solid fa-book"></i>
+                                <FontAwesomeIcon icon={faBook} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Book</div>
                             </Link>
                         </div>
 
                         <div className="formdashboard__item">
                             <Link to="bill">
-                                <i className="fa-solid fa-wallet"></i>
+                                <FontAwesomeIcon icon={faWallet} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Bill</div>
                             </Link>
                         </div>
 
                         <div className="formdashboard__item">
                             <Link to="customer">
-                                <i className="fa-solid fa-user-tie"></i>
+                                <FontAwesomeIcon icon={faUser} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Fee</div>
                             </Link>
                         </div>
 
                         <div className="formdashboard__item">
                             <Link to="setprice">
-                                <i className="fa-solid fa-book"></i>
+                                <FontAwesomeIcon icon={faTag} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Price</div>
                             </Link>
 

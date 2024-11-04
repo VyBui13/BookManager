@@ -2,12 +2,14 @@ import './styles/Header.css'
 import { useState } from 'react'
 import { Link } from "react-router-dom"
 import './styles/Header.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+
 
 function Header() {
     // const [isSidebar, setIsSidebar] = useState(false)
     return (
         <>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div className="header__wrapper">
 
                 <div className="header">
@@ -16,32 +18,42 @@ function Header() {
                     </div>
                     <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/"><i className="fa-solid fa-home"></i></Link>
+                            <Link to="/">
+                                <FontAwesomeIcon icon={faHome} className="icon__header" />
+                            </Link>
                         </div>
                     </div>
 
                     <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/form/*"><i className="fa-solid fa-clipboard"></i></Link>
+                            <Link to="/form/*">
+                                <FontAwesomeIcon icon={faClipboard} className="icon__header" />
+                            </Link>
                         </div>
 
                     </div>
 
                     <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/booklist"><i className="fa-solid fa-book"></i></Link>
+                            <Link to="/booklist">
+                                <FontAwesomeIcon icon={faBook} className="icon__header" />
+                            </Link>
                         </div>
                     </div>
 
                     <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/report"><i className="fa-solid fa-newspaper"></i></Link>
+                            <Link to="/report">
+                                <FontAwesomeIcon icon={faNewspaper} className="icon__header" />
+                            </Link>
                         </div>
                     </div>
 
                     <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/regulation"><i class="fa-solid fa-gear"></i></Link>
+                            <Link to="/regulation">
+                                <FontAwesomeIcon icon={faGear} className="icon__header" />
+                            </Link>
                         </div>
                     </div>
 
@@ -50,7 +62,9 @@ function Header() {
 
                 <div className="logout">
                     <div className="logout__icon">
-                        <Link to="/login"><i class="fa-solid fa-right-from-bracket"></i></Link>
+                        <Link to="/login">
+                            <FontAwesomeIcon icon={faRightFromBracket} className="icon__header" />
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import "../styles/Home.css";
 import { useState, useEffect } from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook, faUserTie, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 function Home() {
     const [books, setBooks] = useState([]);
@@ -30,11 +31,11 @@ function Home() {
                 <div className="home__feature">
                     <div className="home__search">
                         <input type="text" placeholder="Search" />
-                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} className='icon__search' />
                     </div>
 
                     <div className="home__profile">
-                        <i className="fa-solid fa-user-tie"></i>
+                        <FontAwesomeIcon icon={faUserTie} className='icon__profile' />
                     </div>
                 </div>
 
@@ -44,7 +45,7 @@ function Home() {
             <div className="home__general">
                 <div className="home__general__card">
                     <div className="home__general__icon">
-                        <i className="fa-solid fa-book"></i>
+                        <FontAwesomeIcon icon={faBook} className='icon__card' />
                     </div>
                     <div className="home__general__main">
                         <div className="home__general__text">
@@ -68,7 +69,7 @@ function Home() {
 
                 <div className="home__general__card">
                     <div className="home__general__icon">
-                        <i className="fa-solid fa-book"></i>
+                        <FontAwesomeIcon icon={faBook} className='icon__card' />
                     </div>
                     <div className="home__general__main">
                         <div className="home__general__text">
@@ -92,7 +93,7 @@ function Home() {
 
                 <div className="home__general__card">
                     <div className="home__general__icon">
-                        <i className="fa-solid fa-book"></i>
+                        <FontAwesomeIcon icon={faBook} className='icon__card' />
                     </div>
                     <div className="home__general__main">
                         <div className="home__general__text">
@@ -116,7 +117,7 @@ function Home() {
 
                 <div className="home__general__card">
                     <div className="home__general__icon">
-                        <i className="fa-solid fa-book"></i>
+                        <FontAwesomeIcon icon={faBook} className='icon__card' />
                     </div>
                     <div className="home__general__main">
                         <div className="home__general__text">
