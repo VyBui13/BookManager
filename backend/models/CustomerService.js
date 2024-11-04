@@ -6,6 +6,8 @@ class CustomerService {
         const bookList = billData.bookList;
         const customerName = billData.customerName;
         const updateDate = billData.updateDate;
+        const debtMax = billData.debtMax;
+        const bookMinAmountAfterSell = billData.bookMinAmountAfterSell;
         const totalPriceBook = bookList.map(book => Number(book.bookPrice) * Number(book.amountBought)).reduce((a, b) => a + b, 0);
 
         const query = { customerName: customerName };
@@ -13,60 +15,119 @@ class CustomerService {
         const isBeginMonth = false;
         const customer = await Customer.findOne(query);
 
-        if (customer) {
-            const newBill = {
-                bookList: bookList.map(book => {
+        for (let i = 0; i < bookList.length; i++) {
+            const bookQuery = { bookName: bookList[i].bookName };
+            const bookData = await Book.findOne(bookQuery);
+            if (!bookData) {
+                return {
+                    status: 'error',
+                    message: 'Book not found',
+                }
+            }
+            if (Number(bookList[i].amountBought) > Number(bookData.bookCurrentAmount)) {
+                return {
+                    status: 'error',
+                    message: 'Book amount is not enough',
+                }
+                if (Number(bookData.bookCurrentAmount) - Number(bookList[i].amountBought) < Number(bookMinAmountAfterSell)) {
                     return {
-                        bookName: book.bookName,
-                        bookKind: book.bookKind,
-                        bookAuthor: book.bookAuthor,
-                        amountBought: book.amountBought,
-                        bookPrice: book.bookPrice,
+                        status: 'warning',
+                        message: 'Book amount after selling is not below ' + bookMinAmountAfterSell,
                     }
-                }),
-                createdDate: updateDate,
-                totalPrice: totalPriceBook,
+                }
             }
-            customer.billList.push(newBill);
-            customer.customerCurrentDebt += totalPriceBook;
-            await customer.save();
-            return {
-                status: 'success',
-                message: 'Add bill successfully',
-            }
-        } else {
-            const newCustomer = new Customer({
-                customerName: customerName,
-                updateDate: updateDate,
-                customerInfoCreatedDate: updateDate,
-                customerBeginningDebt: 0,
-                customerCurrentDebt: totalPriceBook,
-                billList: [
-                    {
-                        bookList: bookList.map(book => {
-                            return {
-                                bookName: book.bookName,
-                                bookKind: book.bookKind,
-                                bookAuthor: book.bookAuthor,
-                                amountBought: book.amountBought,
-                                bookPrice: book.bookPrice,
-                            }
-                        }),
-                        createdDate: updateDate,
-                        totalPrice: totalPriceBook,
-                    }
-                ],
-                feeList: [
-                    {}
-                ],
-            });
-            await newCustomer.save()
-            return {
-                status: 'success',
-                message: 'Add new customer with bill successfully',
-            }
-        }
+            // bookList.forEach(async book => {
+            //     const bookQuery = { bookName: book.bookName };
+            //     const bookData = await Book.findOne(bookQuery);
+            //     if (bookData) {
+            //         const amountBookAfterSell = Number(bookData.bookCurrentAmount) - Number(book.amountBought);
+            //         console.log('amountBookAfterSell', amountBookAfterSell)
+            //         console.log('bookMinAmountAfterSell', bookMinAmountAfterSell)
+            //         console.log('Number(amountBookAfterSell) < Number(bookMinAmountAfterSell)', Number(amountBookAfterSell) < Number(bookMinAmountAfterSell))
+            //         if (Number(amountBookAfterSell) < Number(bookMinAmountAfterSell)) {
+            //             console.log('access11111111111111111111111111111')
+            //             return {
+            //                 status: 'warning',
+            //                 message: 'Book amount after selling is not below ' + bookMinAmountAfterSell,
+            //             }
+            //         }
+            //         else {
+            //             return {
+            //                 status: 'error',
+            //                 message: 'Something went wrong!',
+            //             }
+            //         }
+            //     }
+            // }
+            // )
 
+            bookList.forEach(async book => {
+                const bookQuery = { bookName: book.bookName };
+                const bookData = await Book.findOne(bookQuery);
+                bookData.bookCurrentAmount = Number(bookData.bookCurrentAmount) - Number(book.amountBought);
+                bookData.updateDate = updateDate;
+                await bookData.save();
+            })
+
+            if (customer) {
+                if (customer.customerCurrentDebt > debtMax) {
+                    return {
+                        status: 'warning',
+                        message: 'Customer debt is over limit',
+                    }
+                }
+
+                const newBill = {
+                    bookList: bookList.map(book => {
+                        return {
+                            bookName: book.bookName,
+                            bookKind: book.bookKind,
+                            bookAuthor: book.bookAuthor,
+                            amountBought: book.amountBought,
+                            bookPrice: book.bookPrice,
+                        }
+                    }),
+                    createdDate: updateDate,
+                    totalPrice: totalPriceBook,
+                }
+                customer.billList.push(newBill);
+                customer.customerCurrentDebt += totalPriceBook;
+                await customer.save();
+                return {
+                    status: 'success',
+                    message: 'Add bill successfully',
+                }
+            } else {
+                const newCustomer = new Customer({
+                    customerName: customerName,
+                    updateDate: updateDate,
+                    customerInfoCreatedDate: updateDate,
+                    customerBeginningDebt: 0,
+                    customerCurrentDebt: totalPriceBook,
+                    billList: [
+                        {
+                            bookList: bookList.map(book => {
+                                return {
+                                    bookName: book.bookName,
+                                    bookKind: book.bookKind,
+                                    bookAuthor: book.bookAuthor,
+                                    amountBought: book.amountBought,
+                                    bookPrice: book.bookPrice,
+                                }
+                            }),
+                            createdDate: updateDate,
+                            totalPrice: totalPriceBook,
+                        }
+                    ],
+                });
+                await newCustomer.save()
+                return {
+                    status: 'success',
+                    message: 'Add new customer with bill successfully',
+                }
+            }
+
+        }
     }
 
     async addFee(feeData) {
