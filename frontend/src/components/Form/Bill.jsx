@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { nofi } from '../Notify.jsx';
 import '../../styles/Form.css';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { useNavigate } from 'react-router-dom';
+import { ConfigContext } from '../Config.jsx'
 
 function Bill() {
+    const { regulation } = useContext(ConfigContext);
     const Navigate = useNavigate();
     const [bill, setBill] = useState({
         bookList: [],
@@ -47,12 +48,14 @@ function Bill() {
             fetch('http://localhost:5000/customers/bill', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime() })
+                body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime(), debtMax: regulation.debtMax, bookMinAmountAfterSell: regulation.bookMinAmountAfterSell }),
             })
                 .then(response => response.json())
                 .then(data => {
                     nofi({ type: data.status, msg: data.message });
-                    Navigate('/form/customer', { replace: true });
+                    if (data.status === 'success') {
+                        Navigate('/form/customer', { replace: true });
+                    }
                 })
                 .catch((error) => {
                     nofi({ type: error.status, msg: error.message });
@@ -145,7 +148,7 @@ function Bill() {
                             <span className="bill__formdetail">CustomerName:</span>
                             <input
                                 value={bill.customerName}
-                                onChange={(e) => setBill({ ...bill, customerName: e.target.value.trim() })}
+                                onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
                                 type="text" required />
                         </div>
 

@@ -6,11 +6,12 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 function MainApp() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Function to handle login
   return (
     <BrowserRouter>
+      <Notify />
       <Routes>
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route
@@ -18,7 +19,6 @@ function MainApp() {
           element={
             isAuthenticated ? (
               <>
-                <Notify />
                 <Dashboard />
               </>
             ) : (

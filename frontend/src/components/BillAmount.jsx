@@ -39,7 +39,10 @@ function BillAmount(props) {
                         </div>
                         <input
                             value={book.amountBought}
-                            onChange={(e) => setBook({ ...book, amountBought: e.target.value.trim() })}
+                            onChange={(e) => {
+                                setBook({ ...book, amountBought: e.target.value.trim() })
+                            }
+                            }
                             type="number" />
                     </div>
 
