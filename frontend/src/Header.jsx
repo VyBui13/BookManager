@@ -4,9 +4,10 @@ import { Link } from "react-router-dom"
 import './styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
+import { useAuthentications } from './components/AuthenticationContext.jsx';
 
 function Header() {
+    const { setIsAuthenticated } = useAuthentications();
     // const [isSidebar, setIsSidebar] = useState(false)
     return (
         <>
@@ -62,7 +63,11 @@ function Header() {
 
                 <div className="logout">
                     <div className="logout__icon">
-                        <Link to="/login">
+                        <Link to="/login" onClick={
+                            () => {
+                                setIsAuthenticated(false)
+                            }
+                        }>
                             <FontAwesomeIcon icon={faRightFromBracket} className="icon__header" />
                         </Link>
                     </div>

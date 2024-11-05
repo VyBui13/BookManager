@@ -5,17 +5,18 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NotificationProvider } from './components/NotificationContext.jsx';
 import Notify from './components/Notify.jsx';
+import { useAuthentications, AuthenticationProvider } from './components/AuthenticationContext.jsx';
+
 
 function MainApp() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-
+  const { isAuthenticated } = useAuthentications();
   // Function to handle login
   return (
     <BrowserRouter>
       <NotificationProvider>
         <Notify />
         <Routes>
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/*"
             element={
@@ -34,4 +35,8 @@ function MainApp() {
   );
 }
 
-createRoot(document.getElementById('root')).render(<MainApp />);
+createRoot(document.getElementById('root')).render(
+  <AuthenticationProvider>
+    <MainApp />
+  </AuthenticationProvider>
+);
