@@ -1,61 +1,64 @@
 import '../styles/ReportForm.css';
 import { useState, useEffect } from 'react';
+import { useNotification } from './NotificationContext';
 
-function ReportForm() {
-    const [listBook, setListBook] = useState([]);
+function ReportBookForm() {
+    const { notify } = useNotification();
+    const [listCustomer, setListCustomer] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/books')
+        fetch('http://localhost:5000/customers')
             .then(response => response.json())
             .then(data => {
-                setListBook(data);
+                setListCustomer(data);
             })
             .catch((error) => {
-                console.log(error);
+                notify({ type: 'error', msg: error.message });
             }
             );
     }, []);
+
 
     return (
         <div className="reportform">
             <div className="reportform__feature reportform__fieldheader">
                 <div className="reportform__attribute">
-                    BookName
+                    CustomerName
                 </div>
 
                 <div className="reportform__attribute">
-                    Beginning
+                    Phone
                 </div>
 
                 <div className="reportform__attribute">
-                    Current
+                    FirstDebt
                 </div>
 
                 <div className="reportform__attribute">
-                    CreatedDay
+                    CurrentDebt
                 </div>
 
                 <div className="reportform__attribute">
-                    CurrentDay
+                    UpdateDate
                 </div>
             </div>
 
-            {listBook.map((item) => (
+            {listCustomer.map((item) => (
                 <div className="reportform__feature reportform__fieldbody" key={item._id}>
                     <div className="reportform__attribute">
-                        {item.bookName}
+                        {item.customerName}
                     </div>
                     <div className="reportform__attribute">
-                        {item.bookBeginningAmount}
+                        {item.customerPhone}
                     </div>
                     <div className="reportform__attribute">
-                        {item.bookCurrentAmount}
+                        {item.customerBeginningDebt}
                     </div>
                     <div className="reportform__attribute">
-                        {item.createdDate}
+                        {item.customerCurrentDebt}
                     </div>
 
                     <div className="reportform__attribute">
-                        {item._updateDate}
+                        {item.updateDate}
                     </div>
 
                 </div>
@@ -66,4 +69,4 @@ function ReportForm() {
     );
 }
 
-export default ReportForm;
+export default ReportBookForm;

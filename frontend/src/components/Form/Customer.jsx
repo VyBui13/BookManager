@@ -18,6 +18,7 @@ function Customer(props) {
             fetch(`http://localhost:5000/customers?customerName=${props.customerName}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     if (data === null) {
                         notify({ type: 'error', msg: 'Customer not found!' });
                         return;
@@ -36,14 +37,14 @@ function Customer(props) {
             .then(res => res.json())
             .then(data => {
                 if (data === null) {
-                    nofi({ type: 'error', msg: 'Customer not found!' });
+                    notify({ type: 'error', msg: 'Customer not found!' });
                     return;
                 }
                 setCustomer(data);
                 setSearch('');
             })
             .catch((err) => {
-                nofi({ type: 'error', msg: err.message });
+                notify({ type: 'error', msg: err.message });
             }
             );
     };

@@ -53,7 +53,7 @@ function Book() {
 
     return (
         <>
-            <div className="form-container form--bookimport">
+            <div className="form-container">
                 <div className="form">
                     <div className="form__title">
                         book import

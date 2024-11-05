@@ -1,6 +1,7 @@
 import '../styles/Report.css';
 import { useState } from 'react';
-import ReportForm from '../components/ReportForm';
+import ReportBookForm from '../components/ReportBookForm';
+import ReportCustomerForm from '../components/ReportCustomerForm';
 import { getMonthYear } from '../utils/DateCurrent';
 
 function Report() {
@@ -28,7 +29,7 @@ function Report() {
                     </div>
 
                     <div className="report__body">
-                        {isBookReport && <ReportForm />}
+                        {isBookReport ? <ReportBookForm /> : <ReportCustomerForm />}
                     </div>
                 </div>
             </div>
