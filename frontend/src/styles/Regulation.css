@@ -1,10 +1,9 @@
-.regulation-container {
+/* .regulation-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pic/img/background-book-form.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -29,10 +28,6 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    /* background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px); */
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 20px;
     margin: 10px 0;
@@ -73,102 +68,10 @@
 
 .regulation__config .regulation__feature-config .regulation__feature-value {
     margin-left: 10px;
-}
+} */
 
 
 /*--------------------SETTING------------------*/
-.regulation__item .regulation__config .regulation__range {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 5px;
-
-}
-
-.regulation__config .regulation__range .regulation__range-value {
-    width: 70%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.regulation__range .regulation__range-value span {
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    top: -50px;
-    transform: translateX(-50%) scale(0);
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity, transform 0.4s;
-}
-
-.regulation__range .regulation__range-value:active span {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-.regulation__range .regulation__range-value span:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 35px;
-    height: 35px;
-    background-color: #664AFF;
-    z-index: -1;
-    border: 2px solid #fff;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-
-}
-
-.regulation__config .regulation__range .regulation__fieldrange {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 0 10px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-}
-
-.regulation__range .regulation__fieldrange .regulation__fieldrange-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #664AFF;
-    text-align: center;
-    width: 40px;
-}
-
-
-.regulation__range .regulation__fieldrange input[type="range"] {
-    outline: none;
-    border: none;
-    width: 100%;
-    height: 2px;
-    background-color: #63636366;
-    cursor: pointer;
-    accent-color: #664AFF;
-    -webkit-appearance: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 15px;
-    width: 5px;
-    border-radius: 2px;
-    border: 1px solid #fff;
-    background-color: #664AFF;
-}
-
 :root {
     --width-label: 100px;
     --height-label: 30px;
@@ -228,25 +131,4 @@ input[type=range]::-webkit-slider-thumb {
     left: calc(var(--width-label) - var(--distance-btn-label));
     transform: translateX(-100%);
     background-image: url(/pic/ico/No.png);
-}
-
-/*--------------------BOOKFORM-------------------*/
-.regulation__config--bookform .regulation__header-config {
-    background: linear-gradient(to right, var(--book-import-color), var(--second-color));
-    background-clip: text;
-    color: transparent;
-}
-
-/*--------------------BILLFORM-------------------*/
-.regulation__config--billform .regulation__header-config {
-    background: linear-gradient(to right, var(--bill-color), var(--second-color));
-    background-clip: text;
-    color: transparent;
-}
-
-/*--------------------BOOKFORM-------------------*/
-.regulation__config--customerform .regulation__header-config {
-    background: linear-gradient(to right, var(--customer-color), var(--second-color));
-    background-clip: text;
-    color: transparent;
 }
