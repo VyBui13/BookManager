@@ -172,10 +172,14 @@ class CustomerService {
         }
     }
 
-    async getCustomer(name) {
+    async getCustomerByName(name) {
         const query = { customerName: name };
         const customer = Customer.findOne(query);
         return customer || {};
+    }
+
+    async getCustomerList() {
+        return Customer.find();
     }
 
 

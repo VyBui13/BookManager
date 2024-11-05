@@ -32,9 +32,22 @@ class CustomerController {
     async getCustomer(req, res) {
         try {
             const customerName = req.query.customerName;
-            console.log(customerName);
-            const customer = await customerServiceInstance.getCustomer(customerName);
-            res.status(200).json(customer);
+            if (customerName) {
+                const customer = await customerServiceInstance.getCustomerByName(customerName);
+                res.status(200).json(customer);
+            }
+            else {
+                customerServiceInstance.getCustomerList()
+                    .then(customerList => {
+                        res.json(customerList);
+                    })
+                    .catch(err => {
+                        res.status(500).json({
+                            status: 'error',
+                            message: err.message
+                        });
+                    });
+            }
         }
         catch (err) {
             res.status(500).json({
