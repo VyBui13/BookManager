@@ -22,7 +22,6 @@ function Home() {
     return (
         <div className="home">
             <div className="home__header">
-
                 <div className="home__title">
                     <p>Book Management</p>
                     <h1>Dashboard</h1>
@@ -74,7 +73,31 @@ function Home() {
                     <div className="home__general__main">
                         <div className="home__general__text">
                             <div className="home__general__title">
-                                Total Book
+                                Total Income
+                            </div>
+                            <div className="home__general__value">
+                                10.000K
+                            </div>
+
+                            <div className="home__general__update">
+                                Date: 20/11/2024
+                            </div>
+                        </div>
+                        <div className="home__general__percent">
+                            100%
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="home__general__card">
+                    <div className="home__general__icon">
+                        <FontAwesomeIcon icon={faBook} className='icon__card' />
+                    </div>
+                    <div className="home__general__main">
+                        <div className="home__general__text">
+                            <div className="home__general__title">
+                                Total Customer
                             </div>
                             <div className="home__general__value">
                                 100
@@ -98,31 +121,7 @@ function Home() {
                     <div className="home__general__main">
                         <div className="home__general__text">
                             <div className="home__general__title">
-                                Total Book
-                            </div>
-                            <div className="home__general__value">
-                                100
-                            </div>
-
-                            <div className="home__general__update">
-                                Date: 20/11/2024
-                            </div>
-                        </div>
-                        <div className="home__general__percent">
-                            100%
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="home__general__card">
-                    <div className="home__general__icon">
-                        <FontAwesomeIcon icon={faBook} className='icon__card' />
-                    </div>
-                    <div className="home__general__main">
-                        <div className="home__general__text">
-                            <div className="home__general__title">
-                                Total Book
+                                Total Staff
                             </div>
                             <div className="home__general__value">
                                 100
@@ -167,7 +166,7 @@ function Home() {
 
                         {books.map((book) => {
                             return (
-                                <div className="home__recent__field" key={book._id}>
+                                <div className="home__recent__field home__recent__valuefield" key={book._id}>
                                     <div className="home__recent__attribute">
                                         {book.bookName}
                                     </div>
@@ -204,7 +203,6 @@ function Home() {
 
 
         </div>
-
 
     );
 }
