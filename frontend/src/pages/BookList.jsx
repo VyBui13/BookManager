@@ -21,48 +21,54 @@ function BookList() {
 
     return (
         <>
-            <div className="booklist">
-                {
-                    books.map(book => (
-                        <div className="booklist__item">
-                            <div className="booklist__icon">
-                                <FontAwesomeIcon icon={faBook} className='icon__book' />
-                            </div>
+            <div className="booklist-container">
+                <div className="page__header">
+                    <p>Manager</p>
+                    <h1>Booklist</h1>
+                </div>
+                <div className="booklist">
+                    {
+                        books.map(book => (
+                            <div className="booklist__item">
+                                <div className="booklist__icon">
+                                    <FontAwesomeIcon icon={faBook} className='icon__book' />
+                                </div>
 
-                            <div className="booklist__header">
-                                <div className="booklist__bookname">
-                                    {book.bookName}
+                                <div className="booklist__header">
+                                    <div className="booklist__bookname">
+                                        {book.bookName}
+                                    </div>
+                                </div>
+
+                                <div className="booklist__content">
+                                    <div className="booklist__price">
+                                        {book.bookPrice} VND
+                                    </div>
+
+                                    <div className="booklist__detail">
+                                        Latest udated date: {book.updateDate}
+                                    </div>
+
+                                    <div className="booklist__detail">
+                                        Author: {book.bookAuthor}
+                                    </div>
+
+                                    <div className="booklist__detail">
+                                        Kind: {book.bookKind}
+                                    </div>
+
+                                    <div className="booklist__detail">
+                                        Amount:
+                                        <span>{book.bookCurrentAmount}</span>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div className="booklist__content">
-                                <div className="booklist__price">
-                                    {book.bookPrice} VND
-                                </div>
-
-                                <div className="booklist__detail">
-                                    Latest udated date: {book.updateDate}
-                                </div>
-
-                                <div className="booklist__detail">
-                                    Author: {book.bookAuthor}
-                                </div>
-
-                                <div className="booklist__detail">
-                                    Kind: {book.bookKind}
-                                </div>
-
-                                <div className="booklist__detail">
-                                    Amount:
-                                    <span>{book.bookCurrentAmount}</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    ))
-                }
+                        ))
+                    }
 
 
+                </div>
             </div>
         </>
     )

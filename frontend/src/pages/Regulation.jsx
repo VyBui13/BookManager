@@ -33,7 +33,7 @@ function Regulation() {
                 step={value.step}
             />}
             <div className="setting">
-                <div className="setting__header">
+                <div className="page__header">
                     <p>Dashboard</p>
                     <h1>Setting</h1>
                 </div>

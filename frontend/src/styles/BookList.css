@@ -1,16 +1,20 @@
+.booklist-container {
+    padding: 20px;
+}
+
 .booklist {
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    padding: 20px;
 }
 
 .booklist .booklist__item {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: var(--border-radius);
-    margin: 20px;
+    margin: 20px 0;
     position: relative;
 }
 

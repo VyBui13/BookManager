@@ -10,6 +10,11 @@ function Report() {
     return (
         <>
             <div className="report-container">
+                <div className="page__header">
+                    <p>Manager</p>
+                    <h1>Report</h1>
+                </div>
+
                 <div className="report">
                     <div className="report__header">
                         <div className="report__date">

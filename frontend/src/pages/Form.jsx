@@ -8,11 +8,10 @@ function Form() {
     return (
         <div className="formdashboard">
             <div className="formdashboard__header__wrapper">
-                <div className="formdashboard__header">
-                    <div className="formdashboard__title">
+                <div className="formdashboard__header page__header">
+                    <div className="title">
                         <p>Manager</p>
                         <h1>Form</h1>
-
                     </div>
 
                     <div className="formdashboard__navbar">
