@@ -15,8 +15,21 @@ class UserController {
                 message: err.message
             });
         }
-
     }
+
+    async getUsersByRole(req, res) {
+        const role = req.query.role;
+        try {
+            const users = await userServiceInstance.getUsersByRole(role);
+            res.status(200).json(users);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    };
 }
 
 module.exports = new UserController;

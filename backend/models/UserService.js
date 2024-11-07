@@ -23,6 +23,11 @@ class UserService {
             message: 'Login successfully',
         }
     }
+
+    async getUsersByRole(role) {
+        const users = await User.find({ userRole: role });
+        return users;
+    }
 }
 
 module.exports = UserService;
