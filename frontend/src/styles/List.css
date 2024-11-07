@@ -8,7 +8,7 @@
 
 .list {
     width: 100%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
@@ -51,7 +51,7 @@
     width: 95%;
     margin: 20px auto;
     background: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     overflow: auto;
 }
 
@@ -62,7 +62,7 @@
 
 .list .list__body::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .list .list__content {
@@ -162,7 +162,7 @@
 
 .list__content .list__items .list__item:nth-child(odd) {
     background-color: #afafaf;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 
@@ -170,14 +170,14 @@
     color: #fff;
     font-weight: 700;
     background-color: #77f740;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 
 .list__content .list__items .list__item .list__attribute button {
     width: 100%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 5px 10px;
     border: none;
     color: #fff;

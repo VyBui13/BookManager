@@ -6,7 +6,7 @@
     background-color: #fff;
     padding: 20px;
     width: 50%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -27,7 +27,7 @@
 .billamount .billamount__info input {
     width: 100%;
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 2px 10px;
     border: 2px solid #000000;
     background: transparent;
@@ -46,7 +46,7 @@
     cursor: pointer;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.5);
     margin: 0 10px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 5px 10px;
 }
 

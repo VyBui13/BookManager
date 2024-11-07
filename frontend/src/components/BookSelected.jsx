@@ -37,82 +37,85 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
 
     return (
         <>
-            <div className="bookprice">
-                <div className="bookprice__header">
-                    <div className="bookprice__title">
-                        Price Setting
-                        <div className="bookprice__description">
-                            Dashboard
+            <div className="virtual-background">
+
+                <div className="bookprice">
+                    <div className="bookprice__header">
+                        <div className="bookprice__title">
+                            Price Setting
+                            <div className="bookprice__description">
+                                Dashboard
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="bookprice__body">
-                    <div className="bookprice__information">
+                    <div className="bookprice__body">
+                        <div className="bookprice__information">
 
-                        <div className="bookprice__attribute">
+                            <div className="bookprice__attribute">
 
-                            <div className="bookprice__attribute-name">
-                                Name
-                            </div>
-                            <div className="bookprice__attribute-value">
-                                {bookSelected.bookName}
-                            </div>
+                                <div className="bookprice__attribute-name">
+                                    Name
+                                </div>
+                                <div className="bookprice__attribute-value">
+                                    {bookSelected.bookName}
+                                </div>
 
-                        </div>
-
-                        <div className="bookprice__attribute">
-
-                            <div className="bookprice__attribute-name">
-                                Kind
-                            </div>
-                            <div className="bookprice__attribute-value">
-                                {bookSelected.bookKind}
                             </div>
 
-                        </div>
+                            <div className="bookprice__attribute">
 
-                        <div className="bookprice__attribute">
+                                <div className="bookprice__attribute-name">
+                                    Kind
+                                </div>
+                                <div className="bookprice__attribute-value">
+                                    {bookSelected.bookKind}
+                                </div>
 
-                            <div className="bookprice__attribute-name">
-                                Author
-                            </div>
-                            <div className="bookprice__attribute-value">
-                                {bookSelected.bookAuthor}
-                            </div>
-
-                        </div>
-
-                        <div className="bookprice__attribute">
-
-                            <div className="bookprice__attribute-name">
-                                Amount
-                            </div>
-                            <div className="bookprice__attribute-value">
-                                {bookSelected.bookCurrentAmount}
                             </div>
 
-                        </div>
+                            <div className="bookprice__attribute">
 
-                        <div className="bookprice__attribute">
+                                <div className="bookprice__attribute-name">
+                                    Author
+                                </div>
+                                <div className="bookprice__attribute-value">
+                                    {bookSelected.bookAuthor}
+                                </div>
 
-                            <div className="bookprice__attribute-name">
-                                Price
-                            </div>
-                            <div className="bookprice__attribute-value">
-                                <input
-                                    value={bookSelected.bookPrice}
-                                    onChange={(e) => setBookSelected({ ...bookSelected, bookPrice: e.target.value })}
-                                    type="number" />
                             </div>
 
+                            <div className="bookprice__attribute">
+
+                                <div className="bookprice__attribute-name">
+                                    Amount
+                                </div>
+                                <div className="bookprice__attribute-value">
+                                    {bookSelected.bookCurrentAmount}
+                                </div>
+
+                            </div>
+
+                            <div className="bookprice__attribute">
+
+                                <div className="bookprice__attribute-name">
+                                    Price
+                                </div>
+                                <div className="bookprice__attribute-value">
+                                    <input
+                                        value={bookSelected.bookPrice}
+                                        onChange={(e) => setBookSelected({ ...bookSelected, bookPrice: e.target.value })}
+                                        type="number" />
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="bookprice__submit">
-                    <button onClick={handleCancel}>Cancel</button>
-                    <button id="bookprice__savebtn" onClick={handleSave}>Save</button>
+                    <div className="bookprice__submit">
+                        <button onClick={handleCancel}>Cancel</button>
+                        <button id="bookprice__savebtn" onClick={handleSave}>Save</button>
+                    </div>
                 </div>
             </div>
         </>

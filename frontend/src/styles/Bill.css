@@ -18,7 +18,7 @@
 
 .bill .bill__booklist::-webkit-scrollbar-thumb {
     background-color: rgba(102, 102, 170, 0.457);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .bill .bill__booklist .booklist {
@@ -30,7 +30,7 @@
     width: 450px;
     padding: 20px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
+    border-radius: var(--border-radius);
 }
 
 .bill .bill__form .bill__formtitle {
@@ -39,7 +39,7 @@
     margin-bottom: 20px;
     text-transform: uppercase;
     text-align: center;
-    color: #66A;
+    color: var(--main-color);
 }
 
 .bill .bill__form .bill__formitem {
@@ -55,7 +55,7 @@
     outline: none;
     padding: 10px;
     z-index: 1;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     border: 2px solid #000000;
     background: transparent;
     transition: all 0.3s;
@@ -73,7 +73,7 @@
 
 .bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar-thumb {
     background-color: rgba(102, 102, 170, 0.457);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .bill .bill__form .bill__formbody .bill__list {
@@ -103,8 +103,8 @@
     padding: 0 10px;
     font-size: 20px;
     font-weight: 700;
-    border-radius: 10px;
-    background-color: #66A;
+    border-radius: var(--border-radius);
+    background-color: var(--main-color);
     color: #fff;
     cursor: pointer;
     transition: all 0.3s;
@@ -129,8 +129,8 @@
     justify-content: center;
     align-items: center;
     padding: 0 10px;
-    border-radius: 10px;
-    background-color: #66A;
+    border-radius: var(--border-radius);
+    background-color: var(--main-color);
     color: #fff;
     cursor: pointer;
 }
@@ -153,8 +153,8 @@
     padding: 10px 20px;
     font-size: 20px;
     font-weight: 700;
-    border-radius: 10px;
-    background-color: #66A;
+    border-radius: var(--border-radius);
+    background-color: var(--main-color);
     color: #fff;
     border: none;
     cursor: pointer;

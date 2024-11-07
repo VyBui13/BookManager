@@ -7,10 +7,10 @@
 }
 
 .booklist .booklist__item {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
-    border-radius: 20px;
-    margin: 10px 20px;
+    border-radius: var(--border-radius);
+    margin: 20px;
     position: relative;
 }
 
@@ -54,7 +54,7 @@
 .booklist__item .booklist__content .booklist__detail span {
     font-weight: 700;
     margin-left: 5px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     padding: 0 5px;
     color: #fff;
     background-color: #66A;

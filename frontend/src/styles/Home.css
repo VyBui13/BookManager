@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 20px;
-    border-radius: 20px;
+    border-radius: var(--border-radius);
 }
 
 .home .home__header .home__title p {
@@ -29,7 +29,7 @@
 .home__header .home__feature .home__search {
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 5px 10px;
     border: 2px solid #000;
     overflow: hidden;
@@ -78,9 +78,9 @@
 }
 
 .home .home__general .home__general__card {
-    border-radius: 30px;
+    border-radius: var(--border-radius);
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     margin: 10px;
 }
 
@@ -150,12 +150,12 @@
 
 .home .home__recent .home__recent__body {
     width: 100%;
-    border-radius: 30px;
+    border-radius: var(--border-radius);
     padding: 20px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     margin: 10px 0;
 }
 

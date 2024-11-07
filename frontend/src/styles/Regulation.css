@@ -72,10 +72,9 @@
 
 
 /*--------------------SETTING------------------*/
-:root {
+/* :root {
     --width-label: 100px;
     --height-label: 30px;
-    /*Chan*/
     --distance-btn-label: 3px;
 }
 
@@ -116,7 +115,6 @@
     height: calc(var(--height-label) - 2 * var(--distance-btn-label));
     width: calc(var(--height-label) - 2 * var(--distance-btn-label));
     border-radius: 180px;
-    /* background-image: linear-gradient(to bottom right, #fff, #000000); */
     bottom: var(--distance-btn-label);
     top: var(--distance-btn-label);
     left: var(--distance-btn-label);
@@ -131,4 +129,35 @@
     left: calc(var(--width-label) - var(--distance-btn-label));
     transform: translateX(-100%);
     background-image: url(/pic/ico/No.png);
+} */
+
+.setting-container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding: 20px;
+}
+
+.setting-container .setting {
+    width: 100%;
+}
+
+.setting-container .setting .setting__header {
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+.setting-container .setting .setting__header h1 {
+    color: #66A;
+    text-transform: uppercase;
+}
+
+.setting-container .setting .setting__body {
+    width: 100%;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    margin: 20px 0;
+    border-radius: 10px;
 }

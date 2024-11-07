@@ -6,7 +6,7 @@
     background: #fff;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .input__title {
@@ -34,7 +34,7 @@
     font-size: 18px;
     font-weight: 700;
     text-align: center;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     text-align: center;
     -moz-appearance: textfield;
     -webkit-appearance: none;
@@ -99,7 +99,7 @@
     padding: 0 10px;
     height: 40px;
     background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .range .range__field .range__field__value {
@@ -146,7 +146,7 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 14px;
     font-weight: 700;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.3s;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);

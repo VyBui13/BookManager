@@ -1,10 +1,6 @@
 :root {
     --x-translate: 2px;
     --y-translate: -32px;
-    /* --second-color: #d0d676;
-    --book-import-color: #2e88e2;
-    --bill-color: #ff6b6b;
-    --customer-color: #7ef13b; */
 }
 
 .form-container {
@@ -19,7 +15,7 @@
     position: relative;
     background-color: #fff;
     width: 100%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 25px 30px;
     margin: 20px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
@@ -44,7 +40,7 @@
     font-size: 18px;
     padding: 2px 10px;
     border: 3px solid #ffffff;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-weight: 700;
     background: #66A;
     color: #fff;
@@ -84,7 +80,7 @@
     border-top-right-radius: 10px;
 }
 
-.form__booklist .form__booklist-field .form__booklist-attribute {
+/* .form__booklist .form__booklist-field .form__booklist-attribute {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,7 +92,7 @@
 
 .form__booklist .form__booklist-detail {
     padding: 5px 0;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-size: 14px;
 }
 
@@ -126,7 +122,7 @@
 
 
 .form__booklist .form__booklist-detail .form__booklist-attribute:nth-child(4) {
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background-color: #7ef13b;
     color: #fff;
     font-weight: 700;
@@ -139,7 +135,7 @@
     background-color: #f1a53b;
     color: #fff;
     font-weight: 700;
-}
+} */
 
 
 form .form__userdetail .form__inputbox {
@@ -217,7 +213,7 @@ form .form__userdetail .form__inputbox {
 .form .form__button .form__submit {
     width: 60%;
     padding: 10px 0;
-    border-radius: 20px;
+    border-radius: var(--border-radius);
     border: 3px solid #000;
     font-weight: 700;
     text-transform: uppercase;
