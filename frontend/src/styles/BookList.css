@@ -16,6 +16,11 @@
     border-radius: var(--border-radius);
     margin: 20px 0;
     position: relative;
+    transition: all 0.4s;
+}
+
+.booklist .booklist__item:hover {
+    transform: scale(1.05);
 }
 
 .booklist .booklist__item .booklist__icon {
