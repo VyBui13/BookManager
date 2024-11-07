@@ -39,7 +39,7 @@
 
 .formdashboard .formdashboard__header .formdashboard__title h1 {
     font-size: 32px;
-    color: #66A;
+    color: var(--main-color);
 }
 
 .formdashboard__header .formdashboard__title .formdashboard__description {

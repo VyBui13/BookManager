@@ -141,7 +141,7 @@ input[type=range]::-webkit-slider-thumb {
 .input__button button {
     margin: 0 5px;
     padding: 5px;
-    background-color: #66A;
+    background-color: var(--main-color);
     color: #fff;
     font-size: 14px;
     font-weight: 700;
@@ -154,6 +154,6 @@ input[type=range]::-webkit-slider-thumb {
 
 .input__button button:first-child {
     background-color: #fff;
-    border-color: #66A;
-    color: #66A;
+    border-color: var(--main-color);
+    color: var(--main-color);
 }

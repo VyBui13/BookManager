@@ -20,7 +20,7 @@
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 700;
-    color: #66A;
+    color: var(--main-color);
 }
 
 .customer .customer__header .customer__search {
@@ -73,7 +73,7 @@
     align-items: center;
     border: 2px solid #000000;
     padding: 5px 10px;
-    background-color: #66A;
+    background-color: var(--main-color);
     color: #fff;
     font-weight: 700;
 }
@@ -108,7 +108,7 @@
 }
 
 .customer .customer__btn button:hover {
-    background-color: #66A;
+    background-color: var(--main-color);
     color: #fff;
     border-color: #fff;
 }

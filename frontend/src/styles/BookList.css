@@ -20,7 +20,7 @@
     align-items: center;
     padding: 20px 10px;
     font-size: 110px;
-    color: #66A;
+    color: var(--main-color);
 }
 
 .booklist .booklist__item .booklist__header {}
@@ -57,5 +57,5 @@
     border-radius: var(--border-radius);
     padding: 0 5px;
     color: #fff;
-    background-color: #66A;
+    background-color: var(--main-color);
 }

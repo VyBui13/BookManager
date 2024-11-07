@@ -18,7 +18,7 @@
 .home .home__header .home__title h1 {
     font-size: 2.0rem;
     font-weight: 700;
-    color: #66A;
+    color: var(--main-color);
 }
 
 .home .home__header .home__feature {
@@ -62,7 +62,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #66A;
+    background: var(--main-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +88,7 @@
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    background-color: #66A;
+    background-color: var(--main-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,9 +130,9 @@
     align-items: center;
     margin-left: 20px;
     font-size: 0.7rem;
-    color: #66A;
+    color: var(--main-color);
     border-radius: 50%;
-    border: 5px solid #66A;
+    border: 5px solid var(--main-color);
 }
 
 /*------------------------------------*/
@@ -144,7 +144,7 @@
 .home .home__recent .home__recent__header {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #66A;
+    color: var(--main-color);
     margin: 10px;
 }
 
@@ -182,7 +182,7 @@
 .home__recent__body .home__recent__table .home__recent__headerfield {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #66A;
+    color: var(--main-color);
     margin-bottom: 10px;
 }
 

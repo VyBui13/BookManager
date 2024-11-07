@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to bottom right, #66A, #33a);
+    background: linear-gradient(to bottom right, var(--main-color), #33a);
 }
 
 .login {
@@ -20,7 +20,7 @@
 .login .login__title h1 {
     font-size: 40px;
     font-weight: 700;
-    color: #66A;
+    color: var(--main-color);
     text-transform: uppercase;
 }
 
@@ -35,14 +35,14 @@
 .login .login__body .login__input {
     display: flex;
     margin: 10px 0;
-    border: 2px solid #66A;
+    border: 2px solid var(--main-color);
 }
 
 .login .login__body .login__input .icon__login {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #66A;
+    background-color: var(--main-color);
     color: #fff;
     padding: 5px;
 }
@@ -70,7 +70,7 @@
 }
 
 .login .login__button button:hover {
-    background-color: #66A;
+    background-color: var(--main-color);
     color: #fff;
     border-color: #fff;
 }

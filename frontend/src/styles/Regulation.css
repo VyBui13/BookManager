@@ -151,7 +151,7 @@
 }
 
 .setting-container .setting .setting__header h1 {
-    color: #66A;
+    color: var(--main-color);
     text-transform: uppercase;
 }
 
