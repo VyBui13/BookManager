@@ -63,6 +63,9 @@ function Login() {
                     <button onClick={handleSubmit}>
                         <span>Login</span>
                     </button>
+                    <button>
+                        <span>Guest</span>
+                    </button>
                 </div>
             </div>
 

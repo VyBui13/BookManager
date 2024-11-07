@@ -7,7 +7,7 @@
 
 .bill .bill__booklist {
     flex: 3;
-    height: 350px;
+    height: 370px;
     overflow: auto;
     margin: 0 20px;
 }
@@ -23,6 +23,7 @@
 
 .bill .bill__booklist .booklist {
     padding: 0;
+    margin: 0;
 }
 
 
