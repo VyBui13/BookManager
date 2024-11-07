@@ -4,6 +4,7 @@
     width: 100%;
     min-height: 100vh;
     position: relative;
+    padding: 20px;
 }
 
 .formdashboard .formdashboard__header__wrapper {
@@ -11,7 +12,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 20px;
 }
 
 .formdashboard .formdashboard__header {
@@ -74,9 +74,10 @@
     align-items: center;
     justify-content: space-around;
     width: 250px;
-    background: rgba(102, 102, 170, 0.807);
+    background: var(--main-color);
     border-radius: var(--border-radius);
     z-index: 100;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
@@ -101,6 +102,12 @@
     cursor: pointer;
     transition: all 0.4s;
 }
+
+.formdashboard__header .formdashboard__navbar .formdashboard__item a:hover {
+    color: #000000;
+    transform: scale(1.1);
+}
+
 
 .formdashboard__header .formdashboard__navbar .formdashboard__item:first-child {
     display: none;
@@ -160,5 +167,5 @@
 
 .formdashboard .formdashboard__display {
     width: 100%;
-    overflow: hidden;
+    margin-top: 30px;
 }

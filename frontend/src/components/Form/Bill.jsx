@@ -160,7 +160,7 @@ function Bill() {
                         </div>}
 
                         {(bill.bookList.length !== 0) && <div className="bill__listcontainer">
-                            <div className="bill__list">
+                            <div className="bill__list bill__headerlist">
                                 <div className="bill__listitem">
                                     <span>Name</span>
                                 </div>
