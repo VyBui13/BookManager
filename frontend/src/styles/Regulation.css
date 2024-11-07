@@ -160,4 +160,64 @@
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     margin: 20px 0;
     border-radius: 10px;
+    padding: 20px;
+}
+
+.setting .setting__body .setting__item {
+    margin: 10px 0;
+}
+
+.setting .setting__body .setting__item+.setting__item {
+    border-top: 2px dashed rgba(0, 0, 0, 0.6);
+    padding-top: 20px;
+}
+
+.setting .setting__body .setting__item .setting__item-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--main-color);
+    text-transform: uppercase;
+}
+
+.setting .setting__body .setting__item .setting__item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.setting__item .setting__item-content .setting__item-content-title {
+    margin-right: 10px;
+}
+
+.setting__item .setting__item-content .setting__item-content-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting__item .setting__item-content .setting__item-content-value .value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    background-color: var(--main-color);
+    color: #fff;
+    border-radius: var(--border-radius);
+}
+
+.setting__item .setting__item-content .setting__item-content-value button {
+    padding: 0 10px;
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s;
+    margin-left: 10px;
 }

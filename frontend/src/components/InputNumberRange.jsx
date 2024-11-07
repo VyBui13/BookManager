@@ -10,7 +10,14 @@ function InputNumberRange({ label, min, max, value, setValue, setRegulation, ste
             notify({ type: 'error', message: 'Invalid value' });
             return;
         }
-        setRegulation({ ...value, label: valueInput });
+        setRegulation(
+            (prev) => {
+                return {
+                    ...prev,
+                    [label.charAt(0).toLowerCase() + label.slice(1)]: valueInput
+                }
+            }
+        );
         setValue(null);
         notify({ type: 'success', message: 'Save successfully' });
     }
