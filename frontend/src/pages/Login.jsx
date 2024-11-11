@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../components/NotificationContext';
-import { useAuthentications } from '../components/AuthenticationContext';
 import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -13,7 +12,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const { notify } = useNotification();
-    const { setIsAuthenticated } = useAuthentications();
 
     function handleSubmit() {
         fetch('http://localhost:5000/users/login', {
@@ -30,9 +28,7 @@ function Login() {
                     return;
                 }
                 // notify({ type: 'success', msg: 'Login successfully' });
-                setIsAuthenticated(true);
                 navigate('/');
-
             })
             .catch((err) => {
                 console.log(err);

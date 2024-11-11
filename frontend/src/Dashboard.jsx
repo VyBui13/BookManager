@@ -2,15 +2,16 @@ import App from './App.jsx';
 import Header from './Header.jsx';
 import './styles/Dashboard.css'
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNotification } from './components/NotificationContext';
 import Cookies from 'js-cookie';
 
 function Dashboard() {
     const { notify } = useNotification();
+    const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        console.log('Checking authentication');
         fetch('http://localhost:5000/users', {
             method: 'GET',
             credentials: 'include',
@@ -23,13 +24,14 @@ function Dashboard() {
             .then(data => {
                 console.log(data);
                 if (data.status === 'error') {
-                    return;
+                    setIsAuthenticated(false);
+                    navigate('/login');
+                } else {
+                    notify({ type: 'success', msg: 'Authorized' });
+                    setIsAuthenticated(true);
                 }
-                notify({ type: 'success', msg: 'Authorized' });
-                setIsAuthenticated(true);
             })
             .catch((err) => {
-                console.log(err);
                 setIsAuthenticated(false);
             });
     }, []);
@@ -37,7 +39,7 @@ function Dashboard() {
     return (
         <>
             <div id="dashboard">
-                {isAuthenticated ?
+                {isAuthenticated &&
                     <>
                         <div id="header">
                             <Header />
@@ -45,9 +47,7 @@ function Dashboard() {
                         <div id="content">
                             <App />
                         </div>
-                    </>
-                    :
-                    <div>Unauthorized</div>}
+                    </>}
             </div>
         </>
     )

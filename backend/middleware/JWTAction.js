@@ -17,11 +17,9 @@ const generateAccessToken = (payload) => {
 const verifyToken = (req, res, next) => {
     // const authHeader = req.headers['authorization']
     // const token = authHeader && authHeader.split(' ')[1]
-    console.log(req.cookies)
     const token = req.cookies.token;
 
     if (token == null) {
-        console.log('Token is null')
         return res.status(401).json({
             status: 'error',
             message: 'Unauthorized'

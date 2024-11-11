@@ -4,11 +4,34 @@ import { Link } from "react-router-dom"
 import './styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-import { useAuthentications } from './components/AuthenticationContext.jsx';
+import { useNotification } from './components/NotificationContext.jsx'
+import Cookies from 'js-cookie';
 
 function Header() {
-    const { setIsAuthenticated } = useAuthentications();
     // const [isSidebar, setIsSidebar] = useState(false)
+    const { notify } = useNotification();
+    function handleLogout(e) {
+        e.preventDefault();
+        fetch('http://localhost:5000/users/logout', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('token')
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                notify({ type: data.status, msg: data.message });
+                location.reload(true);
+            })
+            .catch((err) => {
+                notify({ type: 'error', msg: err });
+            }
+            )
+
+    }
+
     return (
         <>
             <div className="header__wrapper">
@@ -63,11 +86,7 @@ function Header() {
 
                 <div className="logout">
                     <div className="logout__icon">
-                        <Link to="/login" onClick={
-                            () => {
-                                setIsAuthenticated(false)
-                            }
-                        }>
+                        <Link to="/login" onClick={handleLogout}>
                             <FontAwesomeIcon icon={faRightFromBracket} className="icon__header" />
                         </Link>
                     </div>

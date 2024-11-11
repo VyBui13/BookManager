@@ -8,7 +8,6 @@ class UserController {
         try {
             const status = await userServiceInstance.login(user);
             if (status.status === 'success') {
-                console.log(status.token);
                 res.cookie('token', status.token);
             }
 
@@ -50,6 +49,14 @@ class UserController {
                 message: err.message
             });
         }
+    }
+
+    async logoutAccount(req, res) {
+        res.clearCookie('token');
+        return res.json({
+            status: 'success',
+            message: 'Logout successfully'
+        })
     }
 }
 

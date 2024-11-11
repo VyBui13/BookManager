@@ -8,19 +8,19 @@ function Error({ obj }) {
     console.log(obj);
     return (
         <div className="nofi nofi--error">
-            <div class="nofi__icon">
+            <div className="nofi__icon">
                 <FontAwesomeIcon icon={faInfo} className='icon__nofi' />
 
             </div>
-            <div class="nofi__content">
-                <div class="nofi__content__title">
+            <div className="nofi__content">
+                <div className="nofi__content__title">
                     {obj.type}
                 </div>
-                <div class="nofi__content__msg">
+                <div className="nofi__content__msg">
                     {obj.msg}
                 </div>
             </div>
-            <div class="nofi__close">
+            <div className="nofi__close">
                 <FontAwesomeIcon icon={faX} className='icon__nofi' />
             </div>
         </div>
@@ -30,18 +30,18 @@ function Error({ obj }) {
 function Success({ obj }) {
     return (
         <div className="nofi nofi--success">
-            <div class="nofi__icon">
+            <div className="nofi__icon">
                 <FontAwesomeIcon icon={faCheck} className='icon__nofi' />
             </div>
-            <div class="nofi__content">
-                <div class="nofi__content__title">
+            <div className="nofi__content">
+                <div className="nofi__content__title">
                     {obj.type}
                 </div>
-                <div class="nofi__content__msg">
+                <div className="nofi__content__msg">
                     {obj.msg}
                 </div>
             </div>
-            <div class="nofi__close">
+            <div className="nofi__close">
                 <FontAwesomeIcon icon={faX} className='icon__nofi' />
             </div>
         </div>
@@ -51,18 +51,18 @@ function Success({ obj }) {
 function Warning({ obj }) {
     return (
         <div className="nofi nofi--warning">
-            <div class="nofi__icon">
+            <div className="nofi__icon">
                 <FontAwesomeIcon icon={faExclamation} className='icon__nofi' />
             </div>
-            <div class="nofi__content">
-                <div class="nofi__content__title">
+            <div className="nofi__content">
+                <div className="nofi__content__title">
                     {obj.type}
                 </div>
-                <div class="nofi__content__msg">
+                <div className="nofi__content__msg">
                     {obj.msg}
                 </div>
             </div>
-            <div class="nofi__close">
+            <div className="nofi__close">
                 <FontAwesomeIcon icon={faX} className='icon__nofi' />
             </div>
         </div>
