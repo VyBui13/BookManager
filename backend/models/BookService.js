@@ -76,6 +76,15 @@ class BookService {
             };
         }
     }
+
+    async getBookKinds() {
+        try {
+            return await Book.find().distinct('bookKind');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 module.exports = BookService;

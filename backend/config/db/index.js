@@ -9,7 +9,7 @@ const POST_MONGO_URL = process.env.POST_MONGO_URL;
 
 const uri = `${PRE_MONGO_URL}${DB_NAME}${POST_MONGO_URL}`;
 console.log(uri);
-const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+const clientOptions = { serverApi: { version: '1', strict: false, deprecationErrors: true } };
 function connect() {
     mongoose.connect(uri, clientOptions)
         .then(() => {

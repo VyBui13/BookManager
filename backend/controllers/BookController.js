@@ -56,6 +56,19 @@ class BookController {
                 });
             });
     }
+
+    getKinds(req, res) {
+        bookServiceInstance.getBookKinds()
+            .then(kind => {
+                res.json(kind);
+            })
+            .catch(err => {
+                res.status(500).json({
+                    status: 'error',
+                    message: err.message
+                });
+            });
+    }
 }
 
 module.exports = new BookController;
