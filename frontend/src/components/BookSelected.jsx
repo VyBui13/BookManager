@@ -1,13 +1,13 @@
 import '../styles/Bookselected.css';
 import { useState } from 'react';
-import nofi from './Notify';
+import { useNotification } from './NotificationContext.jsx';
 
-function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
+function BookSelected({ bookPrice, setBookPrice, setBooks }) {
+    const { notify } = useNotification();
     const [bookSelected, setBookSelected] = useState({ ...bookPrice });
 
-
     function handleCancel() {
-        updateBookPrice({});
+        setBookPrice({});
     }
 
     function handleSave() {
@@ -20,17 +20,17 @@ function BookSelected({ bookPrice, updateBookPrice, setBooks }) {
                 response.json()
             )
             .then(data => {
-                nofi({ type: data.status, msg: data.message });
+                notify({ type: data.status, msg: data.message });
                 return fetch('http://localhost:5000/books')
             })
             .then(response => response.json())
             .then(data => {
                 setBooks(data);
-                updateBookPrice({});
+                setBookPrice({});
             })
             .catch(error => {
                 console.log(error);
-                nofi({ type: error.status, msg: error.message });
+                notify({ type: error.status, msg: error.message });
             })
 
     }

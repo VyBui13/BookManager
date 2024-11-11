@@ -1,5 +1,5 @@
 const User = require('../schema/User');
-
+const { generateAccessToken } = require('../middleware/JWTAction');
 class UserService {
     async login(user) {
         const { userAccount, userPassword } = user;
@@ -18,9 +18,11 @@ class UserService {
                 message: 'Wrong password',
             }
         }
+        const token = generateAccessToken({ userAccount });
         return {
             status: 'success',
             message: 'Login successfully',
+            token: token,
         }
     }
 
@@ -28,6 +30,7 @@ class UserService {
         const users = await User.find({ userRole: role });
         return users;
     }
+
 }
 
 module.exports = UserService;

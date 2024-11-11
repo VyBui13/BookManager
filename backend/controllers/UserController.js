@@ -7,7 +7,12 @@ class UserController {
         const user = { userAccount, userPassword };
         try {
             const status = await userServiceInstance.login(user);
-            res.status(200).json(status);
+            if (status.status === 'success') {
+                console.log(status.token);
+                res.cookie('token', status.token);
+            }
+
+            res.json(status);
         }
         catch (err) {
             res.status(500).json({
@@ -30,6 +35,22 @@ class UserController {
             });
         }
     };
+
+    async authUser(req, res) {
+        try {
+            return res.status(200).json({
+                status: 'success',
+                message: 'Authorized',
+                name: req.user.userAccount,
+            });
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new UserController;

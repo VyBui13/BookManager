@@ -16,8 +16,9 @@ function Login() {
     const { setIsAuthenticated } = useAuthentications();
 
     function handleSubmit() {
-        fetch('http://localhost:5000/users/', {
+        fetch('http://localhost:5000/users/login', {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userAccount: useraccount, userPassword: password }),
         })
@@ -28,7 +29,7 @@ function Login() {
                     notify({ type: 'error', msg: data.message });
                     return;
                 }
-                notify({ type: 'success', msg: 'Login successfully' });
+                // notify({ type: 'success', msg: 'Login successfully' });
                 setIsAuthenticated(true);
                 navigate('/');
 

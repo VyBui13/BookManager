@@ -8,7 +8,6 @@
     margin-top: 30px;
     width: 100%;
     background-color: #fff;
-    padding: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
@@ -17,20 +16,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--main-color);
 }
 
-.report .report__body {
-    margin-top: 20px;
-    width: 100%;
-    height: 80%;
-    padding: 10px 20px;
-    overflow: auto;
-}
 
 .report .report__header .report__date {
     font-size: 24px;
     font-weight: 700;
-    color: #000;
+    color: var(--main-color);
 }
 
 .report .report__header .report__switch input[type="checkbox"] {
@@ -79,4 +76,12 @@
     left: calc(var(--width-label) - var(--distance-btn-label));
     transform: translateX(-100%);
     background-image: url(/pic/ico/No.png);
+}
+
+
+.report .report__body {
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    overflow: auto;
 }

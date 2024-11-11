@@ -21,7 +21,7 @@ function setPrice() {
     return (
         <>
             <div className="list-container">
-                {bookPrice._id && <BookSelected bookPrice={bookPrice} updateBookPrice={setBookPrice} setBooks={setBooks} />}
+                {bookPrice._id && <BookSelected bookPrice={bookPrice} setBookPrice={setBookPrice} setBooks={setBooks} />}
                 <div className="list">
                     <div className="list__title">
                         Book List

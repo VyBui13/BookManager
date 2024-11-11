@@ -33,7 +33,7 @@ function ReportBookForm() {
                 </div>
 
                 <div className="reportform__attribute">
-                    CreatedDate
+                    BeginningDate
                 </div>
 
                 <div className="reportform__attribute">

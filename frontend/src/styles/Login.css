@@ -4,12 +4,14 @@
     align-items: center;
     height: 100vh;
     background: linear-gradient(to bottom right, var(--main-color), #33a);
+    padding: 20px;
 }
 
 .login {
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.6);
     background-color: #fff;
+    border-radius: var(--border-radius);
 }
 
 .login .login__title {
@@ -18,14 +20,14 @@
 }
 
 .login .login__title h1 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 700;
     color: var(--main-color);
     text-transform: uppercase;
 }
 
 .login .login__title p {
-    font-size: 1rem;
+    font-size: 20px;
     font-weight: 700;
     color: #333;
 }

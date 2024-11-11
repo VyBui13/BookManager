@@ -23,7 +23,7 @@ function Book() {
         if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
             notify({ type: 'error', msg: 'Please fill all field!' });
         }
-        else if (book.bookAmount < regulation.bookMinAmountInput) {
+        else if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
             notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
             return;
         }

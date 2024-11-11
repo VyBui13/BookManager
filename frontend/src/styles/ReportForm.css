@@ -21,6 +21,14 @@
     font-weight: 700;
 }
 
+.reportform .reportform__fieldbody {
+    transition: all 0.3s;
+}
+
+.reportform .reportform__fieldbody:hover {
+    transform: scale(1.02);
+}
+
 .reportform .reportform__fieldbody:nth-child(odd) {
     background-color: #afafaf;
     border-radius: var(--border-radius);

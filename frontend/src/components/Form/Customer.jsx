@@ -57,6 +57,7 @@ function Customer(props) {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data.status, data.message);
                 notify({ type: data.status, msg: data.message });
                 setCustomer({
                     customerName: '',

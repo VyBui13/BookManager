@@ -131,43 +131,58 @@ class CustomerService {
     }
 
     async addFee(feeData) {
-        const customerName = feeData.customerName;
-        const customerAddress = feeData.customerAddress;
-        const customerPhone = feeData.customerPhone;
-        const customerEmail = feeData.customerEmail;
-        const payment = feeData.payment;
-        if (feeData.payment === '') {
-            payment = 0;
-        }
-        const updateDate = feeData.updateDate;
+        try {
 
-        const query = { customerName: customerName };
-        const customer = await Customer.findOne(query);
+            const customerName = feeData.customerName;
+            const customerAddress = feeData.customerAddress;
+            const customerPhone = feeData.customerPhone;
+            const customerEmail = feeData.customerEmail;
+            let payment = feeData.payment;
+            if (feeData.payment === '') {
+                payment = 0;
+            }
+            const updateDate = feeData.updateDate;
 
-        if (customer) {
+            const query = { customerName: customerName };
+            const customer = await Customer.findOne(query);
 
-            if (payment !== 0) {
-                const newFee = {
-                    payment: payment,
-                    createdDate: updateDate,
+            if (customer) {
+                if (payment !== 0) {
+                    const newFee = {
+                        payment: payment,
+                        createdDate: updateDate,
+                    }
+                    customer.feeList.push(newFee);
+                    customer.customerCurrentDebt = Number(customer.customerCurrentDebt) - Number(payment);
                 }
-                customer.feeList.push(newFee);
-                customer.customerCurrentDebt = Number(customer.customerCurrentDebt) - Number(payment);
-            }
-            customer.updateDate = updateDate;
-            customer.customerAddress = customerAddress;
-            customer.customerPhone = customerPhone;
-            customer.customerEmail = customerEmail;
+                customer.updateDate = updateDate;
+                customer.customerAddress = customerAddress;
+                customer.customerPhone = customerPhone;
+                customer.customerEmail = customerEmail;
 
-            await customer.save();
-            return {
-                status: 'success',
-                message: 'Add fee successfully',
+                await customer.save();
+                if (payment !== 0) {
+                    return {
+                        status: 'success',
+                        message: 'Add fee successfully',
+                    }
+                } else {
+                    return {
+                        status: 'success',
+                        message: 'Update customer info successfully',
+                    }
+                }
+            } else {
+                return {
+                    status: 'error',
+                    message: 'Customer not found',
+                }
             }
-        } else {
+        }
+        catch (err) {
             return {
                 status: 'error',
-                message: 'Customer not found',
+                message: err.message,
             }
         }
     }
