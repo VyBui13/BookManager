@@ -75,17 +75,15 @@
 
 .booklist__body {
     display: flex;
-    height: 370px;
-    margin: 10px 0;
+    height: 360px;
+    margin: 20px 0;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .booklist__body .booklist {
     flex: 3;
-    direction: rtl;
-}
-
-.booklist__body .booklist>* {
-    direction: ltr;
+    height: 100%;
 }
 
 .booklist__body .booklist__search {
@@ -94,28 +92,36 @@
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     border-radius: var(--border-radius);
     padding: 20px;
-    margin-left: 20px;
-    margin-top: 20px;
+    height: 100%;
 }
 
 .booklist {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     overflow: auto;
+}
+
+.booklist::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.booklist::-webkit-scrollbar-thumb {
+    width: 5px;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
 }
 
 .booklist .booklist__item {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: var(--border-radius);
-    margin: 20px 0;
+    margin: 10px 0;
     position: relative;
-    transition: all 0.4s;
-}
-
-.booklist .booklist__item:hover {
-    transform: scale(1.05);
+    transition: all 0.3s;
+    color: #000;
 }
 
 .booklist .booklist__item .booklist__icon {
@@ -125,6 +131,7 @@
     padding: 20px 10px;
     font-size: 110px;
     color: var(--main-color);
+    transition: all 0.3s;
 }
 
 
@@ -132,7 +139,6 @@
     font-size: 18px;
     font-weight: 700;
     margin: 10px 0;
-    color: #000;
     width: 200px;
     overflow: auto;
 }
@@ -160,6 +166,25 @@
     padding: 0 5px;
     color: #fff;
     background-color: var(--main-color);
+    transition: all 0.3s;
+}
+
+.booklist .booklist__item:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.booklist .booklist__item:hover .booklist__icon {
+    color: #fff;
+}
+
+.booklist .booklist__item:hover .booklist__content .booklist__detail {
+    color: #fff;
+}
+
+.booklist .booklist__item:hover .booklist__content .booklist__detail span {
+    background-color: #fff;
+    color: var(--main-color);
 }
 
 .booklist__body .booklist__search .booklist__searchbar {
@@ -176,6 +201,7 @@
     border: none;
     outline: none;
     border-radius: var(--border-radius);
+    background-color: transparent;
     width: 100%;
     margin-right: 10px;
 }
@@ -217,7 +243,7 @@
 .booklist__search .booklist__filterkind .booklist__filterkind-item label {
     padding: 5px 10px;
     border-radius: var(--border-radius);
-    margin: 5px;
+    margin: 0 5px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -237,7 +263,7 @@
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .booklist__body .booklist__sort .booklist__sort-item {
@@ -255,6 +281,11 @@
     align-items: center;
 }
 
+.booklist__body .booklist__sort .booklist__sort-item:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
 .booklist__body .booklist__sort .booklist__sort-item .icon__sort {
     margin-right: 5px;
     font-weight: 200;
@@ -266,6 +297,22 @@
 }
 
 @media (max-width: 1100px) {
+    .booklist__body {
+        height: auto;
+    }
+
+    .booklist__body .booklist {
+        width: 100%;
+        flex: initial;
+        overflow: unset;
+    }
+
+    .booklist__body .booklist__search {
+        width: 100%;
+        margin-left: 0;
+        margin: 20px 0;
+    }
+
     .booklist__search {
         justify-content: center;
     }
