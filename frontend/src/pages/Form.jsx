@@ -3,8 +3,10 @@ import { Link } from "react-router-dom"
 import '../styles/Form.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faList, faWallet, faUser, faTag } from '@fortawesome/free-solid-svg-icons'
+import { useAuthorizations } from '../components/AuthorizationContext.jsx'
 
 function Form() {
+    const { authorization } = useAuthorizations();
     return (
         <div className="formdashboard">
             <div className="formdashboard__header__wrapper">
@@ -22,34 +24,34 @@ function Form() {
                         </div>
 
 
-                        <div className="formdashboard__item">
+                        {authorization.importbook && <div className="formdashboard__item">
                             <Link to="book" title='Book'>
                                 <FontAwesomeIcon icon={faBook} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Book</div>
                             </Link>
-                        </div>
+                        </div>}
 
-                        <div className="formdashboard__item">
+                        {authorization.createbill && <div className="formdashboard__item">
                             <Link to="bill">
                                 <FontAwesomeIcon icon={faWallet} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Bill</div>
                             </Link>
-                        </div>
+                        </div>}
 
-                        <div className="formdashboard__item">
+                        {authorization.createpayment && <div className="formdashboard__item">
                             <Link to="customer">
                                 <FontAwesomeIcon icon={faUser} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Fee</div>
                             </Link>
-                        </div>
+                        </div>}
 
-                        <div className="formdashboard__item">
+                        {authorization.setprice && <div className="formdashboard__item">
                             <Link to="setprice">
                                 <FontAwesomeIcon icon={faTag} className='icon__navbar' />
                                 <div className="formdashboard__item-text">Price</div>
                             </Link>
 
-                        </div>
+                        </div>}
 
 
                     </div>
