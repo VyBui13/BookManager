@@ -37,10 +37,53 @@ class UserController {
 
     async authUser(req, res) {
         try {
+            const role = req.user.userRole.toLowerCase();
+            let authorization = {
+                home: false,
+                importbook: false,
+                createbill: false,
+                createpayment: false,
+                setprice: false,
+                reviewbook: true,
+                reviewreport: false,
+                setting: false,
+            }
+            console.log(role);
+            if (role == "admin") {
+                authorization = {
+                    ...authorization,
+                    home: true,
+                    importbook: true,
+                    createbill: true,
+                    createpayment: true,
+                    setprice: true,
+                    reviewreport: true,
+                    setting: true,
+                }
+            } else if (role == "manager") {
+                authorization = {
+                    ...authorization,
+                    home: true,
+                    importbook: true,
+                    createbill: true,
+                    createpayment: true,
+                    setprice: true,
+                    reviewreport: true,
+                }
+            }
+            else if (role == "staff") {
+                authorization = {
+                    ...authorization,
+                    home: true,
+                    createbill: true,
+                    createpayment: true,
+                }
+            }
             return res.status(200).json({
                 status: 'success',
                 message: 'Authorized',
                 name: req.user.userAccount,
+                authorization: authorization,
             });
         }
         catch (err) {

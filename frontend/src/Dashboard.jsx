@@ -5,8 +5,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from './components/NotificationContext';
 import Cookies from 'js-cookie';
+import { useAuthorizations } from './components/AuthorizationContext.jsx';
 
 function Dashboard() {
+    const { setAuthorization } = useAuthorizations();
     const { notify } = useNotification();
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,6 +30,7 @@ function Dashboard() {
                     navigate('/login');
                 } else {
                     notify({ type: 'success', msg: 'Authorized' });
+                    setAuthorization(data.authorization);
                     setIsAuthenticated(true);
                 }
             })

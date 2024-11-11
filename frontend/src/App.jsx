@@ -1,25 +1,25 @@
 
 import './styles/Global.css'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-// import Book from './pages/Book.jsx'
-// import Bill from './pages/Bill.jsx'
-// import Customer from './pages/Customer.jsx'
+import { useContext } from 'react'
 import Regulation from './pages/Regulation.jsx'
 import BookList from './pages/BookList.jsx'
 import Form from './pages/Form.jsx'
 import Report from './pages/Report.jsx'
 import { ConfigProvider } from './components/Config.jsx'
+import { useAuthorizations } from './components/AuthorizationContext.jsx'
 
 function App() {
+  const { authorization } = useAuthorizations();
   return (
     <ConfigProvider>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/booklist" element={<BookList />}></Route>
-        <Route path="/form/*" element={<Form />}></Route>
-        <Route path="/report" element={<Report />}></Route>
-        <Route path="/regulation" element={<Regulation />}></Route>
+        {authorization.reviewbook && <Route path="/booklist" element={<BookList />}></Route>}
+        {(authorization.importbook || authorization.createbill || authorization.createpayment || authorization.setprice) && <Route path="/form/*" element={<Form />}></Route>}
+        {authorization.reviewreport && <Route path="/report" element={<Report />}></Route>}
+        {authorization.setting && <Route path="/regulation" element={<Regulation />}></Route>}
       </Routes >
     </ConfigProvider>
   )

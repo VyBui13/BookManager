@@ -18,7 +18,7 @@ class UserService {
                 message: 'Wrong password',
             }
         }
-        const token = generateAccessToken({ userAccount });
+        const token = generateAccessToken({ userAccount, userRole: userFind.userRole });
         return {
             status: 'success',
             message: 'Login successfully',

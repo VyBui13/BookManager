@@ -6,20 +6,26 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NotificationProvider } from './components/NotificationContext.jsx';
 import Notify from './components/Notify.jsx';
 // import { useAuthentications, AuthenticationProvider } from './components/AuthenticationContext.jsx';
-
+import { AuthorizationProvider } from './components/AuthorizationContext.jsx'
 
 function MainApp() {
   // Function to handle login
   return (
     <BrowserRouter>
-      <NotificationProvider>
-        <Notify />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<Dashboard />}
-          />
-        </Routes>
-      </NotificationProvider>
+      <AuthorizationProvider>
+
+        <NotificationProvider>
+          <Notify />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={
+              <Dashboard />
+            }
+            />
+          </Routes>
+        </NotificationProvider>
+      </AuthorizationProvider>
+
     </BrowserRouter>
   );
 }
