@@ -2,7 +2,15 @@ const User = require('../schema/User');
 const { generateAccessToken } = require('../middleware/JWTAction');
 class UserService {
     async login(user) {
-        const { userAccount, userPassword } = user;
+        const { userAccount, userPassword, isGuest } = user;
+        if (isGuest) {
+            const token = generateAccessToken({ userAccount: "Guest", userRole: 'guest' });
+            return {
+                status: 'success',
+                message: 'Login as guest successfully',
+                token: token,
+            }
+        }
         const queryName = { userName: userAccount };
         const queryPhone = { userPhone: userAccount };
         const userFind = await User.findOne({ $or: [queryName, queryPhone] });

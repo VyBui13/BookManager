@@ -15,7 +15,7 @@ function App() {
   return (
     <ConfigProvider>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        {authorization.home && <Route path="/" element={<Home />}></Route>}
         {authorization.reviewbook && <Route path="/booklist" element={<BookList />}></Route>}
         {(authorization.importbook || authorization.createbill || authorization.createpayment || authorization.setprice) && <Route path="/form/*" element={<Form />}></Route>}
         {authorization.reviewreport && <Route path="/report" element={<Report />}></Route>}

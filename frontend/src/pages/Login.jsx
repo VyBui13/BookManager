@@ -22,12 +22,11 @@ function Login() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.status === 'error') {
                     notify({ type: 'error', msg: data.message });
                     return;
                 }
-                // notify({ type: 'success', msg: 'Login successfully' });
+                notify({ type: data.status, msg: data.message });
                 navigate('/');
             })
             .catch((err) => {
@@ -35,6 +34,29 @@ function Login() {
                 notify({ type: 'error', msg: 'Server error' });
             });
     };
+
+    function handleGuest() {
+        fetch('http://localhost:5000/users/login', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userAccount: "", userPassword: "", isGuest: true }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 'error') {
+                    notify({ type: 'error', msg: data.message });
+                    return;
+                }
+                notify({ type: data.status, msg: data.message });
+                navigate('/');
+            })
+            .catch((err) => {
+                console.log(err);
+                notify({ type: 'error', msg: 'Server error' });
+            });
+    }
 
     return (
         <div className="login-container">
@@ -60,7 +82,7 @@ function Login() {
                     <button onClick={handleSubmit}>
                         <span>Login</span>
                     </button>
-                    <button>
+                    <button onClick={handleGuest}>
                         <span>Guest</span>
                     </button>
                 </div>

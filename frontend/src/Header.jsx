@@ -24,8 +24,8 @@ function Header() {
         })
             .then(res => res.json())
             .then(data => {
-                notify({ type: data.status, msg: data.message });
                 location.reload(true);
+                notify({ type: data.status, msg: data.message });
             })
             .catch((err) => {
                 notify({ type: 'error', msg: err });

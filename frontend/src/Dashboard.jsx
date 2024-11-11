@@ -24,12 +24,10 @@ function Dashboard() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.status === 'error') {
                     setIsAuthenticated(false);
                     navigate('/login');
                 } else {
-                    notify({ type: 'success', msg: 'Authorized' });
                     setAuthorization(data.authorization);
                     setIsAuthenticated(true);
                 }

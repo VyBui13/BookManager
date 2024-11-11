@@ -3,8 +3,8 @@ const userService = require('../models/UserService');
 const userServiceInstance = new userService();
 class UserController {
     async loginAccount(req, res) {
-        const { userAccount, userPassword } = req.body;
-        const user = { userAccount, userPassword };
+        const { userAccount, userPassword, isGuest } = req.body;
+        const user = { userAccount, userPassword, isGuest };
         try {
             const status = await userServiceInstance.login(user);
             if (status.status === 'success') {
@@ -48,7 +48,6 @@ class UserController {
                 reviewreport: false,
                 setting: false,
             }
-            console.log(role);
             if (role == "admin") {
                 authorization = {
                     ...authorization,
