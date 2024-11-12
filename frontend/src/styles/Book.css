@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --x-translate: 2px;
     --y-translate: -32px;
 }
@@ -77,7 +77,7 @@
     padding: 5px 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
+} */
 
 /* .form__booklist .form__booklist-field .form__booklist-attribute {
     display: flex;
@@ -137,7 +137,7 @@
 } */
 
 
-form .form__userdetail .form__inputbox {
+/* form .form__userdetail .form__inputbox {
     position: relative;
     margin-bottom: 15px;
     width: calc(50% - 20px);
@@ -236,79 +236,215 @@ form .form__userdetail .form__inputbox {
     .form .form__localtime .form__localtime-content {
         display: none;
     }
+} */
+
+.book-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-/*---------------BOOKIMPORT---------------*/
-
-
-.form--bookimport .form__title {
-    background: linear-gradient(to left, var(--second-color), var(--book-import-color));
-    background-clip: text;
-    color: transparent;
+.book {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
 }
 
-.form--bookimport .form__inputbox input:focus+.form__labelline,
-.form--bookimport .form__inputbox input:valid+.form__labelline {
-    color: var(--book-import-color);
-}
-
-.form--bookimport .form__inputbox input:focus,
-.form--bookimport .form__inputbox input:valid {
-    border-image: linear-gradient(to bottom left, var(--second-color), var(--book-import-color)) 1;
-}
-
-.form--bookimport .form__button .form__submit:hover {
-    background-color: var(--book-import-color);
+.book .book__review {
+    margin-right: 20px;
+    background-color: var(--main-color);
     color: #fff;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    width: 300px;
 }
 
-/*---------------BOOKIMPORT---------------*/
-
-/*---------------BILL---------------*/
-.form--bill .form__title {
-    background: linear-gradient(to left, var(--second-color), var(--bill-color));
-    background-clip: text;
-    color: transparent;
+.book .book__review .book__icon {
+    padding: 20px 0;
+    border-radius: var(--border-radius);
+    background-color: #fff;
+    color: var(--main-color);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
-.form--bill .form__inputbox input:focus+.form__labelline,
-.form--bill .form__inputbox input:valid+.form__labelline {
-    color: var(--bill-color);
+.book .book__review .book__review__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
 }
 
-.form--bill .form__inputbox input:focus,
-.form--bill .form__inputbox input:valid {
-    border-image: linear-gradient(to bottom left, var(--second-color), var(--bill-color)) 1;
+.book .book__review .book__review__body {
+    font-size: 14px;
 }
 
-.form--bill .form__button .form__submit:hover {
-    background-color: var(--bill-color);
+.book .book__review .book__review__body .book__review__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.book__review__body .book__review__item .book__review__label {
+    margin-right: 10px;
+}
+
+.book .book__review .book__icon .icon__book {
+    font-size: 90px;
+}
+
+.book .book__detail {
+    width: 550px;
+    margin-left: 20px;
+}
+
+.book .book__detail .book__detail__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book .book__detail .book__detail__inputbox {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 400px;
+    margin-right: 20px;
+}
+
+.book .book__detail .book__detail__inputbox span {
+    position: relative;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
     color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 5px;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
 }
 
-/*---------------BILL---------------*/
-
-/*---------------CUSTOMER---------------*/
-
-.form--customer .form__title {
-    background: linear-gradient(to left, var(--second-color), var(--customer-color));
-    background-clip: text;
-    color: transparent;
+.book .book__detail .book__detail__inputbox input {
+    position: relative;
+    outline: none;
+    padding: 0 10px;
+    z-index: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    border-right: 2px solid var(--main-color);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
 }
 
-.form--cusomer .form__inputbox input:focus+.form__labelline,
-.form--cusomer .form__inputbox input:valid+.form__labelline {
-    color: var(--customer-color);
+.book .book__detail .book__detail__amount {
+    display: flex;
+    z-index: 0;
 }
 
-.form--customer .form__inputbox input:focus,
-.form--customer .form__inputbox input:valid {
-    border-image: linear-gradient(to bottom left, var(--second-color), var(--customer-color)) 1;
-}
-
-.form--customer .form__button .form__submit:hover {
-    background-color: var(--customer-color);
+.book .book__detail .book__detail__amount button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--main-color);
     color: #fff;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/*---------------CUSTOMER---------------*/
+.book .book__detail .book__detail__amount button:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.book .book__detail .book__detail__amount button:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.book .book__detail .book__detail__amount input {
+    position: relative;
+    outline: none;
+    padding: 0 10px;
+    z-index: 1;
+    border: none;
+    outline: none;
+    text-align: center;
+    background: transparent;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+}
+
+.book .book__detail .book__detail__amount input::-webkit-inner-spin-button,
+.book .book__detail .book__detail__amount input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.book .book__detail .book__detail__item {
+    display: flex;
+    margin: 20px 0;
+}
+
+.book .book__detail .book__detail__item span {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.book .book__detail .book__detail__item input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    outline: none;
+    width: 170px;
+    background: transparent;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+}
+
+.book .book__detail .book__detail__item button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}

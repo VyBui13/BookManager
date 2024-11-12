@@ -5,7 +5,7 @@ import '../../styles/Book.css';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import { ConfigContext } from '../Config.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 
 function Book() {
     const { notify } = useNotification();
@@ -13,9 +13,16 @@ function Book() {
     const { regulation } = useContext(ConfigContext);
     // const [listBook, setListBook] = useState([]);
     const [book, setBook] = useState({
-        bookName: '',
-        bookKind: '',
-        bookAuthor: '',
+        bookName: 'To Kill a Mockingbird',
+        bookKind: [
+            'Action',
+            'Adventure',
+        ],
+        bookAuthor: [
+            'Harper Lee',
+            'J.K. Rowling',
+            'J.R.R. Tolkien',
+        ],
         bookAmount: 0,
     });
 
@@ -53,7 +60,7 @@ function Book() {
 
     return (
         <>
-            <div className="form-container">
+            {/* <div className="form-container">
                 <div className="form">
                     <div className="form__title">
                         book import
@@ -112,6 +119,73 @@ function Book() {
                         <button className="form__submit" onClick={handleSummit}>Submit</button>
                     </div>
 
+                </div>
+            </div> */}
+
+            <div className="book-container">
+                <div className="book">
+                    <div className="book__review">
+                        <div className="book__icon">
+                            <FontAwesomeIcon icon={faBook} className='icon__book' />
+                        </div>
+                        <div className="book__review__title">
+                            {book.bookName}
+                        </div>
+
+                        <div className="book__review__body">
+                            <div className="book__review__item">
+                                <span className="book__review__label">Kind</span>
+                                <span className="book__review__value">{book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}</span>
+                            </div>
+
+                            <div className="book__review__item">
+                                <span className="book__review__label">Author</span>
+                                <span className="book__review__value">{book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}</span>
+                            </div>
+
+                            <div className="book__review__item">
+                                <span className="book__review__label">Amount</span>
+                                <span className="book__review__value">{book.bookAmount}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="book__detail">
+                        <div className="book__detail__wrapper">
+
+                            <div className="book__detail__inputbox">
+                                <span className="book__detail__label">Name</span>
+                                <input
+                                    value={book.bookName}
+                                    onChange={(e) => setBook({ ...book, bookName: e.target.value })}
+                                    type="text"
+                                    placeholder='Enter book name' />
+                            </div>
+
+                            <div className="book__detail__amount">
+                                <button>-</button>
+                                <input
+                                    value={book.bookAmount}
+                                    onChange={(e) => setBook({ ...book, bookAmount: e.target.value })}
+                                    type="number" />
+                                <button>+</button>
+                            </div>
+                        </div>
+
+                        <div className="book__detail__wrapper">
+
+                            <div className="book__detail__item">
+                                <span className="book__detail__label">Author</span>
+                                <input type="text" />
+                                <button>+</button>
+                            </div>
+
+                            <div className="book__detail__item">
+                                <span className="book__detail__label">Kind</span>
+                                <input type="text" />
+                                <button>+</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
