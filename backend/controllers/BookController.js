@@ -72,10 +72,11 @@ class BookController {
 
     async search(req, res) {
         try {
-            const { keySearch, bookKind } = req.query;
-            const bookData = { keySearch, bookKind };
+            const { keySearch, bookKind, sort, type } = req.query;
+            const bookData = { keySearch, bookKind, sort, type };
 
             const book = await bookServiceInstance.searchBook(bookData);
+
             res.json(book);
         } catch (err) {
             res.status(500).json({

@@ -87,10 +87,12 @@ class BookService {
     }
 
     async searchBook(query) {
-        const { keySearch, bookKind } = query;
+        const { keySearch, bookKind, sort, type } = query;
         let bookKindFilter = null;
         let bookNameFilter = null;
         let bookAuthorFilter = null;
+        let sortFilter = null;
+
         if (keySearch) {
             const trimKeySearch = keySearch.trim();
             bookNameFilter = { $regex: trimKeySearch, $options: 'i' };
@@ -102,14 +104,24 @@ class BookService {
             bookKindFilter = { $in: bookKindArray };
         }
 
+        if (sort) {
+            const sortOption = {};
+            sortOption[sort] = type === 'asc' ? 1 : -1;
+            sortFilter = sortOption;
+        }
+
+
         let queryConditions = [];
         if (bookNameFilter) queryConditions.push({ bookName: bookNameFilter });
         if (bookAuthorFilter) queryConditions.push({ bookAuthor: bookAuthorFilter });
         if (bookKindFilter) queryConditions.push({ bookKind: bookKindFilter });
 
-        console.log(queryConditions);
 
-        return Book.find(queryConditions.length > 0 ? { $and: queryConditions } : {});
+        const newBooks = Book.find(queryConditions.length > 0 ? { $and: queryConditions } : {});
+        if (sortFilter) {
+            newBooks.sort(sortFilter);
+        }
+        return newBooks;
     }
 }
 

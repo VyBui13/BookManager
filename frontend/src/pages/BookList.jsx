@@ -11,7 +11,7 @@ function BookList() {
     const [kindsFilter, setKindsFilter] = useState([]);
     const [search, setSearch] = useState('');
 
-    useEffect(() => {
+    function handleSearch(sortFeature, type) {
         let url = 'http://localhost:5000/books/search?';
         let flag = false;
         if (kindsFilter.length !== 0) {
@@ -23,6 +23,24 @@ function BookList() {
                 url += '&';
             }
             url += 'keySearch=' + search;
+            flag = true;
+        }
+
+        if (sortFeature !== '') {
+            if (flag) {
+                url += '&';
+            }
+            if (sortFeature === 'price') {
+                url += 'sort=bookPrice';
+            } else {
+                url += 'sort=bookName';
+            }
+
+            if (type === 'asc') {
+                url += '&type=asc';
+            } else {
+                url += '&type=desc';
+            }
         }
 
         fetch(url)
@@ -33,7 +51,10 @@ function BookList() {
             .catch((error) => {
                 console.log(error);
             });
+    }
 
+    useEffect(() => {
+        handleSearch('', '');
     }, [kindsFilter]);
 
 
@@ -57,30 +78,6 @@ function BookList() {
             });
     }, []); // []: run only once
 
-    function handleSearch() {
-        let url = 'http://localhost:5000/books/search?';
-        let flag = false;
-        if (kindsFilter.length !== 0) {
-            url += 'bookKind=' + kindsFilter.join(',');
-            flag = true;
-        }
-        if (search !== '') {
-            if (flag) {
-                url += '&';
-            }
-            url += 'keySearch=' + search;
-        }
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                setBooks(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
     return (
         <>
             <div className="booklist-container">
@@ -100,7 +97,9 @@ function BookList() {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Search by name" />
-                            <button onClick={handleSearch}>
+                            <button onClick={() => {
+                                handleSearch('', '');
+                            }}>
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className='icon__search' />
                             </button>
                         </div>
@@ -131,28 +130,44 @@ function BookList() {
                         </div>
 
                         <div className="booklist__sort">
-                            <button className="booklist__sort-item">
+                            <button onClick={
+                                () => {
+                                    handleSearch('price', 'asc');
+                                }
+                            } className="booklist__sort-item">
                                 <FontAwesomeIcon icon={faUpLong} className='icon__sort' />
                                 <div className="booklist__sort-nameitem">
                                     Price
                                 </div>
                             </button>
 
-                            <button className="booklist__sort-item">
+                            <button onClick={
+                                () => {
+                                    handleSearch('price', 'desc');
+                                }
+                            } className="booklist__sort-item">
                                 <FontAwesomeIcon icon={faDownLong} className='icon__sort' />
                                 <div className="booklist__sort-nameitem">
                                     Price
                                 </div>
                             </button>
 
-                            <button className="booklist__sort-item">
+                            <button onClick={
+                                () => {
+                                    handleSearch('name', 'asc');
+                                }
+                            } className="booklist__sort-item">
                                 <FontAwesomeIcon icon={faUpLong} className='icon__sort' />
                                 <div className="booklist__sort-nameitem">
                                     Name
                                 </div>
                             </button>
 
-                            <button className="booklist__sort-item">
+                            <button onClick={
+                                () => {
+                                    handleSearch('name', 'desc');
+                                }
+                            } className="booklist__sort-item">
                                 <FontAwesomeIcon icon={faDownLong} className='icon__sort' />
                                 <div className="booklist__sort-nameitem">
                                     Name
