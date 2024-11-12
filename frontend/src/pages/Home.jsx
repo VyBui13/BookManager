@@ -18,7 +18,6 @@ function Home() {
         fetch("http://localhost:5000/books/top?limit=5")
             .then((res) => res.json())
             .then((data) => {
-
                 setBooks(data);
             })
             .catch((error) => {

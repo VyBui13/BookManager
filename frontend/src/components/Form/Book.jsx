@@ -11,6 +11,8 @@ function Book() {
     const { notify } = useNotification();
     const currDate = getCurrentDateTime();
     const { regulation } = useContext(ConfigContext);
+    const [addAuthor, setAddAuthor] = useState('');
+    const [addKind, setAddKind] = useState('');
     // const [listBook, setListBook] = useState([]);
     const [book, setBook] = useState({
         bookName: 'To Kill a Mockingbird',
@@ -162,27 +164,104 @@ function Book() {
                             </div>
 
                             <div className="book__detail__amount">
-                                <button>-</button>
+                                <button onClick={
+                                    () => {
+                                        if (book.bookAmount === '') {
+                                            setBook({ ...book, bookAmount: 0 });
+                                        }
+                                        else if (book.bookAmount > 0) {
+                                            setBook({ ...book, bookAmount: book.bookAmount - 1 });
+                                        }
+                                    }
+                                }>-</button>
                                 <input
                                     value={book.bookAmount}
                                     onChange={(e) => setBook({ ...book, bookAmount: e.target.value })}
                                     type="number" />
-                                <button>+</button>
+                                <button onClick={
+                                    () => {
+                                        if (book.bookAmount === '') {
+                                            setBook({ ...book, bookAmount: 0 });
+                                        }
+                                        else {
+
+                                            setBook({ ...book, bookAmount: book.bookAmount + 1 });
+                                        }
+                                    }
+                                }>+</button>
                             </div>
                         </div>
 
                         <div className="book__detail__wrapper">
+                            <div className="book__detail__container">
 
-                            <div className="book__detail__item">
-                                <span className="book__detail__label">Author</span>
-                                <input type="text" />
-                                <button>+</button>
+                                <div className="book__detail__item">
+                                    <span className="book__detail__label">Author</span>
+                                    <input
+                                        value={addAuthor}
+                                        onChange={(e) => setAddAuthor(e.target.value)}
+                                        type="text" />
+                                    <button onClick={
+                                        () => {
+                                            if (addAuthor === '') {
+                                                return;
+                                            }
+                                            else {
+                                                setBook({ ...book, bookAuthor: [...book.bookAuthor, addAuthor.trim()] });
+                                                setAddAuthor('');
+                                            }
+                                        }
+                                    }>+</button>
+                                </div>
+
+                                <div className="book__detail__content">
+                                    {book.bookAuthor.map((author, index) => (
+                                        <div key={index} className="book__detail__content__item">
+                                            <button onClick={
+                                                () => {
+                                                    const newAuthor = [...book.bookAuthor];
+                                                    newAuthor.splice(index, 1);
+                                                    setBook({ ...book, bookAuthor: newAuthor });
+                                                }
+                                            }>{author}</button>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
-                            <div className="book__detail__item">
-                                <span className="book__detail__label">Kind</span>
-                                <input type="text" />
-                                <button>+</button>
+                            <div className="book__detail__container">
+                                <div className="book__detail__item">
+                                    <span className="book__detail__label">Kind</span>
+                                    <input
+                                        value={addKind}
+                                        onChange={(e) => setAddKind(e.target.value)}
+                                        type="text" />
+                                    <button onClick={
+                                        () => {
+                                            if (addKind === '') {
+                                                return;
+                                            }
+                                            else {
+                                                setBook({ ...book, bookKind: [...book.bookKind, addKind.trim()] });
+                                                setAddKind('');
+                                            }
+                                        }
+                                    }>+</button>
+                                </div>
+
+                                <div className="book__detail__content">
+                                    {book.bookKind.map((kind, index) => (
+                                        <div key={index} className="book__detail__content__item">
+                                            <button onClick={
+                                                () => {
+                                                    const newKind = [...book.bookKind];
+                                                    newKind.splice(index, 1);
+                                                    setBook({ ...book, bookKind: newKind });
+                                                }
+                                            }>{kind}</button>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
