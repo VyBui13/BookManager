@@ -8,6 +8,34 @@ import { faBook, faMagnifyingGlass, faUpLong, faDownLong } from '@fortawesome/fr
 function BookList() {
     const [books, setBooks] = useState([]);
     const [kinds, setKinds] = useState([]);
+    const [kindsFilter, setKindsFilter] = useState([]);
+    const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        let url = 'http://localhost:5000/books/search?';
+        let flag = false;
+        if (kindsFilter.length !== 0) {
+            url += 'bookKind=' + kindsFilter.join(',');
+            flag = true;
+        }
+        if (search !== '') {
+            if (flag) {
+                url += '&';
+            }
+            url += 'keySearch=' + search;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [kindsFilter]);
+
 
     useEffect(() => {
         fetch('http://localhost:5000/books')
@@ -29,6 +57,30 @@ function BookList() {
             });
     }, []); // []: run only once
 
+    function handleSearch() {
+        let url = 'http://localhost:5000/books/search?';
+        let flag = false;
+        if (kindsFilter.length !== 0) {
+            url += 'bookKind=' + kindsFilter.join(',');
+            flag = true;
+        }
+        if (search !== '') {
+            if (flag) {
+                url += '&';
+            }
+            url += 'keySearch=' + search;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <>
             <div className="booklist-container">
@@ -44,8 +96,11 @@ function BookList() {
                         </div>
                         <div className="booklist__searchbar">
 
-                            <input type="text" placeholder="Search by name" />
-                            <button>
+                            <input type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search by name" />
+                            <button onClick={handleSearch}>
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className='icon__search' />
                             </button>
                         </div>
@@ -56,8 +111,17 @@ function BookList() {
                         <div className="booklist__filterkind">
                             {kinds.map(kind => (
                                 <div className="booklist__filterkind-item" key={kind}>
-                                    <input type="checkbox" id={kind} />
-                                    <label htmlFor={kind}>{kind}</label>
+                                    <input type="checkbox"
+                                        onChange={
+                                            () => {
+                                                if (kindsFilter.includes(kind)) {
+                                                    setKindsFilter(kindsFilter.filter(item => item !== kind));
+                                                } else {
+                                                    setKindsFilter([...kindsFilter, kind]);
+                                                }
+                                            }
+                                        } id={kind} />
+                                    <label htmlFor={kind} >{kind}</label>
                                 </div>
                             ))}
                         </div>

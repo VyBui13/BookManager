@@ -85,6 +85,32 @@ class BookService {
             console.log(err);
         }
     }
+
+    async searchBook(query) {
+        const { keySearch, bookKind } = query;
+        let bookKindFilter = null;
+        let bookNameFilter = null;
+        let bookAuthorFilter = null;
+        if (keySearch) {
+            const trimKeySearch = keySearch.trim();
+            bookNameFilter = { $regex: trimKeySearch, $options: 'i' };
+            bookAuthorFilter = { $regex: trimKeySearch, $options: 'i' };
+        }
+
+        if (bookKind) {
+            const bookKindArray = bookKind.split(',');
+            bookKindFilter = { $in: bookKindArray };
+        }
+
+        let queryConditions = [];
+        if (bookNameFilter) queryConditions.push({ bookName: bookNameFilter });
+        if (bookAuthorFilter) queryConditions.push({ bookAuthor: bookAuthorFilter });
+        if (bookKindFilter) queryConditions.push({ bookKind: bookKindFilter });
+
+        console.log(queryConditions);
+
+        return Book.find(queryConditions.length > 0 ? { $and: queryConditions } : {});
+    }
 }
 
 module.exports = BookService;

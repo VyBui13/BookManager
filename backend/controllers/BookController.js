@@ -69,6 +69,21 @@ class BookController {
                 });
             });
     }
+
+    async search(req, res) {
+        try {
+            const { keySearch, bookKind } = req.query;
+            const bookData = { keySearch, bookKind };
+
+            const book = await bookServiceInstance.searchBook(bookData);
+            res.json(book);
+        } catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new BookController;
