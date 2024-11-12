@@ -39,6 +39,12 @@ class UserService {
         return users;
     }
 
+    async getAmountUser(role) {
+        const query = { $regex: role, $options: 'i' };
+        const users = await User.find({ userRole: query });
+        return { totalUser: users.length };
+    }
+
 }
 
 module.exports = UserService;

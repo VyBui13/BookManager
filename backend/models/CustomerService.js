@@ -197,7 +197,15 @@ class CustomerService {
         return Customer.find();
     }
 
-
+    async getCustomerGeneralDetail() {
+        const customerList = await Customer.find();
+        const totalCustomer = customerList.length;
+        const totalFee = customerList.map(customer => customer.feeList.map(fee => Number(fee.payment)).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
+        return {
+            totalCustomer: totalCustomer,
+            totalFee: totalFee,
+        }
+    }
 }
 
 module.exports = CustomerService;

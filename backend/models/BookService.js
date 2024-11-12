@@ -123,6 +123,14 @@ class BookService {
         }
         return newBooks;
     }
+
+    async getAmount() {
+        const totalBook = await Book.countDocuments();
+
+        return {
+            totalBook: totalBook,
+        };
+    }
 }
 
 module.exports = BookService;

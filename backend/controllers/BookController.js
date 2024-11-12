@@ -85,6 +85,18 @@ class BookController {
             });
         }
     }
+
+    async getAmount(req, res) {
+        try {
+            const amount = await bookServiceInstance.getAmount();
+            res.json(amount);
+        } catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new BookController;

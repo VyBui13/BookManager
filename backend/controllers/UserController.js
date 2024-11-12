@@ -100,6 +100,20 @@ class UserController {
             message: 'Logout successfully'
         })
     }
+
+    async getAmountUser(req, res) {
+        const role = req.query.role;
+        try {
+            const amount = await userServiceInstance.getAmountUser(role);
+            res.status(200).json(amount);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new UserController;

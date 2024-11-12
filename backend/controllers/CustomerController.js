@@ -19,9 +19,7 @@ class CustomerController {
     async postCustomerFee(req, res) {
         try {
             const feeData = req.body;
-            console.log('feeData', feeData);
             const status = await customerServiceInstance.addFee(feeData);
-            console.log('status', status);
             res.status(200).json(status);
         }
         catch (err) {
@@ -50,6 +48,20 @@ class CustomerController {
                         });
                     });
             }
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
+
+    async getCustomerGeneralDetail(req, res) {
+        try {
+            const detail = await customerServiceInstance.getCustomerGeneralDetail();
+            console.log(detail);
+            res.status(200).json(detail);
         }
         catch (err) {
             res.status(500).json({

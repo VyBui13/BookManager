@@ -2,14 +2,23 @@ import "../styles/Home.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { getCurrentDate } from "../utils/DateCurrent";
 
 function Home() {
+    const date = getCurrentDate();
     const [books, setBooks] = useState([]);
+    const [detail, setDetail] = useState({
+        totalBook: 0,
+        totalIncome: 0,
+        totalCustomer: 0,
+        totalStaff: 0
+    });
     const [customers, setCustomers] = useState([]);
     useEffect(() => {
         fetch("http://localhost:5000/books/top?limit=5")
             .then((res) => res.json())
             .then((data) => {
+
                 setBooks(data);
             })
             .catch((error) => {
@@ -18,6 +27,42 @@ function Home() {
             ;
     }, []);
 
+    useEffect(() => {
+        fetch("http://localhost:5000/books/amount")
+            .then((res) => res.json())
+            .then((data) => {
+                setDetail((prevDetail) => ({
+                    ...prevDetail,
+                    totalBook: data.totalBook,
+                }));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/customers/generaldetail")
+            .then((res) => res.json())
+            .then((data) => {
+                setDetail((prevDetail) => ({
+                    ...prevDetail,
+                    totalIncome: data.totalFee,
+                    totalCustomer: data.totalCustomer,
+                }));
+            })
+    }, []);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/users/amount?role=staff")
+            .then((res) => res.json())
+            .then((data) => {
+                setDetail((prevDetail) => ({
+                    ...prevDetail,
+                    totalStaff: data.totalUser,
+                }));
+            })
+    }, []);
 
     return (
         <div className="home">
@@ -52,11 +97,11 @@ function Home() {
                                 Total Book
                             </div>
                             <div className="home__general__value">
-                                100
+                                {detail.totalBook}
                             </div>
 
                             <div className="home__general__update">
-                                Date: 20/11/2024
+                                Date: {date}
                             </div>
                         </div>
                         <div className="home__general__percent">
@@ -76,11 +121,11 @@ function Home() {
                                 Total Income
                             </div>
                             <div className="home__general__value">
-                                10.000K
+                                {new Intl.NumberFormat('de-DE').format(detail.totalIncome)} K
                             </div>
 
                             <div className="home__general__update">
-                                Date: 20/11/2024
+                                Date: {date}
                             </div>
                         </div>
                         <div className="home__general__percent">
@@ -100,11 +145,11 @@ function Home() {
                                 Total Customer
                             </div>
                             <div className="home__general__value">
-                                100
+                                {detail.totalCustomer}
                             </div>
 
                             <div className="home__general__update">
-                                Date: 20/11/2024
+                                Date: {date}
                             </div>
                         </div>
                         <div className="home__general__percent">
@@ -124,11 +169,11 @@ function Home() {
                                 Total Staff
                             </div>
                             <div className="home__general__value">
-                                100
+                                {detail.totalStaff}
                             </div>
 
                             <div className="home__general__update">
-                                Date: 20/11/2024
+                                Date: {date}
                             </div>
                         </div>
                         <div className="home__general__percent">
