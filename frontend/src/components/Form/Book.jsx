@@ -264,6 +264,11 @@ function Book() {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="book__detail__button">
+                            <button>Clear</button>
+                            <button onClick={handleSummit}>Add</button>
+                        </div>
                     </div>
                 </div>
             </div>
