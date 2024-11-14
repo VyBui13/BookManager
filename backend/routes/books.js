@@ -9,6 +9,7 @@ router.get('/kinds', BooksController.getKinds);
 router.get('/search', BooksController.search);
 router.get('/amount', BooksController.getAmount);
 router.post('/', BooksController.postColletion);
+router.post('/rule', BooksController.checkRule);
 router.post('/price', BooksController.setPrice);
 
 module.exports = router;

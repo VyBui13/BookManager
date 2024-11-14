@@ -97,6 +97,19 @@ class BookController {
             });
         }
     }
+
+    async checkRule(req, res) {
+        try {
+            const book = req.body;
+            const rule = await bookServiceInstance.checkRule(book);
+            res.json(rule);
+        } catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new BookController;

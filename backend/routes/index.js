@@ -6,6 +6,9 @@ function route(app) {
     app.use('/books', bookRouter);
     app.use('/customers', customerRouter);
     app.use('/users', userRouter);
+    app.get('/', (req, res) => {
+        res.send('Hello World!');
+    });
 }
 
 module.exports = route;

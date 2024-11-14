@@ -131,6 +131,31 @@ class BookService {
             totalBook: totalBook,
         };
     }
+
+    async checkRule(bookData) {
+        const { bookName, bookKind, bookAuthor, bookAmount, bookMaxAmountAllow } = bookData;
+        const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+
+        const book = await Book.findOne(query);
+
+        if (book) {
+            if (Number(book.bookCurrentAmount) > Number(bookMaxAmountAllow)) {
+                return {
+                    status: 'warning',
+                    message: 'Only importing book which amount is below ' + bookAmount
+                };
+            }
+            return {
+                status: 'success',
+                message: 'Book amount is valid'
+            };
+        }
+        return {
+            status: 'success',
+            message: 'Book amount is valid'
+        };
+
+    }
 }
 
 module.exports = BookService;
