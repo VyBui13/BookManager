@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentDate } from "../utils/DateCurrent";
 import EachPageHeader from "../components/EachPageHeader";
+import NothingDisplay from "../components/NothingDiplay";
 
 function Home() {
     const date = getCurrentDate();
@@ -16,7 +17,7 @@ function Home() {
     });
     const [customers, setCustomers] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/books/top?limit=5")
+        fetch("http://localhost:5000/books/top?limit=3")
             .then((res) => res.json())
             .then((data) => {
                 setBooks(data);
@@ -51,6 +52,9 @@ function Home() {
                     totalCustomer: data.totalCustomer,
                 }));
             })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     useEffect(() => {
@@ -170,11 +174,13 @@ function Home() {
                 </div>
 
                 <div className="home__recent">
-                    <div className="home__recent__header">
+                    {/* <div className="home__recent__header">
                         Recent Order
-                    </div>
+                    </div> */}
+
 
                     <div className="home__recent__body">
+                        {books.length === 0 && <NothingDisplay />}
                         <div className="home__recent__table">
                             <div className="home__recent__field home__recent__headerfield">
                                 <div className="home__recent__attribute">
@@ -190,7 +196,6 @@ function Home() {
                                     Amount
                                 </div>
                             </div>
-
 
                             {books.map((book) => {
                                 return (
@@ -210,20 +215,21 @@ function Home() {
                                     </div>
                                 );
                             })}
-                            {/* <div className="home__recent__field">
-                            <div className="home__recent__attribute">
-                            To Kill a Mockingbird
-                            </div>
-                            <div className="home__recent__attribute">
-                            Novel
-                            </div>
-                            <div className="home__recent__attribute">
-                            Harper Lee
-                            </div>
-                            <div className="home__recent__attribute">
-                            130
-                            </div>
-                            </div> */}
+
+                            {books.length !== 0 && <div className="home__recent__field home__recent__valuefield">
+                                <div className="home__recent__attribute">
+                                    ...
+                                </div>
+                                <div className="home__recent__attribute">
+                                    ...
+                                </div>
+                                <div className="home__recent__attribute">
+                                    ...
+                                </div>
+                                <div className="home__recent__attribute">
+                                    ...
+                                </div>
+                            </div>}
                         </div>
 
                     </div>

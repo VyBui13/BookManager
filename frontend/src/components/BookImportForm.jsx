@@ -2,6 +2,7 @@ import '../styles/BookImportForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
+import NothingDisplay from './NothingDiplay';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {
     const [books, setBooks] = useState(bookList);
@@ -22,6 +23,7 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
     return (
         <div className="importform">
             <div className="importform__content">
+                {books.length === 0 && <NothingDisplay desciption="It seem there's no book in the book import form. Please enter some books!" />}
                 {books.map((book, index) => (
                     <button onClick={
                         () => {
