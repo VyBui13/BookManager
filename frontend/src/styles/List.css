@@ -51,7 +51,7 @@
     margin: 20px auto;
     background: rgba(255, 255, 255, 0.6);
     border-radius: var(--border-radius);
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .list .list__body::-webkit-scrollbar {
@@ -67,6 +67,7 @@
 .list .list__content {
     padding: 10px 20px;
     width: 100%;
+    overflow: auto;
 }
 
 .list .list__content .list__field {
@@ -119,10 +120,36 @@
     flex: 1.5;
 }
 
+.list .list__content .list__items {
+    margin-top: 10px;
+    padding: 10px;
+    max-height: 220px;
+    overflow: auto;
+}
+
+.list .list__content .list__items::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.list .list__content .list__items::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+}
+
 @media (max-width: 1000px) {
-    .list .list__content {
+    .list .list__content .list__field {
         width: 950px;
     }
+
+    .list .list__content .list__items {
+        width: 950px;
+        max-height: unset;
+    }
+
+    /* .list .list__content {
+        width: 950px;
+    } */
 
     /* .list .list__content .list__attribute {
         min-width: 200px;
@@ -139,10 +166,6 @@
     .list .list__content .list__attribute:last-child {
         min-width: 200px;
     } */
-}
-
-.list .list__content .list__items {
-    margin-top: 20px;
 }
 
 .list .list__content .list__items .list__item {
