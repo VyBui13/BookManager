@@ -134,6 +134,10 @@
     margin-right: 10px;
 }
 
+.bill .booklist .booklist__item {
+    margin: 15px 0;
+}
+
 .bill .booklist .booklist__item .booklist__button {
     position: absolute;
     bottom: 10px;

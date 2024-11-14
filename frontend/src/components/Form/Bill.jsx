@@ -63,8 +63,6 @@ function Bill() {
                 .catch((error) => {
                     notify({ type: error.status, msg: error.message });
                 });
-
-
         }
     }
 
