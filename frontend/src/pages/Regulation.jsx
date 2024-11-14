@@ -4,6 +4,7 @@ import { ConfigContext } from '../components/Config.jsx'
 import InputNumberRange from '../components/InputNumberRange.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons'
+import EachPageHeader from '../components/EachPageHeader.jsx'
 
 function Regulation() {
     const { regulation, setRegulation } = useContext(ConfigContext);
@@ -24,7 +25,7 @@ function Regulation() {
     }
 
     return (
-        <div className="setting-container">
+        <>
             {value && <InputNumberRange
                 label={value.label}
                 min={value.min}
@@ -34,11 +35,15 @@ function Regulation() {
                 setRegulation={setRegulation}
                 step={value.step}
             />}
+
+            {/* <div className="page__header">
+                <p>Dashboard</p>
+                <h1>Setting</h1>
+            </div> */}
+
+            <EachPageHeader title="Setting" description="Dashboard" />
+
             <div className="setting">
-                <div className="page__header">
-                    <p>Dashboard</p>
-                    <h1>Setting</h1>
-                </div>
 
                 <div className="setting__body">
                     <div className="setting__item">
@@ -165,12 +170,8 @@ function Regulation() {
                         </div>
                     </button>
                 </div>
-
-
-
             </div>
-        </div>
-
+        </>
     )
 }
 

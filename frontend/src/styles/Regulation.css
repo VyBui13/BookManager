@@ -131,24 +131,7 @@
     background-image: url(/pic/ico/No.png);
 } */
 
-.setting-container {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-    padding: 20px;
-}
-
-.setting-container .setting {
-    width: 100%;
-}
-
-
-.setting-container .setting .setting__header h1 {
-    color: var(--main-color);
-    text-transform: uppercase;
-}
-
-.setting-container .setting .setting__body {
+.setting__body {
     width: 100%;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     margin-top: 20px;
@@ -156,23 +139,23 @@
     padding: 20px;
 }
 
-.setting .setting__body .setting__item {
+.setting__body .setting__item {
     margin: 10px 0;
 }
 
-.setting .setting__body .setting__item+.setting__item {
+.setting__body .setting__item+.setting__item {
     border-top: 2px dashed rgba(0, 0, 0, 0.6);
     padding-top: 20px;
 }
 
-.setting .setting__body .setting__item .setting__item-header {
+.setting__body .setting__item .setting__item-header {
     font-size: 20px;
     font-weight: 700;
     color: var(--main-color);
     text-transform: uppercase;
 }
 
-.setting .setting__body .setting__item .setting__item-content {
+.setting__body .setting__item .setting__item-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -215,7 +198,8 @@
     margin-left: 10px;
 }
 
-.setting .setting__role {
+.setting__role {
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -223,7 +207,7 @@
     margin-top: 10px;
 }
 
-.setting .setting__role .setting__card {
+.setting__role .setting__card {
     padding: 20px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -239,7 +223,7 @@
     overflow: hidden;
 }
 
-.setting .setting__role .setting__card .setting__card-icon {
+.setting__role .setting__card .setting__card-icon {
     width: 35px;
     height: 35px;
     background-color: var(--main-color);
@@ -252,7 +236,7 @@
     position: relative;
 }
 
-.setting .setting__role .setting__card .setting__card-icon::before {
+.setting__role .setting__card .setting__card-icon::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -263,17 +247,17 @@
     transition: all 0.4s;
 }
 
-.setting .setting__role .setting__card:hover {
+.setting__role .setting__card:hover {
     color: #fff;
 }
 
-.setting .setting__role .setting__card:hover .setting__card-icon::before {
+.setting__role .setting__card:hover .setting__card-icon::before {
     width: 450px;
     height: 450px;
 }
 
 
-.setting .setting__role .setting__card .setting__card-title {
+.setting__role .setting__card .setting__card-title {
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;

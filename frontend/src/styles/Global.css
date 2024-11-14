@@ -35,20 +35,48 @@ a {
 }
 
 .page__header {
-    font-size: 18px;
-    font-weight: 300;
-    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
 
-.page__header h1 {
+.page__header .page__title {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.page__title h1 {
     color: var(--main-color);
     text-transform: uppercase;
     margin-top: 5px;
 }
 
-.page__header p {
+.page__title p {
     font-weight: 700;
     color: #000;
+}
+
+.page__user {
+    display: flex;
+    align-items: center;
+}
+
+.page__user button {
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.page__user button .icon__user {
+    font-size: 20px;
 }

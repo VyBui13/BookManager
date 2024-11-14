@@ -2,7 +2,7 @@ import './styles/Header.css'
 import { Link } from "react-router-dom"
 import './styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, faWallet, faUser, faTag } from '@fortawesome/free-solid-svg-icons'
 import { useNotification } from './components/NotificationContext.jsx'
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
