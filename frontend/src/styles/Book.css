@@ -255,6 +255,8 @@
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
+    z-index: 1;
+    overflow: hidden;
 }
 
 .book .book__review {
@@ -522,13 +524,20 @@
     opacity: 1;
 }
 
-.book .book__detail .book__detail__button {
+.book__detail__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.book__detail .book__detail__footer .book__detail__button {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.book .book__detail .book__detail__button button {
+.book__detail .book__detail__footer .book__detail__button button {
     padding: 10px 20px;
     border-radius: var(--border-radius);
     border: none;
@@ -540,16 +549,48 @@
     margin: 0 10px;
 }
 
-.book .book__detail .book__detail__button button:first-child {
+.book__detail .book__detail__footer .book__detail__button button:first-child {
     background-color: #fff;
     color: var(--main-color);
     border: 2px solid var(--main-color);
 }
 
-.book .book__detail .book__detail__button button:last-child {
+.book__detail .book__detail__footer .book__detail__button button:last-child {
     background-color: var(--main-color);
     color: #fff;
     border: 2px solid var(--main-color);
+}
+
+.book .book__detail__footer .book__detail__cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--main-color);
+    color: #fff;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    position: relative;
+    cursor: pointer;
+    border: none;
+}
+
+.book__detail__footer .book__detail__cart .display__amount {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #fff;
+    border: 2px solid var(--main-color);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
 }
 
 @media (max-width: 1100px) {

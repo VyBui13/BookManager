@@ -2,17 +2,19 @@ import React, { useEffect } from 'react';
 import { useState, useContext } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Book.css';
+import BookImportForm from '../BookImportForm.jsx';
 import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import { ConfigContext } from '../Config.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faFolder } from '@fortawesome/free-solid-svg-icons'
 
 function Book() {
     const { notify } = useNotification();
-    const currDate = getCurrentDateTime();
+    const [booksImport, setBooksImport] = useState([]);
     const { regulation } = useContext(ConfigContext);
     const [addAuthor, setAddAuthor] = useState('');
     const [addKind, setAddKind] = useState('');
+    const [isImportForm, setIsImportForm] = useState(false);
     // const [listBook, setListBook] = useState([]);
     const [book, setBook] = useState({
         bookName: 'To Kill a Mockingbird',
@@ -28,35 +30,79 @@ function Book() {
         bookAmount: 0,
     });
 
-    function handleSummit() {
-        if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
+    function handleAddBook() {
+        if (book.bookName === '' || book.bookKind.length === 0 || book.bookAuthor.length === 0 || book.bookAmount === 0) {
             notify({ type: 'error', msg: 'Please fill all field!' });
+            return;
         }
-        else if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
+
+        if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
             notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
             return;
         }
-        else {
-            fetch('http://localhost:5000/books', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...book, updateDate: getCurrentDateTime(), regulation: regulation.bookMaxAmountAllow })
-            })
-                .then(response => response.json())
-                .then(data => {
+
+        fetch('http://localhost:5000/books/rule', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...book, bookMaxAmountAllow: regulation.bookMaxAmountAllow })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (booksImport.length === 0) {
+                        setBooksImport([...booksImport, book]);
+                    } else {
+                        const checkBook = booksImport.find(item => item.bookName === book.bookName);
+                        if (checkBook) {
+                            const newBooksImport = booksImport.map(item => {
+                                if (item.bookName === book.bookName) {
+                                    return { ...item, bookAmount: item.bookAmount + book.bookAmount };
+                                }
+                                return item;
+                            });
+                            setBooksImport(newBooksImport);
+                        } else {
+                            setBooksImport([...booksImport, book]);
+                        }
+                    }
+                    notify({ type: data.status, msg: "Add book in form successfully" });
+                } else {
                     notify({ type: data.status, msg: data.message });
-                })
-                .catch((error) => {
-                    notify({ type: 'error', msg: error.message });
-                });
-            setBook({
-                ...book,
-                bookName: '',
-                bookKind: '',
-                bookAuthor: '',
-                bookAmount: 0,
+                }
+            })
+            .catch((error) => {
+                notify({ type: 'error', msg: error.message });
             });
-        }
+    }
+
+    function handleSummit() {
+        // if (book.bookName === '' || book.bookKind === '' || book.bookAuthor === '' || book.bookAmount === 0) {
+        //     notify({ type: 'error', msg: 'Please fill all field!' });
+        // }
+        // else if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
+        //     notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
+        //     return;
+        // }
+        // else {
+        //     fetch('http://localhost:5000/books', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ ...book, updateDate: getCurrentDateTime(), regulation: regulation.bookMaxAmountAllow })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             notify({ type: data.status, msg: data.message });
+        //         })
+        //         .catch((error) => {
+        //             notify({ type: 'error', msg: error.message });
+        //         });
+        //     setBook({
+        //         ...book,
+        //         bookName: '',
+        //         bookKind: '',
+        //         bookAuthor: '',
+        //         bookAmount: 0,
+        //     });
+        // }
     }
 
 
@@ -126,6 +172,7 @@ function Book() {
 
             <div className="book-container">
                 <div className="book">
+                    {isImportForm && <BookImportForm bookList={booksImport} setBookList={setBooksImport} setIsImportForm={setIsImportForm} />}
                     <div className="book__review">
                         <div className="book__icon">
                             <FontAwesomeIcon icon={faBook} className='icon__book' />
@@ -265,9 +312,21 @@ function Book() {
                             </div>
                         </div>
 
-                        <div className="book__detail__button">
-                            <button>Clear</button>
-                            <button onClick={handleSummit}>Add</button>
+                        <div className="book__detail__footer">
+                            <button onClick={
+                                () => {
+                                    setIsImportForm(!isImportForm);
+                                }
+                            } className="book__detail__cart">
+                                <FontAwesomeIcon icon={faFolder} className='icon__cart' />
+                                {booksImport.length !== 0 && <div className="display__amount">
+                                    {booksImport.length}
+                                </div>}
+                            </button>
+                            <div className="book__detail__button">
+                                <button>Clear</button>
+                                <button onClick={handleAddBook}>Add</button>
+                            </div>
                         </div>
                     </div>
                 </div>
