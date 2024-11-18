@@ -178,6 +178,8 @@ function BookList() {
                     </div>
                 </div>
                 <div className="booklist">
+
+
                     {
                         books.map(book => (
                             <div className="booklist__item" key={book._id}>
@@ -193,7 +195,9 @@ function BookList() {
 
                                 <div className="booklist__content">
                                     <div className="booklist__price">
-                                        {book.bookPrice} VND
+                                        <span>
+                                            {new Intl.NumberFormat('de-DE').format(book.bookPrice)} VND
+                                        </span>
                                     </div>
 
                                     <div className="booklist__detail">
@@ -217,7 +221,6 @@ function BookList() {
                             </div>
                         ))
                     }
-
 
                 </div>
             </div>
