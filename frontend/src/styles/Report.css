@@ -40,17 +40,14 @@
     width: var(--width-label);
     height: var(--height-label);
     background: rgba(255, 255, 255, 0.4);
-    border-radius: var(--border-radius);
+    border-radius: 20px;
     display: block;
-    box-shadow: inset 0 5px 15px #00000095, inset 0 -5px 15px #9e999995;
+    box-shadow: inset 0 1px 5px #00000095, inset 0 -2px 5px #9e999995;
     transition: all 0.6s;
 }
 
 .report__header .report__switch label .labelPoint {
-    background-image: url(/pic/ico/Yes.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: var(--main-color);
     position: absolute;
     height: calc(var(--height-label) - 2 * var(--distance-btn-label));
     width: calc(var(--height-label) - 2 * var(--distance-btn-label));
@@ -59,6 +56,16 @@
     bottom: var(--distance-btn-label);
     top: var(--distance-btn-label);
     left: var(--distance-btn-label);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s;
+}
+
+.report__header .report__switch label .labelPoint .icon__btn__change {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
     transition: all 0.6s;
 }
 
@@ -66,11 +73,18 @@
     width: calc(var(--height-label) - 2 * var(--distance-btn-label) + 10px);
 }
 
+.report__header .report__switch label:active .labelPoint .icon__btn__change {
+    transform: rotate(360deg);
+}
+
 #changeReport:checked+label .labelPoint {
     left: calc(var(--width-label) - var(--distance-btn-label));
     transform: translateX(-100%);
-    background-image: url(/pic/ico/No.png);
 }
+
+/* #changeReport:checked+label .labelPoint .icon__btn__change {
+    transform: rotate(360deg);
+} */
 
 
 .report .report__body {

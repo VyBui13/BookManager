@@ -4,6 +4,8 @@ import ReportBookForm from '../components/ReportBookForm';
 import ReportCustomerForm from '../components/ReportCustomerForm';
 import { getMonthYear } from '../utils/DateCurrent';
 import EachPageHeader from '../components/EachPageHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 function Report() {
     const [isBookReport, setIsBookReport] = useState(true);
@@ -31,7 +33,9 @@ function Report() {
                             }
                             id="changeReport" />
                         <label htmlFor="changeReport">
-                            <div className="labelPoint"></div>
+                            <div className="labelPoint">
+                                <FontAwesomeIcon icon={faGear} className='icon__btn__change' />
+                            </div>
                         </label>
                     </div>
                 </div>
