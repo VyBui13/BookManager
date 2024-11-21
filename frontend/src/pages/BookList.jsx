@@ -86,7 +86,7 @@ function BookList() {
                 <h1>Booklist</h1>
             </div> */}
 
-            <EachPageHeader title="Booklist" description="Manager" />
+            <EachPageHeader title="Booklist" description="BookPage" />
 
             <div className="booklist__body">
                 <div className="booklist__search">

@@ -31,6 +31,8 @@
     padding: 20px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
     border-radius: var(--border-radius);
+    position: relative;
+    z-index: 1;
 }
 
 .bill .bill__form .bill__formtitle {
@@ -47,17 +49,32 @@
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+    border-radius: calc(var(--border-radius) + 5px);
+    border: 2px solid var(--main-color);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
+}
+
+.bill .bill__form .bill__formitem span {
+    background: var(--main-color);
+    padding: 5px 10px;
+    width: 120px;
+    text-align: center;
+    font-size: 18px;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    font-size: 700;
+    color: #fff;
 }
 
 .bill .bill__form .bill__formitem input {
     position: relative;
     width: 100%;
     outline: none;
-    padding: 10px;
+    padding: 5px 10px;
     z-index: 1;
-    border-radius: var(--border-radius);
-    border: 2px solid #000000;
+    border: none;
     background: transparent;
+    text-align: center;
     transition: all 0.3s;
 }
 
@@ -127,13 +144,6 @@
     color: #fff;
 }
 
-.bill .bill__form .bill__formitem .bill__formdetail {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    margin-right: 10px;
-}
-
 .bill .booklist .booklist__item {
     margin: 15px 0;
 }
@@ -173,6 +183,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .bill .bill__form .bill__btn button {
@@ -195,7 +206,7 @@
 
 @media (max-width: 900px) {
     .bill {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     .bill .bill__booklist {

@@ -70,7 +70,7 @@ function Home() {
 
     return (
         <>
-            <EachPageHeader title="Dashboard" description="Home manager" />
+            <EachPageHeader title="Dashboard" description="HomePage" />
 
             <div className="home">
                 <div className="home__general">
