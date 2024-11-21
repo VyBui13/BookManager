@@ -76,83 +76,79 @@ function Customer(props) {
 
     return (
         <>
-
-            <div className="customer-wrapper">
-
-                <div className="customer">
-                    <div className="customer__header">
-                        <div className="customer__title">
-                            Payment
-                        </div>
-
-                        <div className="customer__search">
-                            <input
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                type="text" placeholder="Search..." />
-                            <button onClick={handleSearch}>
-                                <FontAwesomeIcon icon={faSearch} />
-                            </button>
-                        </div>
+            <div className="customer">
+                <div className="customer__header">
+                    <div className="customer__title">
+                        Payment
                     </div>
 
-                    <div className="customer__body">
-                        <div className="customer__field">
-                            <div className="customer__field__name">Name</div>
-                            <input
-                                value={customer.customerName}
-                                type="text" disabled />
+                    <div className="customer__search">
+                        <input
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            type="text" placeholder="Search..." />
+                        <button onClick={handleSearch}>
+                            <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                    </div>
+                </div>
 
-                        </div>
+                <div className="customer__body">
+                    <div className="customer__field">
+                        <div className="customer__field__name">Name</div>
+                        <input
+                            value={customer.customerName}
+                            type="text" disabled />
 
-                        <div className="customer__field">
-                            <div className="customer__field__name">Email</div>
-                            <input
-                                value={customer.customerEmail}
-                                onChange={(e) => setCustomer({ ...customer, customerEmail: e.target.value })}
-                                type="text" required />
-
-                        </div>
-
-                        <div className="customer__field">
-                            <div className="customer__field__name">Phone</div>
-                            <input
-                                value={customer.customerPhone}
-                                onChange={(e) => setCustomer({ ...customer, customerPhone: e.target.value })}
-                                type="text" required />
-
-                        </div>
-
-                        <div className="customer__field">
-                            <div className="customer__field__name">Address</div>
-                            <input
-                                value={customer.customerAddress}
-                                onChange={(e) => setCustomer({ ...customer, customerAddress: e.target.value })}
-                                type="text" required />
-
-                        </div>
-
-                        <div className="customer__field">
-                            <div className="customer__field__name">Fee</div>
-                            <input
-                                value={customer.customerCurrentDebt}
-                                type="text" disabled />
-
-                        </div>
-
-                        <div className="customer__field">
-                            <div className="customer__field__name">Payment</div>
-                            <input
-                                value={payment}
-                                onChange={(e) => setPayment(e.target.value.trim())}
-                                type="text" required />
-
-                        </div>
                     </div>
 
-                    <div className="customer__btn">
-                        <button className="customer__btn__submit" onClick={handleSummit}>Submit</button>
+                    <div className="customer__field">
+                        <div className="customer__field__name">Email</div>
+                        <input
+                            value={customer.customerEmail}
+                            onChange={(e) => setCustomer({ ...customer, customerEmail: e.target.value })}
+                            type="text" required />
+
                     </div>
+
+                    <div className="customer__field">
+                        <div className="customer__field__name">Phone</div>
+                        <input
+                            value={customer.customerPhone}
+                            onChange={(e) => setCustomer({ ...customer, customerPhone: e.target.value })}
+                            type="text" required />
+
+                    </div>
+
+                    <div className="customer__field">
+                        <div className="customer__field__name">Address</div>
+                        <input
+                            value={customer.customerAddress}
+                            onChange={(e) => setCustomer({ ...customer, customerAddress: e.target.value })}
+                            type="text" required />
+
+                    </div>
+
+                    <div className="customer__field">
+                        <div className="customer__field__name">Fee</div>
+                        <input
+                            value={customer.customerCurrentDebt}
+                            type="text" disabled />
+
+                    </div>
+
+                    <div className="customer__field">
+                        <div className="customer__field__name">Payment</div>
+                        <input
+                            value={payment}
+                            onChange={(e) => setPayment(e.target.value.trim())}
+                            type="text" required />
+
+                    </div>
+                </div>
+
+                <div className="customer__btn">
+                    <button className="customer__btn__submit" onClick={handleSummit}>Submit</button>
                 </div>
             </div>
         </>

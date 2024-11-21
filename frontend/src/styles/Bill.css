@@ -81,6 +81,7 @@
 .bill .bill__form .bill__formbody .bill__listcontainer {
     overflow: auto;
     max-width: 100%;
+    max-height: 110px;
 }
 
 .bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar {
@@ -216,5 +217,9 @@
 
     .bill .bill__form {
         width: 100%;
+    }
+
+    .bill .bill__form .bill__formbody .bill__listcontainer {
+        max-height: none;
     }
 }

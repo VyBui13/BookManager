@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { ConfigContext } from '../Config.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
+import Payment from '../Payment.jsx';
 
 function Bill() {
     const { regulation } = useContext(ConfigContext);
@@ -20,6 +21,7 @@ function Bill() {
     });
     const [book, setBook] = useState({});
     const [books, setBooks] = useState([]);
+    const [isHidePayment, setIsHidePayment] = useState(true);
 
     useEffect(() => {
         fetch('http://localhost:5000/books')
@@ -49,27 +51,29 @@ function Bill() {
             notify({ type: 'error', msg: 'Please choose book!' });
         }
         else {
-            fetch('http://localhost:5000/customers/bill', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime(), debtMax: regulation.debtMax, bookMinAmountAfterSell: regulation.bookMinAmountAfterSell }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    notify({ type: data.status, msg: data.message });
-                    if (data.status === 'success') {
-                        Navigate('/form/customer', { replace: true });
-                    }
-                })
-                .catch((error) => {
-                    notify({ type: error.status, msg: error.message });
-                });
+            // fetch('http://localhost:5000/customers/bill', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime(), debtMax: regulation.debtMax, bookMinAmountAfterSell: regulation.bookMinAmountAfterSell }),
+            // })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         notify({ type: data.status, msg: data.message });
+            //         if (data.status === 'success') {
+            //             Navigate('/form/customer', { replace: true });
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         notify({ type: error.status, msg: error.message });
+            //     });
+            setIsHidePayment(false);
         }
     }
 
     return (
         <>
             {book.bookName && <BillAmount book={book} setBook={setBook} bill={bill} setBill={setBill} />}
+            {!isHidePayment && <Payment bill={bill} />}
             <div className="bill">
                 <div className="bill__form">
                     <div className="bill__formtitle">
@@ -97,10 +101,6 @@ function Bill() {
                                 required />
                         </div>
 
-                        {(bill.bookList.length !== 0) && <div className="bill__formitem">
-                            <span className="bill__formdetail">BookList:</span>
-                        </div>}
-
                         {(bill.bookList.length !== 0) && <div className="bill__listcontainer">
                             <div className="bill__list bill__headerlist">
                                 <div className="bill__listitem">
@@ -127,7 +127,7 @@ function Bill() {
                             {
                                 bill.bookList.map(book => (
                                     <>
-                                        <div className="bill__list">
+                                        <div className="bill__list" key={book.bookName}>
                                             <div className="bill__listitem">
                                                 <span>{book.bookName}</span>
                                             </div>

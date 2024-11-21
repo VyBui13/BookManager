@@ -1,11 +1,9 @@
-.customer-wrapper {
-    width: 100%;
-}
-
 .customer {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 30px;
     border-radius: var(--border-radius);
+    position: relative;
+    z-index: 1;
 }
 
 .customer .customer__header {
