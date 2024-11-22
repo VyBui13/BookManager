@@ -1,56 +1,63 @@
 const Book = require('../schema/Book');
-
+const BookImportForm = require('../schema/BookImportForm');
+const { getCurrentDate, getCurrentTime } = require('../utils/DateUtils');
 class BookService {
     getBookList() {
         return Book.find();
     }
 
     async addBook(bookData) {
-        const { bookName, bookKind, bookAuthor, bookAmount, updateDate, regulation } = bookData;
-        const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
-
-        const book = await Book.findOne(query);
-        const isBeginMonth = false;
-
-        if (book) {
-            if (Number(book.bookCurrentAmount) > Number(regulation)) {
-                return {
-                    status: 'warning',
-                    message: 'Only importing book which amount is below ' + regulation
-                };
+        const currentDate = getCurrentDate();
+        const currentTime = getCurrentTime();
+        const { bookList, staff } = bookData;
+        bookList.map(async (book) => {
+            const { bookName, bookKind, bookAuthor, bookAmount } = book;
+            const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+            const theChosenBook = await Book.findOne(query);
+            const date = currentDate.split('/')[0];
+            let isBeginMonth = false;
+            if (date === '01') {
+                isBeginMonth = true;
             }
+            if (theChosenBook) {
+                if (isBeginMonth) {
+                    const currentAmount = theChosenBook.bookCurrentAmount;
+                    theChosenBook.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
+                    theChosenBook.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
+                } else {
+                    theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
+                }
 
-            if (isBeginMonth) {
-                const currentAmount = book.bookCurrentAmount;
-                book.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
-                book.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
+                theChosenBook.updateDate = updateDate;
+                await theChosenBook.save();
             } else {
-                book.bookCurrentAmount = Number(book.bookCurrentAmount) + Number(bookAmount);
+                const newBook = new Book({
+                    bookName: bookName,
+                    bookKind: bookKind,
+                    bookAuthor: bookAuthor,
+                    bookBeginningAmount: bookAmount,
+                    bookCurrentAmount: bookAmount,
+                    updateDate: currentDate,
+                    updateTime: currentTime,
+                    beginnignDate: currentDate,
+                    beginningTime: currentTime,
+                });
+                await newBook.save();
             }
+        });
 
-            book.updateDate = updateDate;
-            await book.save();
-            return {
-                status: 'success',
-                message: 'Book updated successfully',
-            };
-        } else {
-            // Create a new book
-            const newBook = new Book({
-                bookName: bookName,
-                bookKind: bookKind,
-                bookAuthor: bookAuthor,
-                bookBeginningAmount: bookAmount,
-                bookCurrentAmount: bookAmount,
-                updateDate: updateDate,
-                createdDate: updateDate
-            });
-            await newBook.save();
-            return {
-                status: 'success',
-                message: 'Book added successfully',
-            };
-        }
+        const newBookForm = new BookImportForm({
+            bookList: bookList,
+            createDate: currentDate,
+            createTime: currentTime,
+            staff: staff,
+        });
+
+        await newBookForm.save();
+        return {
+            status: 'success',
+            message: 'Book added successfully',
+        };
     }
 
     getTopBook(limit) {

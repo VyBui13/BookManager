@@ -8,12 +8,12 @@ const BookSchema = new Schema({
     },
 
     bookKind: {
-        type: String,
+        type: Array,
         required: true
     },
 
     bookAuthor: {
-        type: String,
+        type: Array,
     },
 
     bookBeginningAmount: {
@@ -34,8 +34,13 @@ const BookSchema = new Schema({
     updateDate: {
         type: String,
     },
-
-    createdDate: {
+    updateime: {
+        type: String,
+    },
+    beginningDate: {
+        type: String,
+    },
+    beginningTime: {
         type: String,
     },
 });
