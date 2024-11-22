@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import NothingDisplay from './NothingDiplay';
+import { useNotification } from './NotificationContext';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {
+    const { notify } = useNotification();
     const [books, setBooks] = useState(bookList);
 
     function handleCancel() {
@@ -17,7 +19,30 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
     }
 
     function handleImport() {
-
+        if (books.length === 0) {
+            notify({ type: 'error', msg: 'No books are available to import!' });
+        }
+        else {
+            fetch('http://localhost:5000/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bookList: books, staff: 'Bui Dinh Gia Vy' })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    notify({ type: data.status, msg: data.message });
+                })
+                .catch((error) => {
+                    notify({ type: 'error', msg: error.message });
+                });
+            setBook({
+                ...book,
+                bookName: '',
+                bookKind: '',
+                bookAuthor: '',
+                bookAmount: 0,
+            });
+        }
     }
 
     return (

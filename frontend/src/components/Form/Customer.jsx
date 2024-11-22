@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
-import { getCurrentDateTime } from '../../utils/DateCurrent.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
@@ -53,7 +52,7 @@ function Customer(props) {
         fetch('http://localhost:5000/customers/fee', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...customer, payment: payment, updateDate: getCurrentDateTime() }),
+            body: JSON.stringify({ ...customer, payment: payment }),
         })
             .then(res => res.json())
             .then(data => {
