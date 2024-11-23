@@ -178,8 +178,6 @@ function BookList() {
                     </div>
                 </div>
                 <div className="booklist">
-
-
                     {
                         books.map(book => (
                             <div className="booklist__item" key={book._id}>
@@ -205,11 +203,11 @@ function BookList() {
                                     </div>
 
                                     <div className="booklist__detail">
-                                        Author: {book.bookAuthor}
+                                        Author: {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
                                     </div>
 
                                     <div className="booklist__detail">
-                                        Kind: {book.bookKind}
+                                        Kind: {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
                                     </div>
 
                                     <div className="booklist__detail">

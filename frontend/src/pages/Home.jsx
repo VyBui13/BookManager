@@ -108,7 +108,7 @@ function Home() {
                                     Total Income
                                 </div>
                                 <div className="home__general__value">
-                                    {new Intl.NumberFormat('de-DE').format(detail.totalIncome)} K
+                                    {new Intl.NumberFormat('de-DE').format(detail.totalIncome)} USD
                                 </div>
 
                                 <div className="home__general__update">

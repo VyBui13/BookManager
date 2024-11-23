@@ -213,7 +213,7 @@ function Book() {
                                 <button onClick={
                                     () => {
                                         if (book.bookAmount === '') {
-                                            setBook({ ...book, bookAmount: 0 });
+                                            notify({ type: 'warning', msg: 'Please enter the amount of book!' });
                                         }
                                         else if (book.bookAmount > 0) {
                                             setBook({ ...book, bookAmount: book.bookAmount - 1 });
@@ -222,15 +222,22 @@ function Book() {
                                 }>-</button>
                                 <input
                                     value={book.bookAmount}
-                                    onChange={(e) => setBook({ ...book, bookAmount: e.target.value })}
-                                    type="number" />
+                                    onInput={(e) => {
+                                        if (!Number.isInteger(Number(e.target.value)) || Number(e.target.value) < 0) {
+                                            setBook({ ...book, bookAmount: '' });
+                                            notify({ type: 'error', msg: 'Fcuk you' });
+                                            return;
+                                        }
+
+                                        setBook({ ...book, bookAmount: Number(e.target.value) || '' });
+                                    }} />
                                 <button onClick={
                                     () => {
                                         if (book.bookAmount === '') {
-                                            setBook({ ...book, bookAmount: 0 });
+                                            // setBook({ ...book, bookAmount: 0 });
+                                            notify({ type: 'warning', msg: 'Please enter the amount of book!' });
                                         }
                                         else {
-
                                             setBook({ ...book, bookAmount: book.bookAmount + 1 });
                                         }
                                     }
