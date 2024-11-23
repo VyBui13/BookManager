@@ -186,7 +186,7 @@
     }
 
     .formdashboard__navbar:hover~.fake {
-        z-index: 1;
+        z-index: 20;
         opacity: 1;
     }
 }
