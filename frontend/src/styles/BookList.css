@@ -89,6 +89,7 @@
     border-radius: var(--border-radius);
     padding: 20px;
     height: 100%;
+    margin-right: 20px;
 }
 
 .booklist {

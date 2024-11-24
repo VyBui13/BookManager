@@ -6,7 +6,7 @@ import BillAmount from '../BillAmount.jsx';
 import { useNavigate } from 'react-router-dom';
 import { ConfigContext } from '../Config.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
 
 function Bill() {
@@ -72,39 +72,46 @@ function Bill() {
     return (
         <>
             {book.bookName && <BillAmount book={book} setBook={setBook} bill={bill} setBill={setBill} />}
-            {!isHidePayment && <Payment bill={bill} />}
+            {!isHidePayment && <Payment bill={bill} setBill={setBill} setIsHidePayment={setIsHidePayment} />}
             <div className="bill">
-                <div className="bill__form">
-                    <div className="bill__formtitle">
-                        Bill
-                    </div>
-
-                    <div className="bill__formbody">
-                        <div className="bill__formitem">
-                            <span className="bill__formdetail">Name</span>
-                            <input
-                                value={bill.customerName}
-                                onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
-                                type="text"
-                                placeholder='Enter customer name'
-                                required />
+                <div className="bill__pannel">
+                    <div className="bill__form">
+                        <div className="bill__formtitle">
+                            Bill
                         </div>
 
-                        <div className="bill__formitem">
-                            <span className="bill__formdetail">Phone</span>
-                            <input
-                                value={bill.customerPhone}
-                                onChange={(e) => setBill({ ...bill, customerPhone: e.target.value })}
-                                type="text"
-                                placeholder='Enter customer phone'
-                                required />
+                        <div className="bill__formbody">
+                            <div className="bill__formitem">
+                                <span className="bill__formdetail">Name</span>
+                                <input
+                                    value={bill.customerName}
+                                    onChange={(e) => setBill({ ...bill, customerName: e.target.value })}
+                                    type="text"
+                                    required />
+                            </div>
+
+                            <div className="bill__formitem">
+                                <span className="bill__formdetail">Phone</span>
+                                <input
+                                    value={bill.customerPhone}
+                                    onChange={(e) => setBill({ ...bill, customerPhone: e.target.value })}
+                                    type="text"
+                                    required />
+                            </div>
                         </div>
 
-                        {(bill.bookList.length !== 0) && <div className="bill__listcontainer">
+                        <div className="bill__btn">
+                            <button onClick={handleSummit}>
+                                {bill.bookList.length !== 0 && <span>{bill.bookList.length}</span>}
+
+                                Pay
+                            </button>
+                        </div>
+                        {/* {(bill.bookList.length !== 0) && <div className="bill__listcontainer">
                             <div className="bill__list bill__headerlist">
-                                <div className="bill__listitem">
-                                    <span>Name</span>
-                                </div>
+                            <div className="bill__listitem">
+                            <span>Name</span>
+                            </div>
                                 <div className="bill__listitem">
                                     <span>Kind</span>
                                 </div>
@@ -156,12 +163,20 @@ function Bill() {
                                     </>
                                 ))
                             }
-                        </div>}
+                        </div>} */}
                     </div>
 
-                    <div className="bill__btn">
-                        <button onClick={handleSummit}>Submit</button>
+                    <div className="bill__search">
+                        <div className="bill__searchtitle">
+                            Search
+                        </div>
+                        <div className="bill__searchinput">
+                            <input type="text" placeholder="Search" />
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className='icon__search' />
+                        </div>
+
                     </div>
+
                 </div>
 
                 <div className="bill__booklist">

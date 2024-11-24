@@ -2,8 +2,10 @@ import "../styles/Payment.css";
 import { getCurrentDateTime } from "../utils/DateCurrent";
 import { useState } from "react";
 import { formatCurrency } from "../utils/FormatCurrency";
+import { useNotification } from "./NotificationContext";
 
-function Payment({ bill }) {
+function Payment({ bill, setBill, setIsHidePayment }) {
+    const { notify } = useNotification();
     const current = getCurrentDateTime();
     const [payment, setPayment] = useState(bill);
     const [fee, setFee] = useState(0)
@@ -14,6 +16,28 @@ function Payment({ bill }) {
             total += (Number(book.amountBought) * Number(book.bookPrice));
         });
         return total;
+    }
+
+    function handleExport() {
+        fetch('http://localhost:5000/bills/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ...payment, staff: 'Bui Dinh Gia Vy' }),
+        }).then(response => response.json())
+            .then(data => {
+                notify({ type: data.status, msg: data.message });
+                setBill({
+                    customerName: '',
+                    customerPhone: '',
+                    bookList: [],
+                });
+                setIsHidePayment(true);
+            })
+            .catch((error) => {
+                notify({ type: 'error', msg: error.message });
+            });
     }
 
     return (
@@ -82,7 +106,7 @@ function Payment({ bill }) {
                     </div>
 
                     <div className="payment__button">
-                        <button>export</button>
+                        <button onClick={handleExport}>Export</button>
                     </div>
 
                 </div>

@@ -1,7 +1,9 @@
 import '../styles/BillAmount.css';
 import { useState } from 'react';
+import { useNotification } from './NotificationContext';
 
 function BillAmount(props) {
+    const { notify } = useNotification();
     const [book, setBook] = useState(props.book);
     function handleSave() {
         const newArray = [...props.bill.bookList];
@@ -37,13 +39,42 @@ function BillAmount(props) {
                         <div className="billamount__title">
                             Amount
                         </div>
-                        <input
-                            value={book.amountBought}
-                            onChange={(e) => {
-                                setBook({ ...book, amountBought: e.target.value.trim() })
-                            }
-                            }
-                            type="number" />
+
+                        <div className="billamount__input">
+                            <button onClick={
+                                () => {
+                                    if (book.amountBought === '') {
+                                        notify({ type: 'error', msg: 'Please enter a number!' });
+                                        return;
+                                    }
+                                    if (Number(book.amountBought) <= 0) {
+                                        return;
+                                    }
+                                    setBook({ ...book, amountBought: Number(book.amountBought) - 1 })
+                                }
+                            }>-</button>
+                            <input
+                                value={book.amountBought}
+                                onChange={(e) => {
+                                    if (!Number.isInteger(Number(e.target.value)) || Number(e.target.value) < 0) {
+                                        setBook({ ...book, amountBought: '' });
+                                        notify({ type: 'error', msg: 'Fcuk you' });
+                                        return;
+                                    }
+                                    setBook({ ...book, amountBought: e.target.value.trim() })
+                                }
+                                }
+                            />
+                            <button onClick={
+                                () => {
+                                    if (book.amountBought === '') {
+                                        notify({ type: 'error', msg: 'Please enter a number!' });
+                                        return;
+                                    }
+                                    setBook({ ...book, amountBought: Number(book.amountBought) + 1 })
+                                }
+                            }>+</button>
+                        </div>
                     </div>
 
                     <div className="billamount__button">
