@@ -24,6 +24,7 @@ html {
     --text-in-background-color: #fff;
 }
 
+/* 
 
 :root {
     --border-radius: 10px;
@@ -33,7 +34,7 @@ html {
     --item-color: #121212;
     --text-color: #fff;
     --text-in-background-color: #000;
-}
+} */
 
 a {
     text-decoration: none;

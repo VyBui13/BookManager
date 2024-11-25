@@ -1,13 +1,46 @@
 import './styles/Header.css'
 import { Link } from "react-router-dom"
+import { useEffect, useState } from 'react'
 import './styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, faWallet, faUser, faTag } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 import { useNotification } from './components/NotificationContext.jsx'
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
 
 function Header() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const lightTheme = {
+        "--border-radius": "10px",
+        "--main-color": "#80002a",
+        "--main-scroll-color": "#3b3b3b93",
+        "--background-color": "#fff",
+        "--item-color": "#f2f2f2",
+        "--text-color": "#000",
+        "--text-in-background-color": "#fff",
+    };
+
+    const darkTheme = {
+        "--border-radius": "10px",
+        "--main-color": "#fff",
+        "--main-scroll-color": "#88878793",
+        "--background-color": "#000",
+        "--item-color": "#121212",
+        "--text-color": "#fff",
+        "--text-in-background-color": "#000",
+    };
+
+    useEffect(() => {
+        const theme = isDarkMode ? darkTheme : lightTheme;
+        Object.keys(theme).forEach((key) => {
+            document.documentElement.style.setProperty(key, theme[key]);
+        });
+    }, [isDarkMode]);
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
     // const [isSidebar, setIsSidebar] = useState(false)
     const { authorization } = useAuthorizations();
     const { notify } = useNotification();
@@ -39,9 +72,13 @@ function Header() {
             <div className="header__wrapper">
 
                 <div className="header">
-                    <div className="header__logo">
-                        B
-                    </div>
+                    <button onClick={toggleTheme} className="header__logo">
+                        {(isDarkMode) ?
+                            <FontAwesomeIcon icon={faMoon} className="icon__header" />
+                            :
+                            <FontAwesomeIcon icon={faSun} className="icon__header" />
+                        }
+                    </button>
                     {authorization.home && <div className="header__item">
                         <div className="header__icon">
                             <Link to="/">
