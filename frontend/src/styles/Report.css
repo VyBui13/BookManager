@@ -1,9 +1,10 @@
 .report {
     margin-top: 30px;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--item-color);
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .report .report__header {
@@ -65,7 +66,7 @@
 .report__header .report__switch label .labelPoint .icon__btn__change {
     font-size: 14px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-in-background-color);
     transition: all 0.6s;
 }
 
@@ -99,6 +100,6 @@
 }
 
 .report .report__body::-webkit-scrollbar-thumb {
-    background-color: var(--main-color);
+    background-color: var(--main-scroll-color);
     border-radius: 10px;
 }

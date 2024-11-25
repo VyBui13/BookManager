@@ -60,7 +60,7 @@ function Regulation() {
                                 </div>
                                 <button onClick={
                                     () => handleClick("BookMinAmountInput", regulation.bookMinAmountInput, 1, 500, 1)
-                                }>...</button>
+                                }>+</button>
                             </div>
                         </div>
                         <div className="setting__item-content">
@@ -73,7 +73,7 @@ function Regulation() {
                                 </div>
                                 <button onClick={
                                     () => handleClick("BookMaxAmountAllow", regulation.bookMaxAmountAllow, 1, 500, 1)
-                                }>...</button>
+                                }>+</button>
                             </div>
                         </div>
                     </div>
@@ -81,19 +81,6 @@ function Regulation() {
                     <div className="setting__item">
                         <div className="setting__item-header">
                             <p>Bill Setting</p>
-                        </div>
-                        <div className="setting__item-content">
-                            <div className="setting__item-content-title">
-                                The debt maximum amount of customer
-                            </div>
-                            <div className="setting__item-content-value">
-                                <div className="value">
-                                    {regulation.debtMax}
-                                </div>
-                                <button onClick={
-                                    () => handleClick("DebtMax", regulation.debtMax, 10000, 500000, 10000)
-                                }>...</button>
-                            </div>
                         </div>
                         <div className="setting__item-content">
                             <div className="setting__item-content-title">
@@ -105,24 +92,7 @@ function Regulation() {
                                 </div>
                                 <button onClick={
                                     () => handleClick("BookMinAmountAfterSell", regulation.bookMinAmountAfterSell, 1, 500, 1)
-                                }>...</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="setting__item">
-                        <div className="setting__item-header">
-                            <p>Customer Setting</p>
-                        </div>
-                        <div className="setting__item-content">
-                            <div className="setting__item-content-title">
-                                Using checking fee for customer
-                            </div>
-                            <div className="setting__item-content-value">
-                                <div className="value">
-                                    {regulation.checkFee ? "Yes" : "No"}
-                                </div>
-                                <button>...</button>
+                                }>+</button>
                             </div>
                         </div>
                     </div>
