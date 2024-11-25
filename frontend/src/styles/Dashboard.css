@@ -39,4 +39,5 @@
     overflow: auto;
     padding: 20px;
     position: relative;
+    background: var(--color-1);
 }

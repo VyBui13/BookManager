@@ -17,7 +17,23 @@ html {
 :root {
     --border-radius: 10px;
     --main-color: #80002a;
+    --main-scroll: #3b3b3b93;
+    --color-1: #fff;
+    --color-2: #f2f2f2;
+    --text-color: #000;
+    --text-in-background-color: #fff;
 }
+
+/* 
+:root {
+    --border-radius: 10px;
+    --main-color: #fff;
+    --main-scroll: #3b3b3b93;
+    --color-1: #000;
+    --color-2: #121212;
+    --text-color: #fff;
+    --text-in-background-color: #000;
+} */
 
 a {
     text-decoration: none;
@@ -39,7 +55,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #fff;
+    background-color: var(--color-2);
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
@@ -57,7 +73,7 @@ a {
 
 .page__title p {
     font-weight: 700;
-    color: #000;
+    color: var(--text-color);
 }
 
 .page__user {
@@ -67,7 +83,6 @@ a {
 
 .page__user button {
     background-color: var(--main-color);
-    color: #fff;
     padding: 10px;
     border: none;
     width: 50px;
@@ -79,4 +94,5 @@ a {
 
 .page__user button .icon__user {
     font-size: 20px;
+    color: var(--text-in-background-color);
 }

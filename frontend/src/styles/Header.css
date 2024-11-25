@@ -19,7 +19,7 @@
 
 .logout .logout__icon {
     font-size: 24px;
-    color: #fff;
+    color: var(--text-in-background-color);
     padding: 10px;
     border-radius: 5px;
 }
@@ -43,7 +43,7 @@
     justify-content: center;
     width: 30px;
     height: 30px;
-    background-color: #fff;
+    background-color: var(--color-1);
     border-radius: 5px;
     margin: 10px;
 }
@@ -74,7 +74,7 @@
 
 .header .header__item .header__icon {
     font-size: 22px;
-    color: #fff;
+    color: var(--text-in-background-color);
 }
 
 .header__subnav {

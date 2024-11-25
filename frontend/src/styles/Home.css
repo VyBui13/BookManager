@@ -56,7 +56,7 @@
 
 .home .home__header .home__profile {
     margin-left: 20px;
-    color: #fff;
+    color: var(--text-in-background-color);
     font-size: 1.5rem;
     width: 40px;
     height: 40px;
@@ -85,6 +85,7 @@
     z-index: 0;
     overflow: hidden;
     transition: all 0.4s;
+    background-color: var(--color-2);
 }
 
 .home__general .home__general__card .home__general__icon {
@@ -96,7 +97,7 @@
     justify-content: center;
     align-items: center;
     font-size: 1.3rem;
-    color: #fff;
+    color: var(--text-in-background-color);
     position: relative;
 
 }
@@ -120,7 +121,10 @@
     margin-top: 5px;
 }
 
-.home__general__card .home__general__main .home__general__text {}
+.home__general__card .home__general__main .home__general__text {
+    color: var(--text-color);
+    transition: all 0.4s;
+}
 
 .home__general__main .home__general__text .home__general__title {
     font-size: 0.8rem;
@@ -151,7 +155,11 @@
 }
 
 .home__general .home__general__card:hover {
-    color: #fff;
+    color: var(--text-in-background-color);
+}
+
+.home__general__card:hover .home__general__main .home__general__text {
+    color: var(--text-in-background-color);
 }
 
 .home__general .home__general__card:hover .home__general__icon::before {
@@ -160,8 +168,8 @@
 }
 
 .home__general .home__general__card:hover .home__general__percent {
-    color: #fff;
-    border-color: #fff;
+    color: var(--text-in-background-color);
+    border-color: var(--text-in-background-color);
 }
 
 /*------------------------------------*/
@@ -186,6 +194,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    background: var(--color-2);
 }
 
 .home__recent .home__recent__body .home__recent__table {
@@ -195,7 +204,7 @@
 
 .home__recent__body .home__recent__table .home__recent__field {
     display: flex;
-    color: #000;
+    color: var(--text-color);
     width: 100%;
     border-radius: var(--border-radius);
     transition: all 0.4s;
