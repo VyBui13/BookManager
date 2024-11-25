@@ -1,6 +1,25 @@
 const User = require('../schema/User');
 const { generateAccessToken } = require('../middleware/JWTAction');
 class UserService {
+    async getUserByName(userAccount) {
+        const user = await User.findOne({
+            userName: userAccount
+        }) || await User.findOne({ userPhone: userAccount });
+
+
+        if (!user) {
+            return {
+                status: 'error',
+                message: 'User not found'
+            }
+        }
+
+        return {
+            status: 'success',
+            user: user
+        };
+    }
+
     async login(user) {
         const { userAccount, userPassword, isGuest } = user;
         if (isGuest) {

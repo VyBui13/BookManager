@@ -37,6 +37,7 @@ class UserController {
 
     async authUser(req, res) {
         try {
+            console.log(req.user);
             const role = req.user.userRole.toLowerCase();
             let authorization = {
                 home: false,
@@ -78,10 +79,13 @@ class UserController {
                     createpayment: true,
                 }
             }
+
+            const userInfo = await userServiceInstance.getUserByName(req.user.userAccount);
+
             return res.status(200).json({
                 status: 'success',
                 message: 'Authorized',
-                name: req.user.userAccount,
+                user: userInfo.user,
                 authorization: authorization,
             });
         }

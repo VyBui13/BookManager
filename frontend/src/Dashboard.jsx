@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx';
 
 function Dashboard() {
-    const { setAuthorization } = useAuthorizations();
+    const { setAuthorization, setUser } = useAuthorizations();
     const { notify } = useNotification();
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,6 +29,7 @@ function Dashboard() {
                     navigate('/login');
                 } else {
                     setAuthorization(data.authorization);
+                    setUser(data.user);
                     setIsAuthenticated(true);
                 }
             })
