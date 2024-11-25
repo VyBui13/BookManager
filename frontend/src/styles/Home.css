@@ -85,7 +85,7 @@
     z-index: 0;
     overflow: hidden;
     transition: all 0.4s;
-    background-color: var(--color-2);
+    background-color: var(--item-color);
 }
 
 .home__general .home__general__card .home__general__icon {
@@ -194,7 +194,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
-    background: var(--color-2);
+    background: var(--item-color);
 }
 
 .home__recent .home__recent__body .home__recent__table {

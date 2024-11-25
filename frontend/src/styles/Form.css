@@ -92,7 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+
     padding: 10px;
     transition: all 0.4s;
 }
@@ -102,13 +102,12 @@
     align-items: center;
     flex-direction: column;
     font-size: 20px;
-    color: #fff;
+    color: var(--text-in-background-color);
     cursor: pointer;
     transition: all 0.4s;
 }
 
 .formdashboard__navbar .formdashboard__item a:hover {
-    color: #000000;
     transform: scale(1.1);
 }
 

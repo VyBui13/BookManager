@@ -17,23 +17,23 @@ html {
 :root {
     --border-radius: 10px;
     --main-color: #80002a;
-    --main-scroll: #3b3b3b93;
-    --color-1: #fff;
-    --color-2: #f2f2f2;
+    --main-scroll-color: #3b3b3b93;
+    --background-color: #fff;
+    --item-color: #f2f2f2;
     --text-color: #000;
     --text-in-background-color: #fff;
 }
 
-/* 
+
 :root {
     --border-radius: 10px;
     --main-color: #fff;
-    --main-scroll: #3b3b3b93;
-    --color-1: #000;
-    --color-2: #121212;
+    --main-scroll-color: #3b3b3b93;
+    --background-color: #000;
+    --item-color: #121212;
     --text-color: #fff;
     --text-in-background-color: #000;
-} */
+}
 
 a {
     text-decoration: none;
@@ -55,7 +55,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: var(--color-2);
+    background-color: var(--item-color);
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }

@@ -2,7 +2,7 @@ import '../styles/BookImportForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
-import NothingDisplay from './NothingDiplay';
+import NothingDisplay from './NothingDisplay';
 import { useNotification } from './NotificationContext';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {

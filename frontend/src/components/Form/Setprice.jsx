@@ -5,7 +5,7 @@ import BookSelected from '../BookSelected';
 import '../../styles/List.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
-import NothingDisplay from '../NothingDiplay';
+import NothingDisplay from '../NothingDisplay';
 
 function setPrice() {
     const [books, setBooks] = useState([]);

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentDate } from "../utils/DateCurrent";
 import EachPageHeader from "../components/EachPageHeader";
-import NothingDisplay from "../components/NothingDiplay";
+import NothingDisplay from "../components/NothingDisplay";
 
 function Home() {
     const date = getCurrentDate();
