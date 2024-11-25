@@ -9,6 +9,7 @@ function ReportBookForm() {
         fetch('http://localhost:5000/books')
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setListBook(data);
             })
             .catch((error) => {
@@ -53,7 +54,7 @@ function ReportBookForm() {
                         {item.bookCurrentAmount}
                     </div>
                     <div className="reportform__attribute">
-                        {item.createdDate}
+                        {item.beginningDate}
                     </div>
 
                     <div className="reportform__attribute">
