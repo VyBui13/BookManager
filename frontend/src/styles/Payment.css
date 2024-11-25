@@ -20,7 +20,7 @@
     font-size: 26px;
     text-transform: uppercase;
     font-weight: 700;
-    color: var(--main-color);
+    color: #000;
 }
 
 .payment .payment__header p {
@@ -32,7 +32,7 @@
 .payment .payment__header h4 {
     margin: 5px 0;
     font-size: 20px;
-    color: var(--main-color);
+    color: #000;
 }
 
 .payment .payment__body {}
@@ -160,18 +160,18 @@
 .payment__button button {
     padding: 5px 10px;
     background: #fff;
-    color: var(--main-color);
+    color: #000;
     border: none;
     outline: none;
     cursor: pointer;
     font-size: 12px;
     font-weight: 700;
-    border: 2px solid var(--main-color);
+    border: 2px solid #000;
     border-radius: var(--border-radius);
     transition: all 0.3s;
 }
 
 .payment__button button:hover {
-    background: var(--main-color);
+    background: #000;
     color: #fff;
 }

@@ -28,7 +28,7 @@ html {
 :root {
     --border-radius: 10px;
     --main-color: #fff;
-    --main-scroll-color: #3b3b3b93;
+    --main-scroll-color: #88878793;
     --background-color: #000;
     --item-color: #121212;
     --text-color: #fff;
@@ -58,6 +58,8 @@ a {
     background-color: var(--item-color);
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
 }
 
 .page__header .page__title {

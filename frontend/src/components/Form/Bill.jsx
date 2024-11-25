@@ -103,7 +103,6 @@ function Bill() {
                         <div className="bill__btn">
                             <button onClick={handleSummit}>
                                 {bill.bookList.length !== 0 && <span>{bill.bookList.length}</span>}
-
                                 Pay
                             </button>
                         </div>

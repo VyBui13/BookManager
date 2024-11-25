@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
 }
 
 .bill .bill__booklist {
@@ -16,7 +17,7 @@
 }
 
 .bill .bill__booklist::-webkit-scrollbar-thumb {
-    background-color: rgba(102, 102, 170, 0.457);
+    background-color: var(--main-scroll-color);
     border-radius: var(--border-radius);
 }
 
@@ -33,6 +34,7 @@
     border-radius: var(--border-radius);
     position: relative;
     z-index: 1;
+    background: var(--item-color);
 }
 
 .bill .bill__search {
@@ -67,6 +69,7 @@
     border: none;
     background: transparent;
     transition: all 0.3s;
+    color: var(--text-color);
 }
 
 .bill .bill__search .bill__searchinput .icon__search {
@@ -93,8 +96,8 @@
     font-size: 18px;
     border-top-left-radius: var(--border-radius);
     border-bottom-left-radius: var(--border-radius);
-    font-size: 700;
-    color: #fff;
+    font-weight: 700;
+    color: var(--text-in-background-color);
 }
 
 .bill .bill__form .bill__formitem input {
@@ -107,9 +110,10 @@
     background: transparent;
     text-align: center;
     transition: all 0.3s;
+    color: var(--text-color);
 }
 
-.bill .bill__form .bill__formbody .bill__listcontainer {
+/* .bill .bill__form .bill__formbody .bill__listcontainer {
     overflow: auto;
     max-width: 100%;
     max-height: 110px;
@@ -121,7 +125,7 @@
 }
 
 .bill .bill__form .bill__formbody .bill__listcontainer::-webkit-scrollbar-thumb {
-    background-color: rgba(102, 102, 170, 0.457);
+    background-color: var(--main-scrollbar-color);
     border-radius: var(--border-radius);
 }
 
@@ -143,7 +147,7 @@
 .bill .bill__form .bill__formbody .bill__listitem:first-child,
 .bill .bill__form .bill__formbody .bill__listitem:nth-child(3) {
     flex: 3;
-}
+} */
 
 
 
@@ -171,42 +175,12 @@
     transition: all 0.3s;
 }
 
-.bill .bill__form .bill__formbody .bill__listitem button:hover {
-    background-color: var(--main-color);
-    color: #fff;
-}
+/* .bill .bill__form .bill__formbody .bill__listitem button:hover {
+    transform: scale(1.1);
+} */
 
 .bill .booklist .booklist__item {
     margin: 15px 0;
-}
-
-.bill .booklist .booklist__item .booklist__button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-}
-
-.bill .booklist .booklist__item .booklist__button .booklist__buttonwrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-    border-radius: var(--border-radius);
-    background-color: #fff;
-    border: 2px solid var(--main-color);
-    color: var(--main-color);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.bill .booklist .booklist__item .booklist__button .booklist__buttonwrapper:hover {
-    background-color: var(--main-color);
-    color: #fff;
-}
-
-.bill .booklist .booklist__item .booklist__button .booklist__buttonwrapper span {
-    font-size: 20px;
-    font-weight: 700;
 }
 
 .bill .bill__form .bill__btn {
@@ -242,7 +216,7 @@
     border-radius: calc(var(--border-radius) + 10px);
     background-color: var(--main-color);
     border: none;
-    color: #fff;
+    color: var(--text-in-background-color);
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
@@ -258,7 +232,7 @@
     padding: 5px;
     width: 30px;
     height: 30px;
-    background-color: #fff;
+    background-color: var(--item-color);
     color: var(--main-color);
     border: 2px solid var(--main-color);
     display: flex;
@@ -267,8 +241,7 @@
 }
 
 .bill .bill__form .bill__btn button:hover {
-    background-color: var(--main-color);
-    color: #fff;
+    transform: scale(1.05);
 }
 
 @media (max-width: 900px) {
