@@ -9,6 +9,7 @@ import Form from './pages/Form.jsx'
 import Report from './pages/Report.jsx'
 import { ConfigProvider } from './components/Config.jsx'
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
+import User from './pages/User.jsx'
 
 function App() {
   const { authorization } = useAuthorizations();
@@ -16,6 +17,7 @@ function App() {
     <ConfigProvider>
       <Routes>
         {authorization.home && <Route path="/" element={<Home />}></Route>}
+        {authorization.home && <Route path="/user" element={<User />}></Route>}
         {authorization.reviewbook && <Route path="/booklist" element={<BookList />}></Route>}
         {(authorization.importbook || authorization.createbill || authorization.createpayment || authorization.setprice) && <Route path="/form/*" element={<Form />}></Route>}
         {authorization.reviewreport && <Route path="/report" element={<Report />}></Route>}
