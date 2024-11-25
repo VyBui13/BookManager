@@ -50,27 +50,30 @@ function setPrice() {
                                 </div>
 
                                 <div className="list__items">
-                                    {books.map((book) => (
-                                        <div className="list__item" key={book._id}>
-                                            <div className="list__attribute">
-                                                {book.bookName}
+                                    {books.map((book) => {
+                                        const setPrice = book.bookPrice === 0 ? 'Edit' : 'Set';
+                                        return (
+                                            <div className="list__item" key={book._id}>
+                                                <div className="list__attribute">
+                                                    {book.bookName}
+                                                </div>
+                                                <div className="list__attribute">
+                                                    {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
+                                                </div>
+                                                <div className="list__attribute">
+                                                    {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
+                                                </div>
+                                                <div className="list__attribute">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            const updateBook = books.find(b => b._id === book._id);
+                                                            setBookPrice(updateBook);
+                                                        }}
+                                                    >{setPrice}</button>
+                                                </div>
                                             </div>
-                                            <div className="list__attribute">
-                                                {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
-                                            </div>
-                                            <div className="list__attribute">
-                                                {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
-                                            </div>
-                                            <div className="list__attribute">
-                                                <button style={book.bookPrice === 0 ? { backgroundColor: 'red' } : { backgroundColor: 'var(--main-color)' }}
-                                                    onClick={(e) => {
-                                                        const updateBook = books.find(b => b._id === book._id);
-                                                        setBookPrice(updateBook);
-                                                    }}
-                                                >Edit</button>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        )
+                                    })}
                                 </div>
                             </div>}
                     </div>

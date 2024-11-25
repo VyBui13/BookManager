@@ -82,7 +82,7 @@
     justify-content: space-around;
     background: var(--main-color);
     border-radius: var(--border-radius);
-    z-index: 100;
+    z-index: 2;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
@@ -139,6 +139,8 @@
     margin-top: 20px;
     transition: all 0.4s;
     border-radius: var(--border-radius);
+    position: relative;
+    z-index: 2;
 }
 
 .fake {
@@ -197,6 +199,7 @@
         top: unset;
         bottom: 20px;
         right: 20px;
+        z-index: 30;
     }
 
 
