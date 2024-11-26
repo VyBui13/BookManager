@@ -31,6 +31,7 @@
     flex-direction: column;
     align-items: center;
     transition: all 0.4s;
+    transition: background 0s;
 }
 
 .header .header__logo {

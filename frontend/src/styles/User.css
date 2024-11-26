@@ -199,7 +199,21 @@
     background: var(--item-color);
     color: var(--text-color);
     border-radius: var(--border-radius);
+    height: 372px;
+    overflow: auto;
 }
+
+.user__activity::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* .user__activity::-webkit-scrollbar-thumb {
+    width: 5px;
+    height: 5px;
+    border-radius: var(--border-radius);
+    background: var(--main-scroll-color);
+} */
 
 .user__option {
     padding: 20px;
