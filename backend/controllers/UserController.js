@@ -133,6 +133,34 @@ class UserController {
             });
         }
     }
+
+    async getListUser(req, res) {
+        try {
+            const users = await userServiceInstance.getListUser();
+            return res.status(200).json(users);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
+
+    async addNewUser(req, res) {
+        const { name, phone, email, address, role, dateOfBirth } = req.body;
+        console.log(req.body);
+        try {
+            const status = await userServiceInstance.addNewUser({ name, phone, email, address, role, dateOfBirth });
+            return res.status(200).json(status);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new UserController;

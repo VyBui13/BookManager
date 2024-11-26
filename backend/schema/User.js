@@ -14,17 +14,14 @@ const UserSchema = new Schema({
 
     userDateOfBirth: {
         type: String,
-        required: true
     },
 
     userEmail: {
         type: String,
-        required: true
     },
 
     userAddress: {
         type: String,
-        required: true
     },
 
     userPassword: {

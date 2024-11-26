@@ -151,7 +151,8 @@
     padding: 5px 10px;
 }
 
-.user__detail__item__content .user__detail__info input {
+.user__detail__item__content .user__detail__info input,
+.user__detail__item__content .user__detail__info span {
     flex: 1;
     border: none;
     outline: none;
@@ -160,6 +161,10 @@
     color: var(--text-color);
     transition: all 0.3s ease;
     background: transparent;
+}
+
+.user__detail__item__content .user__detail__info input[type="date"] {
+    flex: unset;
 }
 
 .user__detail__item__content .user__detail__info button {

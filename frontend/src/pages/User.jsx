@@ -1,6 +1,6 @@
 import "../styles/User.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPencil, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPencil, faCheck, faCalendar, faPen } from '@fortawesome/free-solid-svg-icons'
 import Calendar from "../components/Calendar";
 import { useAuthorizations } from "../components/AuthorizationContext";
 import { useState } from "react";
@@ -14,6 +14,23 @@ function User() {
     const [isEditableEmail, setIsEditableEmail] = useState(false);
     const [isEditablePhone, setIsEditablePhone] = useState(false);
     const [isEditableAddress, setIsEditableAddress] = useState(false);
+    const [isEditableDateOfBirth, setIsEditableDateOfBirth] = useState(false);
+
+    function formatDate(dateString) {
+        // 09/04/2004
+        const day = dateString.slice(0, 2);
+        const month = dateString.slice(3, 5);
+        const year = dateString.slice(6, 10);
+        return `${year}-${month}-${day}`;
+    }
+
+    function formatDateToDisplay(dateString) {
+        // 2004-09-04
+        const day = dateString.slice(8, 10);
+        const month = dateString.slice(5, 7);
+        const year = dateString.slice(0, 4);
+        return `${day}/${month}/${year}`;
+    }
 
     function handleSaveInfo(type, data, setFunction) {
         const url = `http://localhost:5000/users/edit?type=${type}&data=${data}`;
@@ -152,21 +169,22 @@ function User() {
 
                         <div className="user__detail__item">
                             <div className="user__detail__item__title">
-                                <h3>Address</h3>
+                                <h3>Date of birth</h3>
                             </div>
                             <div className="user__detail__item__content">
 
                                 <div className="user__detail__info">
                                     <input
-                                        style={{ transform: isEditableAddress ? "scale(1.05)" : "scale(1)" }}
-                                        value={user.userAddress}
-                                        onChange={(e) => setUser({ ...user, userAddress: e.target.value })}
-                                        type="text" disabled={!isEditableAddress} />
-                                    {!isEditableAddress && <button onClick={() => setIsEditableAddress(true)}>
+                                        value={formatDate(user.userDateOfBirth)}
+                                        onChange={(e) => setUser({ ...user, userDateOfBirth: formatDateToDisplay(e.target.value) })}
+                                        type="date" disabled={!isEditableDateOfBirth}
+                                        name="input__date" id="input__date" />
+
+                                    {!isEditableDateOfBirth && <button onClick={() => setIsEditableDateOfBirth(true)}>
                                         <FontAwesomeIcon icon={faPencil} className="icon__edit" />
                                     </button>}
 
-                                    {isEditableAddress && <button onClick={() => handleSaveInfo('userPhone', user.userPhone, setIsEditableAddress)}>
+                                    {isEditableDateOfBirth && <button onClick={() => handleSaveInfo('userDateOfBirth', user.userDateOfBirth, setIsEditableDateOfBirth)}>
                                         <FontAwesomeIcon icon={faCheck} className="icon__edit" />
                                     </button>}
                                     {/* <p>{user.userAddress}</p>
@@ -194,7 +212,7 @@ function User() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

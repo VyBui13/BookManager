@@ -100,6 +100,45 @@ class UserService {
         }
     }
 
-}
+    async getListUser() {
+        const users = await User.find();
+        return users;
+    }
 
+    async addNewUser({ name, phone, email, address, role, dateOfBirth }) {
+        try {
+            const userFind = await User.findOne({ $and: [{ userName: name }, { userPhone: phone }] });
+            if (userFind) {
+                return {
+                    status: 'error',
+                    message: 'User already exists'
+                }
+            }
+            console.log(name, phone, email, address, role, dateOfBirth);
+            const newUser = new User({
+                userName: name,
+                userPhone: phone,
+                userEmail: email,
+                userAddress: address,
+                userRole: role,
+                userDateOfBirth: dateOfBirth || '',
+                userPassword: '1',
+            });
+            console.log('acesss1')
+            await newUser.save();
+            console.log('acesss2')
+
+            return {
+                status: 'success',
+                message: 'Add new user successfully'
+            }
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            }
+        }
+    }
+}
 module.exports = UserService;

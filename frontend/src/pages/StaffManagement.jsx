@@ -1,12 +1,28 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faScrewdriverWrench, faUser } from '@fortawesome/free-solid-svg-icons'
 import '../styles/StaffManagement.css'
-
+import { useState, useEffect } from 'react'
+import StaffForm from '../components/StaffForm'
 
 function StaffManagement() {
+    const [users, setUsers] = useState([]);
+    const [isForm, setIsForm] = useState(false);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users/list')
+            .then(response => response.json())
+            .then(data => {
+                setUsers(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <>
             <div className="management">
+                {isForm && <StaffForm setIsForm={setIsForm} />}
                 <div className="management__left">
                     <div className="management__role">
                         <button className="management__card">
@@ -40,7 +56,7 @@ function StaffManagement() {
                         </button>
 
 
-                        <button className="management__card">
+                        <button onClick={() => setIsForm(true)} className="management__card">
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
@@ -64,7 +80,40 @@ function StaffManagement() {
 
                 <div className="management__right">
                     <div className="management__list">
-                        <div className="management__card">
+                        {users.map(user => (
+
+                            <div className="management__card">
+                                <div className="management__card__avatar">
+                                    <FontAwesomeIcon icon={faUser} className='icon__card' />
+                                </div>
+                                <div className="management__card__body">
+
+                                    <div className="management__card__title">
+                                        <h2>
+                                            {user.userName} - {user.userRole}
+                                        </h2>
+                                    </div>
+
+                                    <div className="management__card__content">
+                                        <p>
+                                            Email:
+                                            <span>{user.userEmail}</span>
+                                        </p>
+
+                                        <p>
+                                            Phone:
+                                            <span>{user.userPhone}</span>
+                                        </p>
+                                        <p>
+                                            Address:
+                                            <span>{user.userAddress}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>))
+                        }
+
+                        {/* <div className="management__card">
                             <div className="management__card__avatar">
                                 <FontAwesomeIcon icon={faUser} className='icon__card' />
                             </div>
@@ -155,7 +204,7 @@ function StaffManagement() {
                                 </div>
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
