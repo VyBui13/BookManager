@@ -2,13 +2,13 @@ import { useState, useContext } from 'react'
 import '../styles/Regulation.css'
 import { ConfigContext } from '../components/Config.jsx'
 import InputNumberRange from '../components/InputNumberRange.jsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from '../components/EachPageHeader.jsx'
+import StaffManagement from './StaffManagement.jsx'
 
 function Regulation() {
     const { regulation, setRegulation } = useContext(ConfigContext);
     const [value, setValue] = useState(null);
+    const [isHide, setIsHide] = useState(true);
 
     function click() {
         setValue(regulation.debtMax);
@@ -42,7 +42,7 @@ function Regulation() {
             </div> */}
 
             <EachPageHeader title="Setting" description="Dashboard" />
-
+            {!isHide && <StaffManagement />}
             <div className="setting">
 
                 <div className="setting__body">
@@ -97,50 +97,9 @@ function Regulation() {
                         </div>
                     </div>
                 </div>
-
-                <div className="setting__role">
-                    <button className="setting__card">
-                        <div className="setting__card-icon">
-                            <FontAwesomeIcon icon={faScrewdriverWrench} />
-                        </div>
-
-                        <div className="setting__card-title">
-                            <p>Admin</p>
-                        </div>
-                    </button>
-
-                    <button className="setting__card">
-                        <div className="setting__card-icon">
-                            <FontAwesomeIcon icon={faScrewdriverWrench} />
-                        </div>
-
-                        <div className="setting__card-title">
-                            <p>Manager</p>
-                        </div>
-                    </button>
-
-                    <button className="setting__card">
-                        <div className="setting__card-icon">
-                            <FontAwesomeIcon icon={faScrewdriverWrench} />
-                        </div>
-
-                        <div className="setting__card-title">
-                            <p>Staff</p>
-                        </div>
-                    </button>
-
-
-                    <button className="setting__card">
-                        <div className="setting__card-icon">
-                            <FontAwesomeIcon icon={faScrewdriverWrench} />
-                        </div>
-
-                        <div className="setting__card-title">
-                            <p>Customer</p>
-                        </div>
-                    </button>
-                </div>
+                <button onClick={() => setIsHide(false)}>Hehe</button>
             </div>
+
         </>
     )
 }
