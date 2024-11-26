@@ -103,12 +103,21 @@
 }
 
 .user__left .user__detail {
-    padding: 20px;
+    padding: 10px 20px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     background: var(--item-color);
     color: var(--text-color);
     border-radius: var(--border-radius);
+    height: calc(100vh - 270px);
     margin-top: 20px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user__left .user__detail::-webkit-scrollbar {
+    width: 0px;
 }
 
 .user__detail .user__detail__item {
@@ -221,6 +230,7 @@
     background: var(--item-color);
     color: var(--text-color);
     border-radius: var(--border-radius);
+    height: calc(100vh - 440px);
     margin-top: 20px;
 }
 
@@ -231,6 +241,7 @@
 }
 
 .user__option .user__option__btn {
+    height: calc(100% - 30px);
     display: flex;
     justify-content: center;
     align-items: center;

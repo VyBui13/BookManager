@@ -244,6 +244,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+
 }
 
 .book {
@@ -255,8 +256,10 @@
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
+    align-items: center;
     z-index: 1;
     overflow: hidden;
+    height: calc(100vh - 170px);
 }
 
 .book .book__review {
@@ -599,6 +602,8 @@
 @media (max-width: 1100px) {
     .book {
         flex-wrap: wrap;
+        height: unset;
+
     }
 
     .book .book__detail {
@@ -608,6 +613,7 @@
 }
 
 @media (max-width: 700px) {
+
     .book .book__detail .book__detail__inputbox {
         width: 100%;
         flex: none;

@@ -149,6 +149,33 @@ function User() {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="user__detail__item">
+                            <div className="user__detail__item__title">
+                                <h3>Address</h3>
+                            </div>
+                            <div className="user__detail__item__content">
+
+                                <div className="user__detail__info">
+                                    <input
+                                        style={{ transform: isEditableAddress ? "scale(1.05)" : "scale(1)" }}
+                                        value={user.userAddress}
+                                        onChange={(e) => setUser({ ...user, userAddress: e.target.value })}
+                                        type="text" disabled={!isEditableAddress} />
+                                    {!isEditableAddress && <button onClick={() => setIsEditableAddress(true)}>
+                                        <FontAwesomeIcon icon={faPencil} className="icon__edit" />
+                                    </button>}
+
+                                    {isEditableAddress && <button onClick={() => handleSaveInfo('userPhone', user.userPhone, setIsEditableAddress)}>
+                                        <FontAwesomeIcon icon={faCheck} className="icon__edit" />
+                                    </button>}
+                                    {/* <p>{user.userAddress}</p>
+                                    <button>
+                                        <FontAwesomeIcon icon={faPencil} className="icon__edit" />
+                                    </button> */}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -2,12 +2,11 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
 }
 
 .bill .bill__booklist {
     flex: 3;
-    height: 370px;
+    height: calc(100vh - 170px);
     overflow: auto;
     margin: 0 20px;
 }

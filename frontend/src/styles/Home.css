@@ -73,6 +73,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin: 15px 0;
 }
 
 .home .home__general .home__general__card {
@@ -195,12 +196,25 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+
     background: var(--item-color);
+    overflow: auto;
 }
 
 .home__recent .home__recent__body .home__recent__table {
     width: 100%;
     overflow: auto;
+    max-height: calc(100vh - 374px);
+    padding: 5px 20px;
+}
+
+.home__recent .home__recent__body .home__recent__table::-webkit-scrollbar {
+    width: 10px;
+}
+
+.home__recent .home__recent__body .home__recent__table::-webkit-scrollbar-thumb {
+    background-color: var(--main-scroll-color);
+    border-radius: var(--border-radius);
 }
 
 .home__recent__body .home__recent__table .home__recent__field {
@@ -228,6 +242,24 @@
     font-weight: 600;
 }
 
+.home__recent__table .home__recent__field .home__recent__attribute {
+    padding: 0 10px;
+    flex: 3;
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute:nth-child(3) {
+    flex: 2;
+}
+
+
+.home__recent__table .home__recent__field .home__recent__attribute:nth-child(4) {
+    flex: 1;
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute span {
+    text-align: center;
+}
+
 .home__recent__body .home__recent__table .home__recent__headerfield {
     font-size: 1.5rem;
     font-weight: 700;
@@ -238,7 +270,12 @@
     border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
 }
 
+
 @media (max-width: 1100px) {
+    .home__recent .home__recent__body .home__recent__table {
+        height: unset;
+    }
+
     .home .home__general {
         justify-content: center;
     }
@@ -249,10 +286,8 @@
 }
 
 @media (max-width: 1000px) {
-
-
-    .home__recent__table .home__recent__field .home__recent__attribute {
-        min-width: 200px;
+    .home__recent__body .home__recent__table .home__recent__field {
+        width: 1000px;
     }
 
     .home .home__recent .home__recent__body {

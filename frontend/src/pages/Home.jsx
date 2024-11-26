@@ -17,7 +17,7 @@ function Home() {
     });
     const [customers, setCustomers] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/books/top?limit=3")
+        fetch("http://localhost:5000/books/top?limit=7")
             .then((res) => res.json())
             .then((data) => {
                 setBooks(data);
@@ -201,16 +201,24 @@ function Home() {
                                 return (
                                     <div className="home__recent__field home__recent__valuefield" key={book._id}>
                                         <div className="home__recent__attribute">
-                                            {book.bookName}
+                                            <span>
+                                                {book.bookName}
+                                            </span>
                                         </div>
                                         <div className="home__recent__attribute">
-                                            {book.bookKind}
+                                            <span>
+                                                {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
+                                            </span>
                                         </div>
                                         <div className="home__recent__attribute">
-                                            {book.bookAuthor}
+                                            <span>
+                                                {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
+                                            </span>
                                         </div>
                                         <div className="home__recent__attribute">
-                                            {book.bookCurrentAmount}
+                                            <span>
+                                                {book.bookCurrentAmount}
+                                            </span>
                                         </div>
                                     </div>
                                 );
