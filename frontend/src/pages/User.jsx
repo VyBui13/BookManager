@@ -1,9 +1,37 @@
 import "../styles/User.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPencil, faCheck } from '@fortawesome/free-solid-svg-icons'
 import Calendar from "../components/Calendar";
+import { useAuthorizations } from "../components/AuthorizationContext";
+import { useState } from "react";
+import { useNotification } from "../components/NotificationContext"
 
 function User() {
+    const { notify } = useNotification();
+    const { user, setUser } = useAuthorizations();
+
+    const [isEditableName, setIsEditableName] = useState(false);
+    const [isEditableEmail, setIsEditableEmail] = useState(false);
+    const [isEditablePhone, setIsEditablePhone] = useState(false);
+    const [isEditableAddress, setIsEditableAddress] = useState(false);
+
+    function handleSaveInfo(type, data, setFunction) {
+        const url = `http://localhost:5000/users/edit?type=${type}&data=${data}`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: user._id }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                notify({ type: data.status, msg: data.message });
+                setFunction(false);
+            })
+
+    }
+
     return (
         <>
             <div className="user">
@@ -11,7 +39,7 @@ function User() {
                     <div className="user__general">
                         <div className="user__general__header">
                             <h3>Your profile</h3>
-                            <p>Join 07/06/2023</p>
+                            <p>Join {user.userCreateDate}</p>
                         </div>
                         <div className="user__general__avatar">
                             <div className="user__general__avatar__wrapper">
@@ -21,15 +49,23 @@ function User() {
 
                         <div className="user__general__body">
                             <div className="user__general__name">
-                                <h3>Bui Dinh Gia Vy</h3>
-                                <button>
+                                <input
+                                    style={{ transform: isEditableName ? "scale(1.05)" : "scale(1)" }}
+                                    value={user.userName}
+                                    onChange={(e) => setUser({ ...user, userName: e.target.value })}
+                                    type="text" disabled={!isEditableName} />
+                                {!isEditableName && <button onClick={() => setIsEditableName(true)}>
                                     <FontAwesomeIcon icon={faPencil} className="icon__edit" />
                                     Edit
-                                </button>
+                                </button>}
+                                {isEditableName && <button onClick={() => handleSaveInfo('userName', user.userName, setIsEditableName)}>
+                                    <FontAwesomeIcon icon={faCheck} className="icon__edit" />
+                                    Done
+                                </button>}
                             </div>
                             <div className="user__general__role">
                                 <p>Role:
-                                    <span>Admin</span>
+                                    <span>{user.userRole}</span>
                                 </p>
                             </div>
                         </div>
@@ -42,10 +78,18 @@ function User() {
                             </div>
                             <div className="user__detail__item__content">
                                 <div className="user__detail__info">
-                                    <p>vybuoi0904@gmail.com</p>
-                                    <button>
+                                    <input
+                                        style={{ transform: isEditableEmail ? "scale(1.05)" : "scale(1)" }}
+                                        value={user.userEmail}
+                                        onChange={(e) => setUser({ ...user, userEmail: e.target.value })}
+                                        type="text" disabled={!isEditableEmail} />
+                                    {!isEditableEmail && <button onClick={() => setIsEditableEmail(true)}>
                                         <FontAwesomeIcon icon={faPencil} className="icon__edit" />
-                                    </button>
+                                    </button>}
+
+                                    {isEditableEmail && <button onClick={() => handleSaveInfo('userEmail', user.userEmail, setIsEditableEmail)}>
+                                        <FontAwesomeIcon icon={faCheck} className="icon__edit" />
+                                    </button>}
                                 </div>
                             </div>
 
@@ -58,10 +102,23 @@ function User() {
                             <div className="user__detail__item__content">
 
                                 <div className="user__detail__info">
-                                    <p>0797347660</p>
+
+                                    <input
+                                        style={{ transform: isEditablePhone ? "scale(1.05)" : "scale(1)" }}
+                                        value={user.userPhone}
+                                        onChange={(e) => setUser({ ...user, userPhone: e.target.value.trim() })}
+                                        type="text" disabled={!isEditablePhone} />
+                                    {!isEditablePhone && <button onClick={() => setIsEditablePhone(true)}>
+                                        <FontAwesomeIcon icon={faPencil} className="icon__edit" />
+                                    </button>}
+
+                                    {isEditablePhone && <button onClick={() => handleSaveInfo('userPhone', user.userPhone, setIsEditablePhone)}>
+                                        <FontAwesomeIcon icon={faCheck} className="icon__edit" />
+                                    </button>}
+                                    {/* <p>{user.userPhone}</p>
                                     <button>
                                         <FontAwesomeIcon icon={faPencil} className="icon__edit" />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
@@ -73,10 +130,22 @@ function User() {
                             <div className="user__detail__item__content">
 
                                 <div className="user__detail__info">
-                                    <p>Cu Chi district, Ho Chi Minh City</p>
+                                    <input
+                                        style={{ transform: isEditableAddress ? "scale(1.05)" : "scale(1)" }}
+                                        value={user.userAddress}
+                                        onChange={(e) => setUser({ ...user, userAddress: e.target.value })}
+                                        type="text" disabled={!isEditableAddress} />
+                                    {!isEditableAddress && <button onClick={() => setIsEditableAddress(true)}>
+                                        <FontAwesomeIcon icon={faPencil} className="icon__edit" />
+                                    </button>}
+
+                                    {isEditableAddress && <button onClick={() => handleSaveInfo('userPhone', user.userPhone, setIsEditableAddress)}>
+                                        <FontAwesomeIcon icon={faCheck} className="icon__edit" />
+                                    </button>}
+                                    {/* <p>{user.userAddress}</p>
                                     <button>
                                         <FontAwesomeIcon icon={faPencil} className="icon__edit" />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
