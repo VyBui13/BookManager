@@ -20,6 +20,23 @@ class UserService {
         };
     }
 
+    async getUserById(id) {
+        const user = await User.findOne({
+            _id: id
+        });
+        if (!user) {
+            return {
+                status: 'error',
+                message: 'User not found'
+            }
+        }
+
+        return {
+            status: 'success',
+            user: user
+        };
+    }
+
     async login(user) {
         const { userAccount, userPassword, isGuest } = user;
         if (isGuest) {
@@ -45,7 +62,7 @@ class UserService {
                 message: 'Wrong password',
             }
         }
-        const token = generateAccessToken({ userAccount, userRole: userFind.userRole });
+        const token = generateAccessToken({ userId: userFind._id, userRole: userFind.userRole });
         return {
             status: 'success',
             message: 'Login successfully',
@@ -62,6 +79,25 @@ class UserService {
         const query = { $regex: role, $options: 'i' };
         const users = await User.find({ userRole: query });
         return { totalUser: users.length };
+    }
+
+    async editUserInfo(query) {
+        // console.log(query);
+        const { type, data, id } = query;
+        const userData = await User.findOne({ _id: id });
+
+        if (!userData) {
+            return {
+                status: 'error',
+                message: 'User not found'
+            }
+        }
+        userData[type] = data
+        await userData.save();
+        return {
+            status: 'success',
+            message: 'Update user information successfully'
+        }
     }
 
 }

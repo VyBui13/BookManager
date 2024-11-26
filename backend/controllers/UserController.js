@@ -37,7 +37,6 @@ class UserController {
 
     async authUser(req, res) {
         try {
-            console.log(req.user);
             const role = req.user.userRole.toLowerCase();
             let authorization = {
                 home: false,
@@ -80,8 +79,7 @@ class UserController {
                 }
             }
 
-            const userInfo = await userServiceInstance.getUserByName(req.user.userAccount);
-
+            const userInfo = await userServiceInstance.getUserById(req.user.userId);
             return res.status(200).json({
                 status: 'success',
                 message: 'Authorized',
@@ -110,6 +108,23 @@ class UserController {
         try {
             const amount = await userServiceInstance.getAmountUser(role);
             res.status(200).json(amount);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
+
+    async editUser(req, res) {
+        try {
+            const { type, data } = req.query;
+            const id = req.body.id;
+            const query = { type, data, id };
+            console.log(query)
+            const status = await userServiceInstance.editUserInfo(query);
+            return res.status(200).json(status);
         }
         catch (err) {
             res.status(500).json({
