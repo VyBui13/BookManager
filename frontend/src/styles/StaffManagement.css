@@ -115,19 +115,70 @@
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     margin: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
 }
 
 .management__list .management__card .management__card__avatar {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 4px solid var(--main-color);
+    background: var(--item-color);
     padding: 10px;
+    position: relative;
+    cursor: pointer;
+    z-index: 4;
 }
+
+/* .management__list .management__card .management__card__avatar::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    position: absolute;
+    transition: all 0.3s;
+    z-index: -1;
+} */
+.clone1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--main-color);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.2s;
+    border-radius: var(--border-radius);
+}
+
+.clone1 span {
+    color: var(--text-in-background-color);
+    font-size: 28px;
+    font-weight: 700;
+    margin-left: 60px;
+}
+
+.management__list .management__card .management__card__avatar:hover~.clone1 {
+    opacity: 1;
+    z-index: 3;
+}
+
+.management__list .management__card .management__card__avatar:hover~.management__card__body {
+    opacity: 0;
+}
+
 
 .management__list .management__card .management__card__avatar .icon__card {
     font-size: 40px;
@@ -136,6 +187,8 @@
 
 .management__list .management__card .management__card__body {
     margin-left: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .management__list .management__card .management__card__body .management__card__title {
@@ -153,4 +206,66 @@
 
 .management__list .management__card .management__card__body .management__card__content span {
     margin-left: 5px;
+}
+
+.management__card__delete {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 35px;
+    height: 35px;
+    border-bottom-left-radius: var(--border-radius);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--main-color);
+    color: transparent;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+.management__card__change {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    border-top-left-radius: var(--border-radius);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--main-color);
+    color: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+.management__card__delete:hover {
+    top: 0;
+    right: 0;
+    color: var(--text-in-background-color);
+}
+
+.icon__card__button {
+    font-size: 14px;
+    color: var(--text-in-background-color);
+    font-weight: 700;
+    transition: all 0.4s;
+}
+
+.management__card__delete:hover .icon__card__button,
+.management__card__change:hover .icon__card__button {
+    transform: rotate(360deg);
+}
+
+.management__card__change:hover {
+    bottom: 0;
+    right: 0;
+    color: var(--text-in-background-color);
 }

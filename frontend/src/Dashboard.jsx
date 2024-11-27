@@ -35,6 +35,7 @@ function Dashboard() {
             })
             .catch((err) => {
                 setIsAuthenticated(false);
+                navigate('/login');
             });
     }, []);
 

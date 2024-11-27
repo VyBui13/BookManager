@@ -10,10 +10,6 @@ function Regulation() {
     const [value, setValue] = useState(null);
     const [isHide, setIsHide] = useState(true);
 
-    function click() {
-        setValue(regulation.debtMax);
-    }
-
     function handleClick(label, value, min, max, step) {
         setValue({
             value: value,
@@ -42,7 +38,7 @@ function Regulation() {
             </div> */}
 
             <EachPageHeader title="Setting" description="Dashboard" />
-            {!isHide && <StaffManagement />}
+            {!isHide && <StaffManagement setIsHide={setIsHide} />}
             <div className="setting">
 
                 <div className="setting__body">
