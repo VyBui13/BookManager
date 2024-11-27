@@ -4,8 +4,10 @@ import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import NothingDisplay from './NothingDisplay';
 import { useNotification } from './NotificationContext';
+import { useConfirmPrompt } from './ConfirmPromptContext';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {
+    const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const [books, setBooks] = useState(bookList);
 
@@ -31,17 +33,12 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
                 .then(response => response.json())
                 .then(data => {
                     notify({ type: data.status, msg: data.message });
+                    setBookList([]);
+                    setIsImportForm(false);
                 })
                 .catch((error) => {
                     notify({ type: 'error', msg: error.message });
                 });
-            setBook({
-                ...book,
-                bookName: '',
-                bookKind: '',
-                bookAuthor: '',
-                bookAmount: 0,
-            });
         }
     }
 
@@ -73,7 +70,14 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
 
             </div>
             <div className="importform__button">
-                <button onClick={handleImport}>Import</button>
+                <button onClick={() => {
+                    setConfirmPromptData({
+                        message: "Are you sure you want to import these books?",
+                        action: "import",
+                        onConfirm: handleImport,
+                    });
+                    setIsConfirmPrompt(true);
+                }}>Import</button>
                 <button onClick={handleSave}>Save</button>
                 <button onClick={handleCancel}>Cancel</button>
             </div>

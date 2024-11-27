@@ -13,7 +13,13 @@ function Prompt({ message, action, onConfirm, onCancel }) {
                     <p>Before doing something, make sure everything is exactly as you want it.</p>
                     <div className="confirmprompt__body-actions">
                         <button onClick={onCancel}>Cancel</button>
-                        <button onClick={onConfirm}>{action}</button>
+                        <button onClick={async () => {
+                            await onConfirm();
+                            onCancel();
+                            // setInterval(() => {
+                            //     window.location.reload();
+                            // }, 3000);
+                        }}>{action}</button>
                     </div>
                 </div>
             </div>
@@ -22,8 +28,6 @@ function Prompt({ message, action, onConfirm, onCancel }) {
 
 function ConfirmPrompt({ message, action, onConfirm, onCancel }) {
     const { isConfirmPrompt, setIsConfirmPrompt, confirmPromptData } = useConfirmPrompt();
-    console.log(confirmPromptData);
-    console.log(isConfirmPrompt);
     return (
         <>
             <div className="div">

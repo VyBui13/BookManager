@@ -107,67 +107,6 @@ function Book() {
 
     return (
         <>
-            {/* <div className="form-container">
-                <div className="form">
-                    <div className="form__title">
-                        book import
-                    </div>
-
-                    <div className="form__localtime">
-                        <div className="form__localtime-content">
-                            {currDate}
-                        </div>
-                        <div className="form__localtime-icon">
-                            <FontAwesomeIcon icon={faCalendar} className='icon__time' />
-
-                        </div>
-                    </div>
-                    <form action="#">
-                        <div className="form__userdetail">
-                            <div className="form__inputbox">
-                                <span className="form__detail">Name</span>
-                                <input
-                                    value={book.bookName}
-                                    onChange={(e) => setBook({ ...book, bookName: e.target.value.trim() })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book name</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Kind</span>
-                                <input
-                                    value={book.bookKind}
-                                    onChange={(e) => setBook({ ...book, bookKind: e.target.value.trim() })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book kind</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Author</span>
-                                <input
-                                    value={book.bookAuthor}
-                                    onChange={(e) => setBook({ ...book, bookAuthor: e.target.value.trim() })}
-                                    type="text" required />
-                                <div className="form__labelline">Enter book author</div>
-                            </div>
-
-                            <div className="form__inputbox">
-                                <span className="form__detail">Amount</span>
-                                <input
-                                    value={book.bookAmount === 0 ? '' : book.bookAmount}
-                                    onChange={(e) => setBook({ ...book, bookAmount: e.target.value.trim() })}
-                                    type="number" required />
-                                <div className="form__labelline">Enter book amount</div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div className="form__button">
-                        <button className="form__submit" onClick={handleSummit}>Submit</button>
-                    </div>
-
-                </div>
-            </div> */}
 
             <div className="book-container">
                 <div className="book">
