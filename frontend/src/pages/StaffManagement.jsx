@@ -4,13 +4,13 @@ import '../styles/StaffManagement.css'
 import { useState, useEffect } from 'react'
 import StaffForm from '../components/StaffForm'
 import { useConfirmPrompt } from '../components/ConfirmPromptContext'
+import { useNotification } from '../components/NotificationContext'
 
 function StaffManagement({ setIsHide }) {
+    const { notify } = useNotification();
     const [users, setUsers] = useState([]);
     const [isForm, setIsForm] = useState(false);
-    const { isConfirmPrompt, setIsConfirmPrompt, confirmPromptData, setConfirmPromptData } = useConfirmPrompt();
-    console.log(isConfirmPrompt)
-    console.log(confirmPromptData)
+    const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
 
     useEffect(() => {
         fetch('http://localhost:5000/users/list')
@@ -25,6 +25,28 @@ function StaffManagement({ setIsHide }) {
 
     function handleExit() {
         setIsHide(true);
+    }
+
+    function handleDeleteStaff(id) {
+        fetch('http://localhost:5000/users/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    notify({ type: data.status, msg: data.message });
+                    setUsers(users.filter(user => user._id !== id));
+                }
+                else {
+                    notify({ type: data.status, msg: data.message });
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     return (
@@ -90,7 +112,6 @@ function StaffManagement({ setIsHide }) {
                 <div className="management__right">
                     <div className="management__list">
                         {users.map(user => (
-
                             <div className="management__card">
                                 <button className="management__card__avatar">
                                     <FontAwesomeIcon icon={faUser} className='icon__card' />
@@ -123,12 +144,12 @@ function StaffManagement({ setIsHide }) {
                                     </div>
                                 </div>
                                 <button onClick={() => {
-                                    console.log("hehehe")
                                     setConfirmPromptData({
                                         message: `Delete ${user.userName}`,
                                         action: "Delete",
                                         onConfirm: () => {
-                                        }
+                                            handleDeleteStaff(user._id);
+                                        },
                                     });
                                     setIsConfirmPrompt(true);
                                 }} className="management__card__delete">
