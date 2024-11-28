@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react'
 import StaffForm from '../components/StaffForm'
 import { useConfirmPrompt } from '../components/ConfirmPromptContext'
 import { useNotification } from '../components/NotificationContext'
+import StaffRole from '../components/StaffRole'
 
 function StaffManagement({ setIsHide }) {
     const { notify } = useNotification();
     const [users, setUsers] = useState([]);
     const [isForm, setIsForm] = useState(false);
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
+    const [theChosenUser, setTheChosenUser] = useState({});
 
     useEffect(() => {
         fetch('http://localhost:5000/users/list')
@@ -49,11 +51,13 @@ function StaffManagement({ setIsHide }) {
             })
     }
 
+
     return (
         <>
             <div className="management">
                 {/* {isPrompt && <ConfirmPrompt message="Delete Staff" action="Delete" onConfirm={() => { console.log("hehehe") }} onCancel={() => setIsPrompt(false)} />} */}
                 {isForm && <StaffForm setIsForm={setIsForm} />}
+                {theChosenUser._id && <StaffRole theChosenUser={theChosenUser} setTheChosenUser={setTheChosenUser} setUsers={setUsers} />}
                 <div className="management__left">
                     <div className="management__role">
                         <button className="management__card">
@@ -156,104 +160,15 @@ function StaffManagement({ setIsHide }) {
                                     <FontAwesomeIcon icon={faX} className='icon__card__button' />
                                 </button>
 
-                                <button className="management__card__change">
+                                <button onClick={
+                                    () => {
+                                        setTheChosenUser(user);
+                                    }
+                                } className="management__card__change">
                                     <FontAwesomeIcon icon={faGear} className='icon__card__button' />
                                 </button>
                             </div>))
                         }
-
-                        {/* <div className="management__card">
-                            <div className="management__card__avatar">
-                                <FontAwesomeIcon icon={faUser} className='icon__card' />
-                            </div>
-                            <div className="management__card__body">
-
-                                <div className="management__card__title">
-                                    <h2>
-                                        Bui Dinh Gia Vy - Admin
-                                    </h2>
-                                </div>
-
-                                <div className="management__card__content">
-                                    <p>
-                                        Email:
-                                        <span>blackzerogamer09@gmail.com</span>
-                                    </p>
-
-                                    <p>
-                                        Phone:
-                                        <span>0797347660</span>
-                                    </p>
-                                    <p>
-                                        Address:
-                                        <span>Cu Chi district, Ho Chi Minh city</span>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div className="management__card">
-                            <div className="management__card__avatar">
-                                <FontAwesomeIcon icon={faUser} className='icon__card' />
-                            </div>
-                            <div className="management__card__body">
-
-                                <div className="management__card__title">
-                                    <h2>
-                                        Bui Dinh Gia Vy - Admin
-                                    </h2>
-                                </div>
-
-                                <div className="management__card__content">
-                                    <p>
-                                        Email:
-                                        <span>blackzerogamer09@gmail.com</span>
-                                    </p>
-
-                                    <p>
-                                        Phone:
-                                        <span>0797347660</span>
-                                    </p>
-                                    <p>
-                                        Address:
-                                        <span>Cu Chi district, Ho Chi Minh city</span>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div className="management__card">
-                            <div className="management__card__avatar">
-                                <FontAwesomeIcon icon={faUser} className='icon__card' />
-                            </div>
-                            <div className="management__card__body">
-
-                                <div className="management__card__title">
-                                    <h2>
-                                        Bui Dinh Gia Vy - Admin
-                                    </h2>
-                                </div>
-
-                                <div className="management__card__content">
-                                    <p>
-                                        Email:
-                                        <span>blackzerogamer09@gmail.com</span>
-                                    </p>
-
-                                    <p>
-                                        Phone:
-                                        <span>0797347660</span>
-                                    </p>
-                                    <p>
-                                        Address:
-                                        <span>Cu Chi district, Ho Chi Minh city</span>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div> */}
                     </div>
                 </div>
             </div>
