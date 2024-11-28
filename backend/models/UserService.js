@@ -140,5 +140,20 @@ class UserService {
             }
         }
     }
+
+    async deleteUser(id) {
+        const user = await User.findOne({ _id: id });
+        if (!user) {
+            return {
+                status: 'error',
+                message: 'User not found'
+            }
+        }
+        await User.deleteOne({ _id: id });
+        return {
+            status: 'success',
+            message: 'Delete user successfully'
+        }
+    }
 }
 module.exports = UserService;

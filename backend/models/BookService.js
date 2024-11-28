@@ -28,7 +28,8 @@ class BookService {
                     theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
                 }
 
-                theChosenBook.updateDate = updateDate;
+                theChosenBook.updateDate = currentDate;
+                theChosenBook.updateTime = currentTime;
                 await theChosenBook.save();
             } else {
                 const newBook = new Book({

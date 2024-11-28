@@ -161,6 +161,20 @@ class UserController {
             });
         }
     }
+
+    async deleteUser(req, res) {
+        const id = req.params.id;
+        try {
+            const status = await userServiceInstance.deleteUser(id);
+            return res.status(200).json(status);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new UserController;
