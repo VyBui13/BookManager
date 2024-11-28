@@ -3,12 +3,14 @@ import { getCurrentDateTime } from "../utils/DateCurrent";
 import { useState } from "react";
 import { formatCurrency } from "../utils/FormatCurrency";
 import { useNotification } from "./NotificationContext";
+import { useConfirmPrompt } from "./ConfirmPromptContext";
 
-function Payment({ bill, setBill, setIsHidePayment }) {
+function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
+    const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const current = getCurrentDateTime();
     const [payment, setPayment] = useState(bill);
-    const [fee, setFee] = useState(0)
+    const [fee, setFee] = useState(0);
 
     function totalPayment(booklist) {
         let total = 0;
@@ -18,7 +20,14 @@ function Payment({ bill, setBill, setIsHidePayment }) {
         return total;
     }
 
+    const totalPrice = totalPayment(payment.bookList);
+
     function handleExport() {
+        if (fee < totalPrice) {
+            notify({ type: 'error', msg: 'Payment is not enough!' });
+            return;
+        }
+
         fetch('http://localhost:5000/bills/', {
             method: 'POST',
             headers: {
@@ -33,7 +42,17 @@ function Payment({ bill, setBill, setIsHidePayment }) {
                     customerPhone: '',
                     bookList: [],
                 });
+                const newBookList = bookList.map((book) => {
+                    const newBook = { ...book };
+                    const foundBook = payment.bookList.find((item) => item._id === book._id);
+                    if (foundBook) {
+                        newBook.bookCurrentAmount = Number(newBook.bookCurrentAmount) - Number(foundBook.amountBought);
+                    }
+                    return newBook;
+                });
+                setBookList(newBookList);
                 setIsHidePayment(true);
+
             })
             .catch((error) => {
                 notify({ type: 'error', msg: error.message });
@@ -65,7 +84,7 @@ function Payment({ bill, setBill, setIsHidePayment }) {
                                         <div className="payment__book" key={index}>
                                             <p>{index + 1}. {book.bookName}</p>
                                             <p>x{book.amountBought}</p>
-                                            <p>{formatCurrency(book.bookPrice)}</p>
+                                            <p>{totalPrice}</p>
                                         </div>
                                     ))}
                                     {/* <div className="payment__book">
@@ -106,7 +125,14 @@ function Payment({ bill, setBill, setIsHidePayment }) {
                     </div>
 
                     <div className="payment__button">
-                        <button onClick={handleExport}>Export</button>
+                        <button onClick={() => {
+                            setConfirmPromptData({
+                                message: "Do you want to export this bill?",
+                                action: "export",
+                                onConfirm: handleExport,
+                            });
+                            setIsConfirmPrompt(true);
+                        }}>Export</button>
                     </div>
 
                 </div>

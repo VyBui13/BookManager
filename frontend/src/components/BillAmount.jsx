@@ -7,6 +7,14 @@ function BillAmount(props) {
     const [book, setBook] = useState(props.book);
     function handleSave() {
         const newArray = [...props.bill.bookList];
+        if (book.amountBought === '') {
+            notify({ type: 'error', msg: 'Please enter a number!' });
+            return;
+        }
+        if (Number(book.amountBought) > Number(book.amountAvailable)) {
+            notify({ type: 'error', msg: 'Please enter a number which above ' + book.amountAvailable });
+            return;
+        }
         const existingBookIndex = newArray.findIndex(item => item._id === book._id);
         if (existingBookIndex !== -1) {
             newArray[existingBookIndex] = {
@@ -58,7 +66,7 @@ function BillAmount(props) {
                                 onChange={(e) => {
                                     if (!Number.isInteger(Number(e.target.value)) || Number(e.target.value) < 0) {
                                         setBook({ ...book, amountBought: '' });
-                                        notify({ type: 'error', msg: 'Fcuk you' });
+                                        notify({ type: 'error', msg: 'Please enter a valid number' });
                                         return;
                                     }
                                     setBook({ ...book, amountBought: e.target.value.trim() })

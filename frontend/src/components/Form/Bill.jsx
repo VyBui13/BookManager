@@ -33,15 +33,6 @@ function Bill() {
             });
     }, []); //
 
-    // function handleAdd() {
-    //     if (bill.customerName === '') {
-    //         nofi({ type: 'error', msg: 'Please fill customer name!' });
-    //     }
-    //     else {
-    //         setIsHide(!isHide);
-    //     }
-    // }
-
     function handleSummit() {
         if (bill.customerName === '') {
             notify({ type: 'error', msg: 'Please fill customer name!' });
@@ -50,21 +41,6 @@ function Bill() {
             notify({ type: 'error', msg: 'Please choose book!' });
         }
         else {
-            // fetch('http://localhost:5000/customers/bill', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ ...bill, updateDate: getCurrentDateTime(), debtMax: regulation.debtMax, bookMinAmountAfterSell: regulation.bookMinAmountAfterSell }),
-            // })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         notify({ type: data.status, msg: data.message });
-            //         if (data.status === 'success') {
-            //             Navigate('/form/customer', { replace: true });
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         notify({ type: error.status, msg: error.message });
-            //     });
             setIsHidePayment(false);
         }
     }
@@ -72,7 +48,7 @@ function Bill() {
     return (
         <>
             {book.bookName && <BillAmount book={book} setBook={setBook} bill={bill} setBill={setBill} />}
-            {!isHidePayment && <Payment bill={bill} setBill={setBill} setIsHidePayment={setIsHidePayment} />}
+            {!isHidePayment && <Payment bookList={books} setBookList={setBooks} bill={bill} setBill={setBill} setIsHidePayment={setIsHidePayment} />}
             <div className="bill">
                 <div className="bill__pannel">
                     <div className="bill__form">
@@ -232,6 +208,7 @@ function Bill() {
                                                             bookAuthor: item.bookAuthor,
                                                             bookPrice: item.bookPrice,
                                                             amountBought: 0,
+                                                            amountAvailable: item.bookCurrentAmount,
                                                         });
                                                         return;
                                                     }
