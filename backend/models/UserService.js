@@ -155,5 +155,23 @@ class UserService {
             message: 'Delete user successfully'
         }
     }
+
+    async editUserByAdmin(query) {
+        const { type, data, id } = query;
+        const user = await User.findOne({ _id: id });
+        const attribute = 'user' + type.slice(0, 1).toUpperCase() + type.slice(1);
+        if (!user) {
+            return {
+                status: 'error',
+                message: 'User not found'
+            }
+        }
+        user[attribute] = data;
+        await user.save();
+        return {
+            status: 'success',
+            message: `Update ${user.userName}'s ${type} user successfully`,
+        };
+    }
 }
 module.exports = UserService;

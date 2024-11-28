@@ -175,6 +175,22 @@ class UserController {
             });
         }
     }
+
+    async editUserByAdmin(req, res) {
+        const { type, data } = req.body;
+        const id = req.params.id;
+        const query = { type, data, id };
+        try {
+            const status = await userServiceInstance.editUserByAdmin(query);
+            return res.status(200).json(status);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new UserController;
