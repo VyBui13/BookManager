@@ -7,7 +7,7 @@ import Regulation from './pages/Regulation.jsx'
 import BookList from './pages/BookList.jsx'
 import Form from './pages/Form.jsx'
 import Report from './pages/Report.jsx'
-import { ConfigProvider } from './components/Config.jsx'
+import { ConfigProvider } from './components/ConfigContext.jsx'
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
 import User from './pages/User.jsx'
 

@@ -4,13 +4,13 @@ import '../../styles/Form.css';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { useNavigate } from 'react-router-dom';
-import { ConfigContext } from '../Config.jsx'
+import { useConfigContext } from '../ConfigContext.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
 
 function Bill() {
-    const { regulation } = useContext(ConfigContext);
+    const { regulation } = useConfigContext();
     const { notify } = useNotification();
     const Navigate = useNavigate();
     const [bill, setBill] = useState({

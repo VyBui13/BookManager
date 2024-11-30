@@ -5,8 +5,10 @@ import { useState } from 'react';
 import NothingDisplay from './NothingDisplay';
 import { useNotification } from './NotificationContext';
 import { useConfirmPrompt } from './ConfirmPromptContext';
+import { useAuthorizations } from './AuthorizationContext';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {
+    const { user } = useAuthorizations();
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const [books, setBooks] = useState(bookList);
@@ -28,7 +30,7 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
             fetch('http://localhost:5000/books', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookList: books, staff: 'Bui Dinh Gia Vy' })
+                body: JSON.stringify({ bookList: books, userID: user._id })
             })
                 .then(response => response.json())
                 .then(data => {

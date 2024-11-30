@@ -1,12 +1,12 @@
 import { useState, useContext } from 'react'
 import '../styles/Regulation.css'
-import { ConfigContext } from '../components/Config.jsx'
+import { useConfigContext } from '../components/ConfigContext.jsx'
 import InputNumberRange from '../components/InputNumberRange.jsx'
 import EachPageHeader from '../components/EachPageHeader.jsx'
 import StaffManagement from './StaffManagement.jsx'
 
 function Regulation() {
-    const { regulation, setRegulation } = useContext(ConfigContext);
+    const { regulation, setRegulation } = useConfigContext();
     const [value, setValue] = useState(null);
     const [isHide, setIsHide] = useState(true);
 

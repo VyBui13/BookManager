@@ -1,6 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-export const ConfigContext = createContext();
+const ConfigContext = createContext();
 
 export const ConfigProvider = ({ children }) => {
     const [regulation, setRegulation] = useState({
@@ -17,3 +17,5 @@ export const ConfigProvider = ({ children }) => {
         </ConfigContext.Provider>
     );
 };
+
+export const useConfigContext = () => useContext(ConfigContext);

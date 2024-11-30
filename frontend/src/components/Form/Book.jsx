@@ -5,12 +5,12 @@ import '../../styles/Book.css';
 import BookImportForm from '../BookImportForm.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faFolder } from '@fortawesome/free-solid-svg-icons'
-import { ConfigContext } from '../Config.jsx'
+import { useConfigContext } from '../ConfigContext.jsx'
 
 function Book() {
     const { notify } = useNotification();
     const [booksImport, setBooksImport] = useState([]);
-    const { regulation } = useContext(ConfigContext);
+    const { regulation } = useConfigContext();
     const [addAuthor, setAddAuthor] = useState('');
     const [addKind, setAddKind] = useState('');
     const [isImportForm, setIsImportForm] = useState(false);
