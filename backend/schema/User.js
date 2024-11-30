@@ -33,6 +33,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+
+    userCreatedDateTime: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 const User = mongoose.model('User', UserSchema);

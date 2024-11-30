@@ -1,30 +1,18 @@
 const mongoose = require('mongoose');
-const { create } = require('./Customer');
 const Schema = mongoose.Schema;
 
 const BillSchema = new Schema({
-    customerName: {
-        type: String,
-        default: '',
+    customerID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Customer',
+        required: true,
     },
-    customerPhone: {
-        type: String,
-        default: '',
-    },
-    bookList: [
+    billBookList: [
         {
-            bookName: {
-                type: String,
-                default: '',
-            },
-            bookKind: {
-                type: Array,
-                default: '',
-            },
-
-            bookAuthor: {
-                type: Array,
-                default: '',
+            bookID: {
+                type: Schema.Types.ObjectId,
+                ref: 'Book',
+                required: true,
             },
 
             amountBought: {
@@ -39,29 +27,25 @@ const BillSchema = new Schema({
         }
     ],
 
-    createdDate: {
-        type: String,
-        default: '',
+    billCreatedDateTime: {
+        type: Date,
+        default: Date.now(),
     },
 
-    createdTime: {
-        type: String,
-        default: '',
-    },
-
-    totalPrice: {
+    billTotalPrice: {
         type: Number,
         default: 0,
     },
 
-    payment: {
+    billPayment: {
         type: Number,
         default: 0,
     },
 
-    staff: {
-        type: String,
-        default: '',
+    billCreatedUser: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
 });
 

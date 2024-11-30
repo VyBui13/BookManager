@@ -14,6 +14,7 @@ const BookSchema = new Schema({
 
     bookAuthor: {
         type: Array,
+        required: true
     },
 
     bookBeginningAmount: {
@@ -31,18 +32,10 @@ const BookSchema = new Schema({
         default: 0
     },
 
-    updateDate: {
-        type: String,
-    },
-    updateime: {
-        type: String,
-    },
-    beginningDate: {
-        type: String,
-    },
-    beginningTime: {
-        type: String,
-    },
+    bookUpdatedDateTime: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 const Book = mongoose.model('Book', BookSchema);

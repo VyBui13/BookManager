@@ -4,31 +4,22 @@ const Schema = mongoose.Schema;
 const BookImprotFormSchema = new Schema({
     bookList: [
         {
-            bookName: {
-                type: String,
+
+            bookID: {
+                type: Schema.Types.ObjectId,
+                ref: 'Book',
                 required: true
-            },
-            bookKind: {
-                type: Array,
-                required: true
-            },
-            bookAuthor: {
-                type: Array,
-            },
-            bookAmount: {
-                type: Number,
-                default: 0
             },
         }
     ],
-    createdDate: {
-        type: String,
+    importDateTime: {
+        type: Date,
+        default: Date.now(),
     },
-    createdTime: {
-        type: String,
-    },
-    staff: {
-        type: String,
+    importUser: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
 });
 
