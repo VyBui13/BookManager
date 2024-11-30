@@ -1,9 +1,13 @@
 const Book = require('./schema/Book');
-const { getCurrentDate, getCurrentTime } = require('./utils/DateUtils');
+const { getDate, getTime } = require('./utils/DateUtils');
 
-function seed() {
-    const currentDate = getCurrentDate();
-    const currentTime = getCurrentTime();
+async function seed() {
+    const dateNow = new Date();
+
+    const currentDate = getDate(dateNow);
+    const currentTime = getTime(dateNow);
+    console.log(currentDate, currentTime);
+    await Book.deleteMany({});
 
     const books = [
         {
@@ -13,10 +17,6 @@ function seed() {
             bookBeginningAmount: 20,
             bookCurrentAmount: 20,
             bookPrice: 78000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "To Kill a Mockingbird",
@@ -25,10 +25,6 @@ function seed() {
             bookBeginningAmount: 15,
             bookCurrentAmount: 15,
             bookPrice: 55000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "1984",
@@ -37,10 +33,6 @@ function seed() {
             bookBeginningAmount: 30,
             bookCurrentAmount: 30,
             bookPrice: 72000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "The Hobbit",
@@ -49,10 +41,6 @@ function seed() {
             bookBeginningAmount: 25,
             bookCurrentAmount: 25,
             bookPrice: 77000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "A Brief History of Time",
@@ -61,10 +49,6 @@ function seed() {
             bookBeginningAmount: 10,
             bookCurrentAmount: 10,
             bookPrice: 90000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "Pride and Prejudice",
@@ -73,10 +57,6 @@ function seed() {
             bookBeginningAmount: 18,
             bookCurrentAmount: 18,
             bookPrice: 65000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "The Catcher in the Rye",
@@ -85,10 +65,6 @@ function seed() {
             bookBeginningAmount: 12,
             bookCurrentAmount: 12,
             bookPrice: 62000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "Sapiens: A Brief History of Humankind",
@@ -97,10 +73,6 @@ function seed() {
             bookBeginningAmount: 20,
             bookCurrentAmount: 20,
             bookPrice: 85000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "The Alchemist",
@@ -109,10 +81,6 @@ function seed() {
             bookBeginningAmount: 22,
             bookCurrentAmount: 22,
             bookPrice: 58000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
         {
             bookName: "The Art of War",
@@ -121,10 +89,6 @@ function seed() {
             bookBeginningAmount: 15,
             bookCurrentAmount: 15,
             bookPrice: 50000,
-            updateDate: currentDate,
-            updateTime: currentTime,
-            beginningDate: currentDate,
-            beginningTime: currentTime,
         },
     ];
 

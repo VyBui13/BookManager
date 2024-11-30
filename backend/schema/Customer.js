@@ -34,7 +34,7 @@ const CustomerSchema = new Schema({
 
     customerUpdatedDateTime: {
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
 
 });

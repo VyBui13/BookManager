@@ -36,7 +36,7 @@ const UserSchema = new Schema({
 
     userCreatedDateTime: {
         type: Date,
-        default: Date.now()
+        default: new Date()
     }
 });
 

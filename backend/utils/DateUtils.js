@@ -1,42 +1,53 @@
-function getCurrentDate() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
+function getDay(date) {
+    return date.getDate();
+}
+
+function getMonth(date) {
+    return date.getMonth() + 1;
+}
+
+function getYear(date) {
+    return date.getFullYear();
+}
+
+function getHour(date) {
+    return date.getHours();
+}
+
+function getMinute(date) {
+    return date.getMinutes();
+}
+
+function getSecond(date) {
+    return date.getSeconds();
+}
+
+function getDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
 
-function getCurrentTime() {
-    const today = new Date();
-    const hour = String(today.getHours()).padStart(2, '0');
-    const minute = String(today.getMinutes()).padStart(2, '0');
-    const second = String(today.getSeconds()).padStart(2, '0');
+function getTime(date) {
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
     return `${hour}:${minute}:${second}`;
 }
 
-function getCurrentDateTime() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
-
-    const hour = String(today.getHours()).padStart(2, '0');
-    const minute = String(today.getMinutes()).padStart(2, '0');
-    const second = String(today.getSeconds()).padStart(2, '0');
-
-    return `${day}/${month}/${year} - ${hour}:${minute}:${second}`;
-}
-
-function getMonthYear() {
-    const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
-    return `${month}/${year}`;
+function getDateTime(date) {
+    return `${getDate(date)} ${getTime(date)}`;
 }
 
 module.exports = {
-    getCurrentDate,
-    getCurrentTime,
-    getCurrentDateTime,
-    getMonthYear
+    getDay,
+    getMonth,
+    getYear,
+    getHour,
+    getMinute,
+    getSecond,
+    getDate,
+    getTime,
+    getDateTime,
 }

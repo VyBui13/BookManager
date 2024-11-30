@@ -8,9 +8,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 const { seed } = require('./seed');
+const { seedUser } = require('./seedUser');
 const PORT = process.env.PORT || 3001;
 const db = require('./config/db/index');
 db.connect();
+
+// seedUser();
 // seed();
 
 const app = express();

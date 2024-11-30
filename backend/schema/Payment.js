@@ -14,7 +14,7 @@ const PaymentSchema = new Schema({
 
     paymentCreatedDateTime: {
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
 
     paymentCreatedUser: {

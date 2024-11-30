@@ -29,7 +29,7 @@ const BillSchema = new Schema({
 
     billCreatedDateTime: {
         type: Date,
-        default: Date.now(),
+        default: new Date(),
     },
 
     billTotalPrice: {

@@ -34,7 +34,7 @@ const BookSchema = new Schema({
 
     bookUpdatedDateTime: {
         type: Date,
-        default: Date.now()
+        default: new Date()
     }
 });
 
