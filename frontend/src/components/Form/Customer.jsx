@@ -3,33 +3,34 @@ import { useState, useEffect } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
+import { getDateTime } from "../../utils/DateCurrent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 
-function Customer(props) {
+function Customer() {
     const { notify } = useNotification();
     const [search, setSearch] = useState('');
     const [payment, setPayment] = useState('');
     const [customer, setCustomer] = useState({});
 
-    useEffect(() => {
-        if (props.customerName !== undefined) {
-            fetch(`http://localhost:5000/customers?customerName=${props.customerName}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data === null) {
-                        notify({ type: 'error', msg: 'Customer not found!' });
-                        return;
-                    }
-                    setCustomer(data);
-                })
-                .catch((err) => {
-                    notify({ type: 'error', msg: err.message });
-                }
-                );
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (props.customerName !== undefined) {
+    //         fetch(`http://localhost:5000/customers?customerName=${props.customerName}`)
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 console.log(data);
+    //                 if (data === null) {
+    //                     notify({ type: 'error', msg: 'Customer not found!' });
+    //                     return;
+    //                 }
+    //                 setCustomer(data);
+    //             })
+    //             .catch((err) => {
+    //                 notify({ type: 'error', msg: err.message });
+    //             }
+    //             );
+    //     }
+    // }, []);
 
     function handleSearch() {
         fetch(`http://localhost:5000/customers?customerName=${search}`)
@@ -73,9 +74,12 @@ function Customer(props) {
 
     }
 
+    const datenow = new Date();
+    const current = getDateTime(datenow);
+
     return (
         <>
-            <div className="customer">
+            {/* <div className="customer">
                 <div className="customer__header">
                     <div className="customer__title">
                         Payment
@@ -149,7 +153,126 @@ function Customer(props) {
                 <div className="customer__btn">
                     <button className="customer__btn__submit" onClick={handleSummit}>Submit</button>
                 </div>
+            </div> */}
+            <div className="customer">
+                <div className="customer__left">
+                    <div className="customer__info">
+                        <div className="customer__title">
+                            <span>
+                                Customer's Payment
+                            </span>
+
+                            <div className="logo__shop">B</div>
+                        </div>
+                        <div className="customer__info__wrapper">
+
+                            <div className="customer__info__left">
+                                <div className="customer__input">
+                                    <span>Name</span>
+                                    <input type="text" />
+                                </div>
+
+                                <div className="customer__input">
+                                    <span>Email</span>
+                                    <input type="text" />
+                                </div>
+
+                                <div className="customer__input">
+                                    <span>Address</span>
+                                    <input type="text" />
+                                </div>
+
+                                <div className="customer__input">
+                                    <span>Debt</span>
+                                    <input type="number" disabled />
+                                </div>
+
+                                <div className="customer__input">
+                                    <span>Payment</span>
+                                    <input type="number" />
+                                </div>
+                            </div>
+
+                            <div className="customer__info__right">
+                                <div className="customer__avatar">
+                                    <FontAwesomeIcon icon={faUser} className='icon__customer__avatar' />
+                                </div>
+                                <div className="customer__phone">
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="customer__right">
+                    <div className="payment">
+                        <div className="payment__header">
+                            <h3>B-BOOKSHOP</h3>
+                            <p>207 St., Cu Chi district, Ho Chi Minh city</p>
+                            <p>{current}</p>
+                            <h4>BOOK BILL</h4>
+                        </div>
+
+                        <div className="payment__body">
+                            <div className="payment__customer__detail">
+                                <h5>Customer: Bui Dinh Gia Vy - 123</h5>
+                            </div>
+
+                            <div className="payment__book__temp">
+
+                                <div className="payment__book__detail">
+                                    <div className="payment__booklist">
+                                        {/* {payment.bookList.map((book, index) => (
+                                            <div className="payment__book" key={index}>
+                                                <p>{index + 1}. {book.bookName}</p>
+                                                <p>x{book.amountBought}</p>
+                                                <p>{totalPrice}</p>
+                                            </div>
+                                        ))} */}
+                                        <div className="payment__book">
+                                            <p>1. hehehehe</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+                                        {/* <div className="payment__book">
+                                    <p>Total</p>
+                                    <p>{totalPayment(payment.bookList)}</p>
+                                    </div> */}
+                                    </div>
+                                </div>
+
+                                <div className="payment__calculation">
+                                    <div className="payment__caculation__item">
+                                        <p>Total</p>
+                                        <p>100000</p>
+                                    </div>
+                                    <div className="payment__caculation__item">
+                                        <p>Payment</p>
+                                        <input
+                                            type="text" />
+
+                                    </div>
+
+                                    <div className="payment__caculation__item">
+                                        <p>Change</p>
+                                        <p>-100000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
+
         </>
     );
 };
