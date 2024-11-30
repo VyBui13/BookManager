@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/StaffForm.css";
 import { useNotification } from "./NotificationContext";
 
-function StaffForm({ setIsForm }) {
+function StaffForm({ setIsForm, setUsers }) {
     const { notify } = useNotification();
     const [staff, setStaff] = useState({
         name: "",
@@ -29,7 +29,15 @@ function StaffForm({ setIsForm }) {
             .then(data => {
                 if (data.status === 'success') {
                     notify({ type: data.status, msg: data.message });
-                    setIsForm(false);
+                    fetch('http://localhost:5000/users/list')
+                        .then(response => response.json())
+                        .then(data => {
+                            setUsers(data)
+                            setIsForm(false);
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
                 }
                 else {
                     notify({ type: data.status, msg: data.message });

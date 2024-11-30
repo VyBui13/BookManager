@@ -56,7 +56,7 @@ function StaffManagement({ setIsHide }) {
         <>
             <div className="management">
                 {/* {isPrompt && <ConfirmPrompt message="Delete Staff" action="Delete" onConfirm={() => { console.log("hehehe") }} onCancel={() => setIsPrompt(false)} />} */}
-                {isForm && <StaffForm setIsForm={setIsForm} />}
+                {isForm && <StaffForm setIsForm={setIsForm} setUsers={setUsers} />}
                 {theChosenUser._id && <StaffRole theChosenUser={theChosenUser} setTheChosenUser={setTheChosenUser} setUsers={setUsers} />}
                 <div className="management__left">
                     <div className="management__role">
