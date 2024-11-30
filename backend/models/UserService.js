@@ -1,6 +1,17 @@
 const User = require('../schema/User');
 const { generateAccessToken } = require('../middleware/JWTAction');
 const bcrypt = require('bcrypt');
+
+async function hashPassword(password) {
+    try {
+        const saltRounds = 1; // Độ mạnh của thuật toán (tốn tài nguyên hơn khi tăng số này)
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        return hashedPassword;
+    } catch (err) {
+        console.error("Error hashing password:", err);
+        throw err;
+    }
+}
 class UserService {
     async getUserByName(userAccount) {
         const user = await User.findOne({
@@ -115,7 +126,8 @@ class UserService {
                     message: 'User already exists'
                 }
             }
-            console.log(name, phone, email, address, role, dateOfBirth);
+
+            const password = await hashPassword('1');
             const newUser = new User({
                 userName: name,
                 userPhone: phone,
@@ -123,11 +135,10 @@ class UserService {
                 userAddress: address,
                 userRole: role,
                 userDateOfBirth: dateOfBirth || '',
-                userPassword: '1',
+                userPassword: password,
             });
-            console.log('acesss1')
+
             await newUser.save();
-            console.log('acesss2')
 
             return {
                 status: 'success',
