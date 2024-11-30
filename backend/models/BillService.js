@@ -1,7 +1,6 @@
 const Bill = require('../schema/Bill.js');
 const Book = require('../schema/Book.js');
-const { getCurrentDate, getCurrentTime } = require('../utils/DateUtils.js');
-
+const Customer = require('../schema/Customer.js');
 class BillService {
     // async addBill(billData) {
     //     const bookList = billData.bookList;
@@ -108,14 +107,11 @@ class BillService {
 
     async addBill(billData) {
         try {
-            console.log(billData);
-            const { bookList, customerName, customerPhone, payment, staff } = billData;
-            const currentDate = getCurrentDate();
-            const currentTime = getCurrentTime();
-            const totalPrice = bookList.map(book => Number(book.bookPrice) * Number(book.amountBought)).reduce((a, b) => a + b, 0);
+            const { bookList, customerName, customerPhone, totalPrice, payment, userID } = billData;
+            const datenow = new Date();
 
             bookList.map(async book => {
-                const bookQuery = { bookName: book.bookName, bookKind: book.bookKind, bookAuthor: book.bookAuthor };
+                const bookQuery = { _id: book._id };
                 const bookData = await Book.findOne(bookQuery);
                 if (!bookData) {
                     return {
@@ -125,19 +121,31 @@ class BillService {
                 }
 
                 bookData.bookCurrentAmount = Number(bookData.bookCurrentAmount) - Number(book.amountBought);
-                bookData.updateDate = currentDate;
+                bookData.bookUpdatedDateTime = datenow;
                 await bookData.save();
             })
 
-            const newBill = new Bill({
+            const newCustomer = new Customer({
                 customerName: customerName,
                 customerPhone: customerPhone,
-                bookList: bookList,
-                createdDate: currentDate,
-                createdTime: currentTime,
-                totalPrice: totalPrice,
-                payment: payment,
-                staff: staff,
+            });
+            await newCustomer.save();
+
+            const customerID = await Customer.findOne({ customerName: customerName, customerPhone: customerPhone });
+            const newBookListID = bookList.map(book => {
+                return {
+                    bookID: book._id,
+                    amountBought: book.amountBought,
+                    bookPrice: book.bookPrice,
+                }
+            })
+
+            const newBill = new Bill({
+                customerID: customerID,
+                billBookList: newBookListID,
+                billTotalPrice: totalPrice,
+                billPayment: payment,
+                billCreatedUser: customerID,
             });
 
             await newBill.save();
