@@ -1,5 +1,6 @@
 const User = require('../schema/User');
 const { generateAccessToken } = require('../middleware/JWTAction');
+const bcrypt = require('bcrypt');
 class UserService {
     async getUserByName(userAccount) {
         const user = await User.findOne({
@@ -47,8 +48,8 @@ class UserService {
                 token: token,
             }
         }
-        const queryName = { userName: userAccount };
-        const queryPhone = { userPhone: userAccount };
+        const queryName = { userName: userAccount.trim() };
+        const queryPhone = { userPhone: userAccount.trim() };
         const userFind = await User.findOne({ $or: [queryName, queryPhone] });
         if (!userFind) {
             return {
@@ -56,7 +57,7 @@ class UserService {
                 message: 'User not found',
             }
         }
-        if (userFind.userPassword !== userPassword) {
+        if (!bcrypt.compareSync(userPassword, userFind.userPassword)) {
             return {
                 status: 'error',
                 message: 'Wrong password',

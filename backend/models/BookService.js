@@ -1,57 +1,69 @@
 const Book = require('../schema/Book');
 const BookImportForm = require('../schema/BookImportForm');
-const { getCurrentDate, getCurrentTime } = require('../utils/DateUtils');
+const { getDay } = require('../utils/DateUtils');
 class BookService {
     getBookList() {
         return Book.find();
     }
 
     async addBook(bookData) {
-        const currentDate = getCurrentDate();
-        const currentTime = getCurrentTime();
-        const { bookList, staff } = bookData;
-        bookList.map(async (book) => {
-            const { bookName, bookKind, bookAuthor, bookAmount } = book;
-            const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
-            const theChosenBook = await Book.findOne(query);
-            const date = currentDate.split('/')[0];
-            let isBeginMonth = false;
-            if (date === '01') {
-                isBeginMonth = true;
-            }
-            if (theChosenBook) {
-                if (isBeginMonth) {
-                    const currentAmount = theChosenBook.bookCurrentAmount;
-                    theChosenBook.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
-                    theChosenBook.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
-                } else {
-                    theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
+        const { bookList, userID } = bookData;
+        await Promise.all(
+            bookList.map(async (book) => {
+                const { bookName, bookKind, bookAuthor, bookAmount } = book;
+                const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+                const theChosenBook = await Book.findOne(query);
+                const date = new Date();
+                const currentDay = getDay(date);
+                let isBeginMonth = false;
+                if (currentDay === '01' || currentDay === '1') {
+                    isBeginMonth = true;
                 }
+                if (theChosenBook) {
+                    if (isBeginMonth) {
+                        const currentAmount = theChosenBook.bookCurrentAmount;
+                        theChosenBook.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
+                        theChosenBook.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
+                    } else {
+                        theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
+                    }
 
-                theChosenBook.updateDate = currentDate;
-                theChosenBook.updateTime = currentTime;
-                await theChosenBook.save();
-            } else {
-                const newBook = new Book({
-                    bookName: bookName,
-                    bookKind: bookKind,
-                    bookAuthor: bookAuthor,
-                    bookBeginningAmount: bookAmount,
-                    bookCurrentAmount: bookAmount,
-                    updateDate: currentDate,
-                    updateTime: currentTime,
-                    beginnignDate: currentDate,
-                    beginningTime: currentTime,
-                });
-                await newBook.save();
-            }
-        });
+                    theChosenBook.bookUpdatedDateTime = date;
+
+                    await theChosenBook.save();
+                } else {
+                    const newBook = new Book({
+                        bookName: bookName,
+                        bookKind: bookKind,
+                        bookAuthor: bookAuthor,
+                        bookBeginningAmount: bookAmount,
+                        bookCurrentAmount: bookAmount,
+                        bookPrice: 0,
+                        bookUpdatedDateTime: date,
+                    });
+                    await newBook.save();
+                }
+            })
+        );
+
+        const bookListImport = await Promise.all(
+            bookList.map(async (book) => {
+                const { bookName, bookKind, bookAuthor, bookAmount } = book;
+                const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+                const bookChosen = await Book.findOne(query);
+                return {
+                    bookID: bookChosen._id,
+                    bookImportAmount: bookAmount,
+                };
+            })
+        );
+
+        console.log(bookListImport);
 
         const newBookForm = new BookImportForm({
-            bookList: bookList,
-            createDate: currentDate,
-            createTime: currentTime,
-            staff: staff,
+            bookList: bookListImport,
+            importDateTime: new Date(),
+            importUser: userID,
         });
 
         await newBookForm.save();

@@ -17,9 +17,9 @@ class BookController {
 
     async postColletion(req, res) {
         try {
-            const { bookList, staff } = req.body;
+            const { bookList, userID } = req.body;
             // console.log(bookList, updateDate);
-            const bookData = { bookList, staff };
+            const bookData = { bookList, userID };
             const status = await bookServiceInstance.addBook(bookData);
 
             res.status(200).json(status);
