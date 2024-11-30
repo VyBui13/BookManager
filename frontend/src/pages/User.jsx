@@ -5,6 +5,7 @@ import Calendar from "../components/Calendar";
 import { useAuthorizations } from "../components/AuthorizationContext";
 import { useState } from "react";
 import { useNotification } from "../components/NotificationContext"
+import { getDate } from "../utils/DateCurrent";
 
 function User() {
     const { notify } = useNotification();
@@ -56,7 +57,7 @@ function User() {
                     <div className="user__general">
                         <div className="user__general__header">
                             <h3>Your profile</h3>
-                            <p>Join {user.userCreateDate}</p>
+                            <p>Join {getDate(new Date(user.userCreatedDateTime))}</p>
                         </div>
                         <div className="user__general__avatar">
                             <div className="user__general__avatar__wrapper">
@@ -156,7 +157,7 @@ function User() {
                                         <FontAwesomeIcon icon={faPencil} className="icon__edit" />
                                     </button>}
 
-                                    {isEditableAddress && <button onClick={() => handleSaveInfo('userPhone', user.userPhone, setIsEditableAddress)}>
+                                    {isEditableAddress && <button onClick={() => handleSaveInfo('userAddress', user.userAddress, setIsEditableAddress)}>
                                         <FontAwesomeIcon icon={faCheck} className="icon__edit" />
                                     </button>}
                                     {/* <p>{user.userAddress}</p>
