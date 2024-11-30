@@ -2,14 +2,15 @@ import '../styles/Report.css';
 import { useState } from 'react';
 import ReportBookForm from '../components/ReportBookForm';
 import ReportCustomerForm from '../components/ReportCustomerForm';
-import { getMonthYear } from '../utils/DateCurrent';
+import { getYear, getMonth } from '../utils/DateCurrent';
 import EachPageHeader from '../components/EachPageHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 
 function Report() {
     const [isBookReport, setIsBookReport] = useState(true);
-    const curMonthYear = getMonthYear();
+    const datenow = new Date();
+    const curMonthYear = getMonth(datenow) + "/" + getYear(datenow);
     return (
         <>
 

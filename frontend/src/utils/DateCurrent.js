@@ -1,35 +1,41 @@
-export function getCurrentDate() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
+export function getDay(date) {
+    return date.getDate();
+}
+
+export function getMonth(date) {
+    return date.getMonth() + 1;
+}
+
+export function getYear(date) {
+    return date.getFullYear();
+}
+
+export function getHour(date) {
+    return date.getHours();
+}
+
+export function getMinute(date) {
+    return date.getMinutes();
+}
+
+export function getSecond(date) {
+    return date.getSeconds();
+}
+
+export function getDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
 
-export function getCurrentTime() {
-    const today = new Date();
-    const hour = String(today.getHours()).padStart(2, '0');
-    const minute = String(today.getMinutes()).padStart(2, '0');
-    const second = String(today.getSeconds()).padStart(2, '0');
+export function getTime(date) {
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
     return `${hour}:${minute}:${second}`;
 }
 
-export function getCurrentDateTime() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
-
-    const hour = String(today.getHours()).padStart(2, '0');
-    const minute = String(today.getMinutes()).padStart(2, '0');
-    const second = String(today.getSeconds()).padStart(2, '0');
-
-    return `${day}/${month}/${year} - ${hour}:${minute}:${second}`;
-}
-
-export function getMonthYear() {
-    const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = today.getFullYear();
-    return `${month}/${year}`;
+export function getDateTime(date) {
+    return `${getDate(date)} ${getTime(date)}`;
 }

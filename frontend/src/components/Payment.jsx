@@ -1,14 +1,17 @@
 import "../styles/Payment.css";
-import { getCurrentDateTime } from "../utils/DateCurrent";
 import { useState } from "react";
+import { getDateTime } from "../utils/DateCurrent";
 import { formatCurrency } from "../utils/FormatCurrency";
 import { useNotification } from "./NotificationContext";
 import { useConfirmPrompt } from "./ConfirmPromptContext";
+import { useAuthorizations } from "./AuthorizationContext";
 
 function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
+    const { user } = useAuthorizations();
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
-    const current = getCurrentDateTime();
+    const datenow = new Date();
+    const current = getDateTime(datenow);
     const [payment, setPayment] = useState(bill);
     const [fee, setFee] = useState(0);
 
@@ -33,7 +36,7 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ...payment, staff: 'Bui Dinh Gia Vy' }),
+            body: JSON.stringify({ ...payment, userID: user._id, totalPrice: totalPrice, payment: fee }),
         }).then(response => response.json())
             .then(data => {
                 notify({ type: data.status, msg: data.message });

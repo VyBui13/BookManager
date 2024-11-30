@@ -2,12 +2,10 @@ import "../styles/Home.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie } from '@fortawesome/free-solid-svg-icons'
-import { getCurrentDate } from "../utils/DateCurrent";
 import EachPageHeader from "../components/EachPageHeader";
 import NothingDisplay from "../components/NothingDisplay";
 
 function Home() {
-    const date = getCurrentDate();
     const [books, setBooks] = useState([]);
     const [detail, setDetail] = useState({
         totalBook: 0,
@@ -88,7 +86,7 @@ function Home() {
                                 </div>
 
                                 <div className="home__general__update">
-                                    Date: {date}
+                                    Date: hehe
                                 </div>
                             </div>
                             <div className="home__general__percent">
@@ -112,7 +110,7 @@ function Home() {
                                 </div>
 
                                 <div className="home__general__update">
-                                    Date: {date}
+                                    Date: hehe
                                 </div>
                             </div>
                             <div className="home__general__percent">
@@ -136,7 +134,7 @@ function Home() {
                                 </div>
 
                                 <div className="home__general__update">
-                                    Date: {date}
+                                    Date: hehe
                                 </div>
                             </div>
                             <div className="home__general__percent">
@@ -160,7 +158,7 @@ function Home() {
                                 </div>
 
                                 <div className="home__general__update">
-                                    Date: {date}
+                                    Date: hehe
                                 </div>
                             </div>
                             <div className="home__general__percent">

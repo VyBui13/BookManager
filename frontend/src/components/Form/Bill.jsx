@@ -3,16 +3,13 @@ import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
-import { useNavigate } from 'react-router-dom';
-import { useConfigContext } from '../ConfigContext.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
+import { getDate } from '../../utils/DateCurrent.js';
 
 function Bill() {
-    const { regulation } = useConfigContext();
     const { notify } = useNotification();
-    const Navigate = useNavigate();
     const [bill, setBill] = useState({
         bookList: [],
         customerName: '',
@@ -178,15 +175,15 @@ function Bill() {
                                         </div>
 
                                         <div className="booklist__detail">
-                                            Latest udated date: {book.updateDate.split(" - ")[0]}
+                                            Latest updated date: {getDate(new Date(book.bookUpdatedDateTime))}
                                         </div>
 
                                         <div className="booklist__detail">
-                                            Author: {book.bookAuthor}
+                                            Author: {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
                                         </div>
 
                                         <div className="booklist__detail">
-                                            Kind: {book.bookKind}
+                                            Kind: {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
                                         </div>
 
                                         <div className="booklist__detail">
