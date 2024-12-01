@@ -84,6 +84,23 @@ class BillController {
             });
         }
     }
+
+    async getBillByCustomer(req, res) {
+        try {
+            const customerPhone = req.query.customerPhone;
+            if (customerPhone) {
+                const customer = await billServiceInstance.getBillByCustomer(customerPhone);
+                res.status(200).json(customer);
+            }
+
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
+        }
+    }
 }
 
 module.exports = new BillController;

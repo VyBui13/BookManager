@@ -52,7 +52,7 @@ class UserService {
     async login(user) {
         const { userAccount, userPassword, isGuest } = user;
         if (isGuest) {
-            const token = generateAccessToken({ userAccount: "Guest", userRole: 'guest' });
+            const token = generateAccessToken({ userId: "Guest", userRole: 'guest' });
             return {
                 status: 'success',
                 message: 'Login as guest successfully',
