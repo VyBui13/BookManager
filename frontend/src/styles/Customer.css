@@ -269,7 +269,7 @@
 }
 
 .customer__right .payment .payment__body .payment__book__detail .payment__booklist {
-    max-height: calc(100vh - 440px);
+    max-height: calc(100vh - 430px);
     overflow: auto;
 }
 
