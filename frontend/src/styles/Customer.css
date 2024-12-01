@@ -163,13 +163,40 @@
     margin-top: 20px;
 }
 
-.customer__info__left {}
+.customer__info__left {
+    flex: 1;
+    padding: 0 10px;
+}
 
 .customer__info__left .customer__input {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 10px 0;
+}
+
+.customer__info__left .customer__submit__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.customer__info__left .customer__submit__button button {
+    padding: 5px;
+    color: var(--main-color);
+    background-color: var(--item-color);
+    outline: none;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--main-color);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.customer__info__left .customer__submit__button button:hover {
+    background-color: var(--main-color);
+    color: var(--item-color);
 }
 
 .customer__info__left .customer__input span {
@@ -185,6 +212,7 @@
 }
 
 .customer__info__left .customer__input input {
+    text-align: center;
     flex: 1;
     background: transparent;
     padding: 5px 10px;
@@ -232,9 +260,24 @@
 
 .customer .customer__right {
     margin-left: 20px;
-    width: 500px;
+    width: 400px;
 }
 
 .customer__right .payment {
     position: relative;
+    height: 100%;
+}
+
+.customer__right .payment .payment__body .payment__book__detail .payment__booklist {
+    max-height: calc(100vh - 440px);
+    overflow: auto;
+}
+
+.customer__right .payment .payment__body .payment__book__detail .payment__booklist::-webkit-scrollbar {
+    width: 10px;
+}
+
+.customer__right .payment .payment__body .payment__book__detail .payment__booklist::-webkit-scrollbar-thumb {
+    background-color: var(--main-scroll-color);
+    border-radius: var(--border-radius);
 }

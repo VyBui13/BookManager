@@ -5,7 +5,7 @@ import '../../styles/Form.css';
 import '../../styles/Customer.css';
 import { getDateTime } from "../../utils/DateCurrent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 function Customer() {
     const { notify } = useNotification();
@@ -189,7 +189,11 @@ function Customer() {
 
                                 <div className="customer__input">
                                     <span>Payment</span>
-                                    <input type="number" />
+                                    <input type="text" />
+                                </div>
+
+                                <div className="customer__submit__button">
+                                    <button>Submit</button>
                                 </div>
                             </div>
 
@@ -207,6 +211,13 @@ function Customer() {
 
                 <div className="customer__right">
                     <div className="payment">
+                        <button className='payment__change__btn payment__change__left'>
+                            <FontAwesomeIcon icon={faArrowLeft} className='icon__change' />
+                        </button>
+
+                        <button className='payment__change__btn payment__change__right'>
+                            <FontAwesomeIcon icon={faArrowRight} className='icon__change' />
+                        </button>
                         <div className="payment__header">
                             <h3>B-BOOKSHOP</h3>
                             <p>207 St., Cu Chi district, Ho Chi Minh city</p>
@@ -236,6 +247,46 @@ function Customer() {
                                             <p>78000</p>
                                         </div>
 
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
+                                        <div className="payment__book">
+                                            <p>1. hihi</p>
+                                            <p>x2</p>
+                                            <p>78000</p>
+                                        </div>
                                         <div className="payment__book">
                                             <p>1. hihi</p>
                                             <p>x2</p>

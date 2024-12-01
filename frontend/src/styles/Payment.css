@@ -9,6 +9,47 @@
     border-radius: var(--border-radius);
 }
 
+.payment .payment__change__btn {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--item-color);
+    border-radius: 50%;
+    border: 2px solid var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+
+.payment .payment__change__btn:hover {
+    opacity: 1;
+}
+
+
+.payment .payment__change__btn .icon__change {
+    color: var(--main-color);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+
+.payment .payment__change__btn:hover .icon__change {
+    transform: rotateX(360deg);
+}
+
+.payment .payment__change__left {
+    top: 10px;
+    left: 10px;
+}
+
+.payment .payment__change__right {
+    top: 10px;
+    right: 10px;
+}
+
 .payment .payment__header {
     display: flex;
     justify-content: space-between;
@@ -59,7 +100,7 @@
 }
 
 .payment__book__detail .payment__booklist .payment__book+.payment__book {
-    border-top: 1px solid #00000094;
+    border-top: 1px solid #00000051;
 }
 
 .payment__book__detail .payment__booklist .payment__book p {
