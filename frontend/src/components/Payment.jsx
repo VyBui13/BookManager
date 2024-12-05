@@ -5,6 +5,8 @@ import { formatCurrency } from "../utils/FormatCurrency";
 import { useNotification } from "./NotificationContext";
 import { useConfirmPrompt } from "./ConfirmPromptContext";
 import { useAuthorizations } from "./AuthorizationContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 
 function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
     const { user } = useAuthorizations();
@@ -26,10 +28,10 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
     const totalPrice = totalPayment(payment.bookList);
 
     function handleExport() {
-        if (fee < totalPrice) {
-            notify({ type: 'error', msg: 'Payment is not enough!' });
-            return;
-        }
+        // if (fee < totalPrice) {
+        //     notify({ type: 'error', msg: 'Payment is not enough!' });
+        //     return;
+        // }
 
         fetch('http://localhost:5000/bills/', {
             method: 'POST',
@@ -98,25 +100,33 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                             </div>
 
                             <div className="payment__calculation">
-                                <div className="payment__caculation__item">
-                                    <p>Total</p>
-                                    <p>{formatCurrency(totalPayment(payment.bookList))}</p>
+                                <div className="payment__status">
+                                    <div className="payment__status__icon">
+                                        <FontAwesomeIcon icon={faTruckFast} className="icon__payment__status" />
+                                    </div>
                                 </div>
-                                <div className="payment__caculation__item">
-                                    <p>Payment</p>
+                                <div className="payment__caculation__items">
 
-                                    <input
-                                        value={fee}
-                                        onChange={(e) => {
-                                            setFee(e.target.value)
-                                        }}
-                                        type="text" />
+                                    <div className="payment__caculation__item">
+                                        <p>Total</p>
+                                        <p>{formatCurrency(totalPayment(payment.bookList))}</p>
+                                    </div>
+                                    <div className="payment__caculation__item">
+                                        <p>Payment</p>
 
-                                </div>
+                                        <input
+                                            value={fee}
+                                            onChange={(e) => {
+                                                setFee(e.target.value)
+                                            }}
+                                            type="text" />
 
-                                <div className="payment__caculation__item">
-                                    <p>Change</p>
-                                    <p>{formatCurrency(Number(fee) - totalPayment(payment.bookList))}</p>
+                                    </div>
+
+                                    <div className="payment__caculation__item">
+                                        <p>Change</p>
+                                        <p>{formatCurrency(Number(fee) - totalPayment(payment.bookList))}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

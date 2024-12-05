@@ -130,9 +130,37 @@
     padding: 0 10px;
     margin-bottom: 10px;
     display: flex;
+    justify-content: space-between;
+}
+
+.payment__status {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.payment__status .payment__status__icon {
+
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--main-color);
+}
+
+.payment__status .payment__status__icon .icon__payment__status {
+    font-size: 30px;
+    color: var(--text-in-background-color);
+}
+
+.payment__caculation__items {
+    display: flex;
     flex-direction: column;
     align-items: flex-end;
-
 }
 
 .payment__calculation .payment__caculation__item {

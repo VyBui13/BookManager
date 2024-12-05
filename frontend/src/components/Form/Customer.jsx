@@ -5,19 +5,84 @@ import '../../styles/Form.css';
 import '../../styles/Customer.css';
 import { getDateTime } from "../../utils/DateCurrent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser, faArrowLeft, faArrowRight, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from '../NothingDisplay.jsx';
+import { useAuthorizations } from '../AuthorizationContext.jsx';
 
 function Customer() {
+    const { user } = useAuthorizations();
     const { notify } = useNotification();
     const [payment, setPayment] = useState('');
     const [bill, setBill] = useState(null);
-    const [customer, setCustomer] = useState({});
+    const [customer, setCustomer] = useState({
+        customerName: '',
+        customerPhone: '',
+        customerEmail: '',
+        customerAddress: '',
+        customerCurrentDebt: '',
+    });
     const [phone, setPhone] = useState('');
+    const [indexBill, setIndexBill] = useState(0);
 
     // if (bill) {
     //     console.log(bill.billBookList[0]);
     // }
+
+
+    function handleSubmit() {
+        fetch('http://localhost:5000/payments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                customer: customer,
+                billID: bill[indexBill]._id,
+                paymentFee: payment,
+                userID: user._id,
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'error') {
+                    notify({ type: 'error', msg: data.message });
+                    return;
+                }
+                notify({ type: 'success', msg: data.message });
+                setPayment('');
+                setBill(null);
+                setCustomer({
+                    customerName: '',
+                    customerPhone: '',
+                    customerEmail: '',
+                    customerAddress: '',
+                    customerCurrentDebt: '',
+                });
+            })
+            .catch((err) => {
+                notify({ type: 'error', msg: err.message });
+            }
+            )
+    }
+
+    function handleIncreaseIndex() {
+        if (indexBill === bill.length - 1) {
+            notify({ type: 'error', msg: 'This is the last bill' });
+            return;
+        }
+
+        setIndexBill(indexBill + 1);
+    }
+
+    function handleDecreaseIndex() {
+        if (indexBill === 0) {
+            notify({ type: 'error', msg: 'This is the first bill' });
+            return;
+        }
+
+        setIndexBill(indexBill - 1);
+    }
+
 
     function handleSearch() {
         fetch('http://localhost:5000/bills?customerPhone=' + phone)
@@ -64,84 +129,9 @@ function Customer() {
 
     const datenow = new Date();
     const current = getDateTime(datenow);
-
     return (
         <>
-            {/* <div className="customer">
-                <div className="customer__header">
-                    <div className="customer__title">
-                        Payment
-                    </div>
 
-                    <div className="customer__search">
-                        <input
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            type="text" placeholder="Search..." />
-                        <button onClick={handleSearch}>
-                            <FontAwesomeIcon icon={faSearch} />
-                        </button>
-                    </div>
-                </div>
-
-                <div className="customer__body">
-                    <div className="customer__field">
-                        <div className="customer__field__name">Name</div>
-                        <input
-                            value={customer.customerName}
-                            type="text" disabled />
-
-                    </div>
-
-                    <div className="customer__field">
-                        <div className="customer__field__name">Email</div>
-                        <input
-                            value={customer.customerEmail}
-                            onChange={(e) => setCustomer({ ...customer, customerEmail: e.target.value })}
-                            type="text" required />
-
-                    </div>
-
-                    <div className="customer__field">
-                        <div className="customer__field__name">Phone</div>
-                        <input
-                            value={customer.customerPhone}
-                            onChange={(e) => setCustomer({ ...customer, customerPhone: e.target.value })}
-                            type="text" required />
-
-                    </div>
-
-                    <div className="customer__field">
-                        <div className="customer__field__name">Address</div>
-                        <input
-                            value={customer.customerAddress}
-                            onChange={(e) => setCustomer({ ...customer, customerAddress: e.target.value })}
-                            type="text" required />
-
-                    </div>
-
-                    <div className="customer__field">
-                        <div className="customer__field__name">Fee</div>
-                        <input
-                            value={customer.customerCurrentDebt}
-                            type="text" disabled />
-
-                    </div>
-
-                    <div className="customer__field">
-                        <div className="customer__field__name">Payment</div>
-                        <input
-                            value={payment}
-                            onChange={(e) => setPayment(e.target.value.trim())}
-                            type="text" required />
-
-                    </div>
-                </div>
-
-                <div className="customer__btn">
-                    <button className="customer__btn__submit" onClick={handleSummit}>Submit</button>
-                </div>
-            </div> */}
             <div className="customer">
                 <div className="customer__left">
                     <div className="customer__info">
@@ -157,31 +147,62 @@ function Customer() {
                             <div className="customer__info__left">
                                 <div className="customer__input">
                                     <span>Name</span>
-                                    <input type="text" />
+                                    <input
+                                        value={customer.customerName}
+                                        onChange={(e) => setCustomer({ ...customer, customerName: e.target.value })}
+                                        type="text" />
                                 </div>
 
                                 <div className="customer__input">
                                     <span>Email</span>
-                                    <input type="text" />
+                                    <input
+                                        value={customer.customerEmail}
+                                        onChange={(e) => setCustomer({ ...customer, customerEmail: e.target.value })}
+                                        type="text" />
                                 </div>
 
                                 <div className="customer__input">
                                     <span>Address</span>
-                                    <input type="text" />
+                                    <input
+                                        value={customer.customerAddress}
+                                        onChange={(e) => setCustomer({ ...customer, customerAddress: e.target.value })}
+                                        type="text" />
                                 </div>
 
                                 <div className="customer__input">
                                     <span>Debt</span>
-                                    <input type="number" disabled />
+                                    <input
+                                        value={customer.customerCurrentDebt}
+                                        type="text" disabled />
+                                </div>
+
+                                <div className="customer__input">
+                                    <span>Bill</span>
+                                    <input
+                                        value={bill === null ? '' : bill[indexBill].billTotalPrice - bill[indexBill].billPayment}
+                                        type="text" disabled />
                                 </div>
 
                                 <div className="customer__input">
                                     <span>Payment</span>
-                                    <input type="text" />
+                                    <input
+                                        value={payment}
+                                        onChange={
+                                            (e) => {
+                                                if (!Number.isInteger(Number(e.target.value)) || Number(e.target.value) < 0) {
+                                                    setPayment('');
+                                                    notify({ type: 'error', msg: 'Do not enter invalid character' });
+                                                    return;
+                                                }
+
+                                                setPayment(e.target.value);
+                                            }
+                                        }
+                                        type="text" />
                                 </div>
 
                                 <div className="customer__submit__button">
-                                    <button>Submit</button>
+                                    <button onClick={handleSubmit}>Submit</button>
                                 </div>
                             </div>
 
@@ -206,11 +227,15 @@ function Customer() {
                         {bill === null ? <NothingDisplay /> :
 
                             <>
-                                <button className='payment__change__btn payment__change__left'>
+                                <button
+                                    onClick={handleDecreaseIndex}
+                                    className='payment__change__btn payment__change__left'>
                                     <FontAwesomeIcon icon={faArrowLeft} className='icon__change' />
                                 </button>
 
-                                <button className='payment__change__btn payment__change__right'>
+                                <button
+                                    onClick={handleIncreaseIndex}
+                                    className='payment__change__btn payment__change__right'>
                                     <FontAwesomeIcon icon={faArrowRight} className='icon__change' />
                                 </button>
                                 <div className="payment__header">
@@ -222,61 +247,48 @@ function Customer() {
 
                                 <div className="payment__body">
                                     <div className="payment__customer__detail">
-                                        <h5>Customer: {customer.customerName || "Customer's name"} - {customer.customerPhone || "Customer's phone"}</h5>
+                                        <h5>Customer: {customer.customerName} - {customer.customerPhone}</h5>
                                     </div>
 
                                     <div className="payment__book__temp">
 
                                         <div className="payment__book__detail">
                                             <div className="payment__booklist">
-                                                {bill[0].billBookList.map((book, index) => (
+                                                {bill[indexBill].billBookList.map((book, index) => (
                                                     <div className="payment__book" key={index}>
                                                         <p>{index + 1}. {book.bookName}</p>
                                                         <p>x{book.amountBought}</p>
-                                                        <p>{book.bookPrice}</p>
+                                                        <p>{new Intl.NumberFormat('de-DE').format(book.bookPrice)}</p>
                                                     </div>
                                                 ))}
-                                                {/* <div className="payment__book">
-                                                    <p>1. Book 1</p>
-                                                    <p>x1</p>
-                                                    <p>100000</p>
-                                                </div>
 
-                                                <div className="payment__book">
-                                                    <p>2. Book 2</p>
-                                                    <p>x1</p>
-                                                    <p>100000</p>
-                                                </div>
-
-                                                <div className="payment__book">
-                                                    <p>3. Book 3</p>
-                                                    <p>x1</p>
-                                                    <p>100000</p>
-                                                </div> */}
-
-
-                                                {/* <div className="payment__book">
-                                    <p>Total</p>
-                                    <p>{totalPayment(payment.bookList)}</p>
-                                    </div> */}
                                             </div>
                                         </div>
 
                                         <div className="payment__calculation">
-                                            <div className="payment__caculation__item">
-                                                <p>Total</p>
-                                                <p>100000</p>
+                                            <div className="payment__status">
+                                                <div className="payment__status__icon">
+                                                    {bill[indexBill].billPayment === bill[indexBill].billTotalPrice ?
+                                                        <FontAwesomeIcon icon={faCheck} className='icon__payment__status' />
+                                                        :
+                                                        <FontAwesomeIcon icon={faX} className='icon__payment__status' />
+                                                    }
+                                                </div>
                                             </div>
-                                            <div className="payment__caculation__item">
-                                                <p>Payment</p>
-                                                <input
-                                                    type="text" />
+                                            <div className="payment__calculation__items">
+                                                <div className="payment__caculation__item">
+                                                    <p>Total</p>
+                                                    <p>{new Intl.NumberFormat('de-DE').format(bill[indexBill].billTotalPrice)}</p>
+                                                </div>
+                                                <div className="payment__caculation__item">
+                                                    <p>Payment</p>
+                                                    <p>{new Intl.NumberFormat('de-DE').format(payment)}</p>
+                                                </div>
 
-                                            </div>
-
-                                            <div className="payment__caculation__item">
-                                                <p>Change</p>
-                                                <p>-100000</p>
+                                                <div className="payment__caculation__item">
+                                                    <p>Left</p>
+                                                    <p>{new Intl.NumberFormat('de-DE').format(Number(bill[indexBill].billPayment) - Number(bill[indexBill].billTotalPrice))}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -289,6 +301,7 @@ function Customer() {
             </div>
 
         </>
+
     );
 };
 
