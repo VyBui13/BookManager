@@ -6,6 +6,9 @@
 
 .customer .customer__left {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .customer .customer__left .customer__info {
@@ -114,15 +117,14 @@
 }
 
 .customer__info__right .customer__avatar {
-    width: 100%;
     background-color: var(--item-color);
     border-radius: var(--border-radius);
     border: 3px solid var(--main-color);
-    padding: 50px 5px;
+    padding: 50px 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .customer__info__right .customer__avatar .icon__customer__avatar {
@@ -145,6 +147,7 @@
 .customer .customer__right {
     margin-left: 20px;
     width: 400px;
+    display: flex;
 }
 
 .customer__right .payment {
@@ -167,4 +170,28 @@
 .customer__right .payment .payment__body .payment__book__detail .payment__booklist::-webkit-scrollbar-thumb {
     background-color: var(--main-scroll-color);
     border-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 1000px) {
+    .customer {
+        flex-direction: column;
+    }
+
+    .customer .customer__left {
+        margin-bottom: 20px;
+    }
+
+    .customer .customer__right {
+        margin: 0;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    .customer__info__wrapper {
+        flex-direction: column;
+    }
+
+    .customer__info__left {
+        margin-bottom: 20px;
+    }
 }

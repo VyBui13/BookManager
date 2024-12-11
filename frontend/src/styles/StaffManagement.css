@@ -86,7 +86,8 @@
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
-    width: 120px;
+    min-width: 120px;
+    flex: 1;
 }
 
 .management .management__right {
@@ -103,7 +104,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .management__list .management__card {
@@ -268,4 +269,43 @@
     bottom: 0;
     right: 0;
     color: var(--text-in-background-color);
+}
+
+@media screen and (max-width: 1100px) {
+    .management {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .management .management__left {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 10px;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .management__role {
+        flex-direction: row;
+        justify-content: space-around;
+
+    }
+
+    .management .management__right {
+        margin-left: 0;
+    }
+
+    .management__role .management__card {
+        width: calc(100% / 3 - 20px);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .management__role .management__card {
+        width: 100%;
+    }
+
+    .management__list .management__card {
+        width: calc(100% - 20px);
+    }
 }

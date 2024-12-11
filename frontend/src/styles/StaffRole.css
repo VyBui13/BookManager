@@ -1,5 +1,5 @@
 .staffrole-wrapper {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -20,6 +20,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin: 10px 0;
 }
 
 .staffrole span {
@@ -158,4 +159,36 @@
 
 .staffrole__cardwrapper input[type="radio"]:checked+label .staffrole__card__description {
     color: var(--text-in-background-color);
+}
+
+@media screen and (max-width: 900px) {
+    .staffrole {
+        height: calc(100% - 30px);
+    }
+
+    .staffrole__cardwrapper {
+        flex-direction: column;
+    }
+
+    .staffrole__cardwrapper label {
+        margin: 10px;
+    }
+
+    .staffrole__cardwrapper {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+
+    .staffrole__cardwrapper::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+    }
+
+    .staffrole__cardwrapper::-webkit-scrollbar-thumb {
+        width: 5px;
+        height: 10px;
+        background-color: var(--main-scroll-color);
+        border-radius: 10px;
+    }
 }

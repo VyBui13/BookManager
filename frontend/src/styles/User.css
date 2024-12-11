@@ -264,3 +264,31 @@
     border-radius: var(--border-radius);
     margin: 0 10px;
 }
+
+
+@media (max-width: 900px) {
+    .user {
+        flex-direction: column;
+    }
+
+    .user .user__left {
+        width: 100%;
+    }
+
+    .user__left .user__detail {
+        height: auto;
+    }
+
+    .user .user__right {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .user__activity {
+        height: auto;
+    }
+
+    .user__option {
+        height: auto;
+    }
+}
