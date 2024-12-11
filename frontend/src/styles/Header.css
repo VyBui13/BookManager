@@ -54,6 +54,11 @@
 .header .header__logo .icon__header {
     font-size: 18px;
     color: var(--main-color);
+    transition: all 0.3s;
+}
+
+.header .header__logo:hover .icon__header {
+    transform: rotate(360deg);
 }
 
 .header .header__item {

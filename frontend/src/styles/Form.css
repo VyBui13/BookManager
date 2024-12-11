@@ -82,7 +82,7 @@
     justify-content: space-around;
     background: var(--main-color);
     border-radius: var(--border-radius);
-    z-index: 2;
+    z-index: 30;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
@@ -92,9 +92,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 10px;
     transition: all 0.4s;
+}
+
+.formdashboard__navbar .formdashboard__item:last-child {
+    margin: 0;
+    padding: 0;
+    width: 0;
+    overflow: hidden;
 }
 
 .formdashboard__navbar .formdashboard__item a {
@@ -103,6 +109,22 @@
     flex-direction: column;
     font-size: 20px;
     color: var(--text-in-background-color);
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.formdashboard__navbar .formdashboard__item label {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+    color: var(--text-in-background-color);
+    background: transparent;
+    border: none;
     cursor: pointer;
     transition: all 0.4s;
 }
@@ -159,7 +181,13 @@
 
     .formdashboard__navbar .formdashboard__item {
         margin: 0;
-        padding: 10px 5px;
+        padding: 0;
+    }
+
+    .formdashboard__navbar .formdashboard__item:last-child {
+        margin: 0;
+        width: unset;
+        padding: 10px;
     }
 
     .formdashboard__navbar .formdashboard__item a {
@@ -168,11 +196,17 @@
         opacity: 0;
     }
 
-    .formdashboard__navbar:hover .formdashboard__item {
-        margin: 0 5px;
+    /* 
+    input[type="checkbox"]:checked~.formdashboard__navbar .formdashboard__item a {
+        width: 30px;
+        opacity: 1;
+    } */
+
+    input[type="checkbox"]:checked~.formdashboard__navbar .formdashboard__item {
+        padding: 10px;
     }
 
-    .formdashboard__navbar:hover .formdashboard__item a {
+    input[type="checkbox"]:checked~.formdashboard__navbar .formdashboard__item a {
         width: 30px;
         opacity: 1;
     }
@@ -182,11 +216,11 @@
         transition: all 0.4s;
     } */
 
-    .formdashboard__navbar:hover .formdashboard__item {
+    input[type="checkbox"]:checked~.formdashboard__navbar .formdashboard__item {
         opacity: 1;
     }
 
-    .formdashboard__navbar:hover~.fake {
+    input[type="checkbox"]:checked~.formdashboard__navbar~.fake {
         z-index: 20;
         opacity: 1;
     }

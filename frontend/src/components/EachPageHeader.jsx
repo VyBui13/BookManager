@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserTie } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
 function EachPageHeader({ title, description, isHide = true }) {
@@ -14,7 +14,7 @@ function EachPageHeader({ title, description, isHide = true }) {
             {isHide && <div className="page__user">
                 <Link to="/user">
                     <button>
-                        <FontAwesomeIcon icon={faUserTie} className='icon__user' />
+                        <FontAwesomeIcon icon={faFolderOpen} className='icon__user' />
                     </button>
                 </Link>
             </div>}

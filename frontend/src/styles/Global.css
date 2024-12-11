@@ -97,6 +97,9 @@ a {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .page__user button .icon__user {

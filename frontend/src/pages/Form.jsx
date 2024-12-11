@@ -67,6 +67,7 @@ function Form() {
 
         <>
 
+            <input type="checkbox" id="formdashboard__navbar__btn" />
             <div className="formdashboard__navbar">
                 {authorization.importbook && <div className="formdashboard__item">
                     <Link to="book" title='Book'>
@@ -96,6 +97,12 @@ function Form() {
                     </Link>
 
                 </div>}
+
+                <div className="formdashboard__item">
+                    <label htmlFor='formdashboard__navbar__btn'>
+                        <FontAwesomeIcon icon={faList} className='icon__navbar' />
+                    </label>
+                </div>
             </div>
 
             <div className="fake"></div>
