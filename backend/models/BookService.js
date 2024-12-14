@@ -1,80 +1,104 @@
 const Book = require('../schema/Book');
-const BookImportForm = require('../schema/BookImportForm');
 const { getDay } = require('../utils/DateUtils');
 class BookService {
-    getBookList() {
-        return Book.find();
-    }
-
-    async addBook(bookData) {
-        const { bookList, userID } = bookData;
-        await Promise.all(
-            bookList.map(async (book) => {
-                const { bookName, bookKind, bookAuthor, bookAmount } = book;
-                const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
-                const theChosenBook = await Book.findOne(query);
-                const date = new Date();
-                const currentDay = getDay(date);
-                let isBeginMonth = false;
-                if (currentDay === '01' || currentDay === '1') {
-                    isBeginMonth = true;
-                }
-                if (theChosenBook) {
-                    if (isBeginMonth) {
-                        const currentAmount = theChosenBook.bookCurrentAmount;
-                        theChosenBook.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
-                        theChosenBook.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
-                    } else {
-                        theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
-                    }
-
-                    theChosenBook.bookUpdatedDateTime = date;
-
-                    await theChosenBook.save();
-                } else {
-                    const newBook = new Book({
-                        bookName: bookName,
-                        bookKind: bookKind,
-                        bookAuthor: bookAuthor,
-                        bookBeginningAmount: bookAmount,
-                        bookCurrentAmount: bookAmount,
-                        bookPrice: 0,
-                        bookUpdatedDateTime: date,
-                    });
-                    await newBook.save();
-                }
-            })
-        );
-
-        const bookListImport = await Promise.all(
-            bookList.map(async (book) => {
-                const { bookName, bookKind, bookAuthor, bookAmount } = book;
-                const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
-                const bookChosen = await Book.findOne(query);
+    async getBookList() {
+        try {
+            const books = await Book.find();
+            if (!books) {
                 return {
-                    bookID: bookChosen._id,
-                    bookImportAmount: bookAmount,
+                    status: 'error',
+                    message: 'No book found'
                 };
-            })
-        );
+            }
 
-        console.log(bookListImport);
-
-        const newBookForm = new BookImportForm({
-            bookList: bookListImport,
-            importDateTime: new Date(),
-            importUser: userID,
-        });
-
-        await newBookForm.save();
-        return {
-            status: 'success',
-            message: 'Book added successfully',
-        };
+            return {
+                status: 'success',
+                message: 'Books found',
+                data: books,
+            };
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            };
+        }
     }
 
-    getTopBook(limit) {
-        return Book.find().sort({ bookCurrentAmount: -1 }).limit(limit);
+    async addBooks({ bookList }) {
+        try {
+            await Promise.all(
+                bookList.map(async (book) => {
+                    const { bookName, bookKind, bookAuthor, bookAmount } = book;
+                    const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+                    const theChosenBook = await Book.findOne(query);
+                    const date = new Date();
+                    const currentDay = getDay(date);
+                    let isBeginMonth = false;
+                    if (currentDay === '01' || currentDay === '1') {
+                        isBeginMonth = true;
+                    }
+                    if (theChosenBook) {
+                        if (isBeginMonth) {
+                            const currentAmount = theChosenBook.bookCurrentAmount;
+                            theChosenBook.bookBeginningAmount = Number(currentAmount) + Number(bookAmount);
+                            theChosenBook.bookCurrentAmount = Number(currentAmount) + Number(bookAmount);
+                        } else {
+                            theChosenBook.bookCurrentAmount = Number(theChosenBook.bookCurrentAmount) + Number(bookAmount);
+                        }
+
+                        theChosenBook.bookUpdatedDateTime = date;
+
+                        await theChosenBook.save();
+                    } else {
+                        const newBook = new Book({
+                            bookName: bookName,
+                            bookKind: bookKind,
+                            bookAuthor: bookAuthor,
+                            bookBeginningAmount: bookAmount,
+                            bookCurrentAmount: bookAmount,
+                            bookPrice: 0,
+                            bookUpdatedDateTime: date,
+                        });
+                        await newBook.save();
+                    }
+                })
+            );
+
+            return {
+                status: 'success',
+                message: 'Book added successfully',
+            };
+        } catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            }
+        }
+
+    }
+
+    async getTopBook({ limit }) {
+        try {
+            const books = await Book.find().sort({ bookCurrentAmount: -1 }).limit(limit);
+            if (!books) {
+                return {
+                    status: 'error',
+                    message: 'No book found'
+                };
+            }
+            return {
+                status: 'success',
+                message: 'Books found',
+                data: books,
+            }
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            };
+        }
     }
 
     async setBookPrice(bookData) {
@@ -99,15 +123,29 @@ class BookService {
 
     async getBookKinds() {
         try {
-            return await Book.find().distinct('bookKind');
+            const kinds = await Book.find().distinct('bookKind');
+            if (!kinds) {
+                return {
+                    status: 'error',
+                    message: 'No kind found'
+                };
+            }
+
+            return {
+                status: 'success',
+                message: 'Kinds found',
+                data: kinds,
+            };
         }
         catch (err) {
-            console.log(err);
+            return {
+                status: 'error',
+                message: err.message
+            };
         }
     }
 
-    async searchBook(query) {
-        const { keySearch, bookKind, sort, type } = query;
+    async searchBook({ keySearch, bookKind, sort, type }) {
         let bookKindFilter = null;
         let bookNameFilter = null;
         let bookAuthorFilter = null;
@@ -145,11 +183,20 @@ class BookService {
     }
 
     async getAmount() {
-        const totalBook = await Book.countDocuments();
-
-        return {
-            totalBook: totalBook,
-        };
+        try {
+            const amount = await Book.find().countDocuments();
+            return {
+                status: 'success',
+                message: 'Amount found',
+                data: amount,
+            };
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            };
+        }
     }
 
     async checkRule(bookData) {
@@ -178,4 +225,4 @@ class BookService {
     }
 }
 
-module.exports = BookService;
+module.exports = new BookService;
