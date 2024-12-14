@@ -23,7 +23,11 @@ function Bill() {
         fetch('http://localhost:5000/books')
             .then(response => response.json())
             .then(data => {
-                setBooks(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -38,7 +42,23 @@ function Bill() {
             notify({ type: 'error', msg: 'Please choose book!' });
         }
         else {
-            setIsHidePayment(false);
+            fetch('http://localhost:5000/customers/checking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    customerName: bill.customerName,
+                    customerPhone: bill.customerPhone,
+                }),
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'error') {
+                        notify({ type: 'error', msg: data.message });
+                        return;
+                    }
+                    setIsHidePayment(false);
+                })
         }
     }
 

@@ -63,7 +63,11 @@ function BookList() {
         fetch('http://localhost:5000/books')
             .then(response => response.json())
             .then(data => {
-                setBooks(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -72,7 +76,11 @@ function BookList() {
         fetch('http://localhost:5000/books/kinds')
             .then(response => response.json())
             .then(data => {
-                setKinds(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setKinds(data.data);
             })
             .catch((error) => {
                 console.log(error);

@@ -18,7 +18,11 @@ function Home() {
         fetch("http://localhost:5000/books/top?limit=7")
             .then((res) => res.json())
             .then((data) => {
-                setBooks(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -30,9 +34,13 @@ function Home() {
         fetch("http://localhost:5000/books/amount")
             .then((res) => res.json())
             .then((data) => {
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
                 setDetail((prevDetail) => ({
                     ...prevDetail,
-                    totalBook: data.totalBook,
+                    totalBook: data.data,
                 }));
             })
             .catch((error) => {

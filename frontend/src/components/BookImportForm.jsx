@@ -34,6 +34,7 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     notify({ type: data.status, msg: data.message });
                     setBookList([]);
                     setIsImportForm(false);

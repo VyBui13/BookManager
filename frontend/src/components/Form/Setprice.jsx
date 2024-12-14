@@ -15,7 +15,14 @@ function setPrice() {
         fetch('http://localhost:5000/books')
             .then(response => response.json())
             .then(data => {
-                setBooks(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }, []); // []: run only once
 
