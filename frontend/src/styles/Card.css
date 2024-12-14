@@ -1,26 +1,31 @@
 :root {
-    --main-card-color: #80002a;
+    --main-card-color: #FE3939;
     --main-card-opa-color: #80002bd8;
     --text-in-card-color: #8a8a8adb;
     --text-in-card-header-color: #ffffff;
 }
 
 .card-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100%;
     background: rgba(0, 0, 0, 0.5);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 30;
 }
 
 .card {
     position: relative;
     width: 450px;
     height: 250px;
+    animation: slideIn 0.4s;
 }
 
 .card .card__clickme {
@@ -60,13 +65,13 @@
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    color: var(--text-in-card-color);
+    color: #fff;
     backface-visibility: hidden;
     border-radius: var(--border-radius);
     border: 4px solid var(--text-in-card-header-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     /* background: var(--main-card-color); */
-    background: var(--main-color);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/pic/img/background_card_2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -87,6 +92,10 @@
     opacity: 0.1;
 } */
 
+.card__side .card__text-header {
+    color: #FE3939;
+}
+
 .card .card__container .card__frontside {}
 
 .card .card__container .card__backside {
@@ -94,7 +103,7 @@
 }
 
 .card__container .card__side .card__header {
-    color: var(--text-in-background-color);
+    color: #fff;
     position: absolute;
     display: flex;
     align-items: center;
@@ -111,12 +120,12 @@
 }
 
 .card__side .card__header .icon__card__header {
-    color: var(--text-in-background-color);
+    color: #fff;
     transition: all 0.4s;
 }
 
 .card__container .card__side .card__QR {
-    color: var(--text-in-background-color);
+    color: #fff;
     position: absolute;
     top: 8px;
     right: 8px;
@@ -139,6 +148,9 @@
     height: 55%;
     transform: translateY(-50%);
     border-radius: var(--border-radius);
+    padding: 20px 5px;
+    border-radius: var(--border-radius);
+    border: 3px solid #fff;
     transition: all 0.4s;
 }
 
@@ -152,16 +164,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .card__frontside .card__picture-container .card__picture .icon__card__picture {
     font-size: 80px;
-    color: var(--text-in-background-color);
+
+    color: #fff;
     transition: all 0.4s;
+
 }
 
 .card__frontside .card__picture-container:hover .card__picture {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .card__container .card__side .card__title {
@@ -171,6 +186,16 @@
     font-weight: 700;
     font-size: 12px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__container .card__side .card__title .card__icon-title {
+    font-size: 16px;
+    color: #fff;
+    padding: 0 5px;
+    margin: 0 5px;
 }
 
 .card__container .card__frontside .card__information {
@@ -210,11 +235,11 @@
 .card__content-item .card__id .card__id-item {
     padding: 0 2px;
     width: 25px;
-    border: 2px solid var(--text-in-card-color);
+    border: 2px solid #fff;
     font-weight: 700;
     font-size: 12px;
     font-style: italic;
-    color: var(--text-in-card-color);
+    color: #fff;
     list-style: none;
     text-align: center;
 }
@@ -225,6 +250,7 @@
     font-style: italic;
     text-align: left;
     padding: 0 5px;
+    color: #FE3939;
 }
 
 .card__content .card__content-item .card__content-body {
@@ -233,7 +259,7 @@
     font-size: 12px;
     font-style: italic;
     text-transform: uppercase;
-    color: var(--text-in-card-color);
+    color: #fff;
 }
 
 .card__frontside .card__footer {
@@ -249,6 +275,13 @@
     justify-content: center;
 }
 
+.card__frontside .card__footer .card__content-body {
+    padding: 0 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FE3939;
+}
+
 .card__side .card__expiry {
     position: absolute;
     bottom: 7%;
@@ -256,6 +289,16 @@
     font-size: 12px;
     font-weight: 700;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FE3939;
+}
+
+.card__side .card__expiry .icon-card-expiry {
+    font-size: 16px;
+    color: #fff;
+    padding: 0 5px;
 }
 
 .card__container .card__side .card__disc {
@@ -266,8 +309,16 @@
     font-weight: 700;
     font-style: italic;
     z-index: 1000;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s;
 }
 
+.card__container .card__side .card__disc:hover {
+    transform: rotate(180deg);
+}
 
 /*-------------------------------------------*/
 .card__backside .card__title-social {
@@ -285,18 +336,42 @@
     color: #fff;
 }
 
-.card__backside .card__social-preview {
+.card__social {
     position: absolute;
+    left: 0;
     bottom: 10%;
-    left: 10%;
-    width: 130px;
-    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.card__social span {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+    color: #fff;
+    text-align: center;
+    padding: 0 5px;
+}
+
+.card__social span span {
+    color: #FE3939;
+    text-align: center;
+    padding: 0 5px;
+}
+
+.card__backside .card__social-preview {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     border: 4px solid #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 5rem;
+    margin: 0 10px;
 }
 
 .card__backside .card__information-social {
@@ -353,23 +428,20 @@
 }
 
 /*----------------------FIRSTPERSON---------------------*/
-.card--firstperson .card__side .card__text-header {
-    color: var(--text-in-background-color);
+/* .card--firstperson .card__side .card__text-header {
+    color: #fff;
 }
 
 .card--firstperson .card__side .card__title,
 .card--firstperson .card__side .card__content-header,
 .card--firstperson .card__frontside .card__expiry i,
 .card--firstperson .card__backside .card__text-title-social {
-    color: var(--text-in-background-color);
+    color: #fff;
 }
 
 .card--firstperson .card__side .card__disc {
-    color: var(--text-in-background-color);
-}
+    color: #fff;
+} */
 
-.card--firstperson .card__frontside .card__picture-container .card__picture {
-    background-image: url(./22120450/images/22120450.jpeg);
-}
 
 /*----------------------FIRSTPERSON---------------------*/

@@ -6,6 +6,7 @@ import StaffForm from '../components/StaffForm'
 import { useConfirmPrompt } from '../components/ConfirmPromptContext'
 import { useNotification } from '../components/NotificationContext'
 import StaffRole from '../components/StaffRole'
+import Card from '../components/Card'
 
 function StaffManagement({ setIsHide }) {
     const { notify } = useNotification();
@@ -13,6 +14,7 @@ function StaffManagement({ setIsHide }) {
     const [isForm, setIsForm] = useState(false);
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const [theChosenUser, setTheChosenUser] = useState({});
+    const [theChosenUserCard, setTheChosenUserCard] = useState({});
 
     useEffect(() => {
         fetch('http://localhost:5000/users/list')
@@ -55,6 +57,7 @@ function StaffManagement({ setIsHide }) {
     return (
         <>
             <div className="management">
+                {theChosenUserCard._id && <Card theChosenUserCard={theChosenUserCard} setTheChosenUserCard={setTheChosenUserCard} />}
                 {/* {isPrompt && <ConfirmPrompt message="Delete Staff" action="Delete" onConfirm={() => { console.log("hehehe") }} onCancel={() => setIsPrompt(false)} />} */}
                 {isForm && <StaffForm setIsForm={setIsForm} setUsers={setUsers} />}
                 {theChosenUser._id && <StaffRole theChosenUser={theChosenUser} setTheChosenUser={setTheChosenUser} setUsers={setUsers} />}
@@ -116,8 +119,10 @@ function StaffManagement({ setIsHide }) {
                 <div className="management__right">
                     <div className="management__list">
                         {users.map(user => (
-                            <div className="management__card">
-                                <button className="management__card__avatar">
+                            <div className="management__card" key={user._id}>
+                                <button onClick={() => {
+                                    setTheChosenUserCard(user);
+                                }} className="management__card__avatar">
                                     <FontAwesomeIcon icon={faUser} className='icon__card' />
                                 </button>
                                 <div className="clone1">

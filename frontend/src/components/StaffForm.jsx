@@ -66,7 +66,6 @@ function StaffForm({ setIsForm, setUsers }) {
         <>
             <div className="form-container">
                 <div class="form">
-
                     <form action="#">
                         <div class="form__userdetail">
                             <div class="form__inputbox">

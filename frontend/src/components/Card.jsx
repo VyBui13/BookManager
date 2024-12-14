@@ -1,22 +1,51 @@
 import "../styles/Card.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faQrcode, faCreditCard, faInfinity, faCompactDisc, faUser, faUserGear } from '@fortawesome/free-solid-svg-icons'
+import html2canvas from 'html2canvas';
+import { useRef } from 'react';
 
+function Card({ theChosenUserCard, setTheChosenUserCard }) {
+    const captureFrontRef = useRef(null);
+    const captureBackRef = useRef(null);
 
-function Card() {
+    async function handleCapture() {
+        try {
+            if (captureFrontRef.current) {
+                const frontCanvas = await html2canvas(captureFrontRef.current);
+                const frontImage = frontCanvas.toDataURL('image/png');
+                downloadImage(frontImage, 'card-front.png');
+            }
+
+            if (captureBackRef.current) {
+                captureBackRef.current.style.transform = 'unset';
+                const backCanvas = await html2canvas(captureBackRef.current);
+                const backImage = backCanvas.toDataURL('image/png');
+                downloadImage(backImage, 'card-back.png');
+                captureBackRef.current.style.transform = 'rotateY(180deg)';
+            }
+        } catch (error) {
+            console.log('Error capturing card:', error);
+        }
+    }
+
+    function downloadImage(dataUrl, fileName) {
+        const anchor = document.createElement('a');
+        anchor.href = dataUrl;
+        anchor.download = fileName;
+        anchor.click();
+    }
+
     return (
-
         <>
             <div className="card-wrapper">
-
                 <div className="card card--firstperson">
                     <input type="checkbox" id="btn-flip" />
                     <div className="card__container">
-                        <div className="card__side card__frontside">
+                        <div ref={captureFrontRef} className="card__side card__frontside">
                             <div className="card__header">
                                 <div className="card__text-header">PERSONAL CARD</div>
 
-                                <FontAwesomeIcon icon={faStar} className="icon__card__header" />
+                                <FontAwesomeIcon icon={faStar} className="icaon__card__header" />
                                 <FontAwesomeIcon icon={faStar} className="icon__card__header" />
                                 <FontAwesomeIcon icon={faStar} className="icon__card__header" />
                             </div>
@@ -25,9 +54,11 @@ function Card() {
                                 <FontAwesomeIcon icon={faQrcode} />
                             </label>
 
-                            <div className="card__picture-container">
+                            <div onClick={() => {
+                                setTheChosenUserCard({});
+                            }} className="card__picture-container">
                                 <div className="card__picture">
-                                    <FontAwesomeIcon icon={faUserGear} className="icon__card__picture" />
+                                    <FontAwesomeIcon icon={faUser} className="icon__card__picture" />
                                     {/* <FontAwesomeIcon icon={faPerson} className="icon__card__picture" /> */}
                                 </div>
                             </div>
@@ -43,34 +74,34 @@ function Card() {
                                     <li className="card__content-item special">
                                         <div className="card__content-header">No:</div>
                                         <ul className="card__content-body card__id">
-                                            <li className="card__id-item">0</li>
-                                            <li className="card__id-item">9</li>
-                                            <li className="card__id-item">0</li>
-                                            <li className="card__id-item">4</li>
-                                            <li className="card__id-item">2</li>
-                                            <li className="card__id-item">0</li>
-                                            <li className="card__id-item">0</li>
-                                            <li className="card__id-item">4</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[0]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[1]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[3]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[4]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[6]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[7]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[8]}</li>
+                                            <li className="card__id-item">{theChosenUserCard.userDateOfBirth[9]}</li>
                                         </ul>
                                     </li>
                                     <li className="card__content-item">
                                         <div className="card__content-header">Fullname: </div>
-                                        <div className="card__content-body">Bui Dinh Gia Vy</div>
+                                        <div className="card__content-body">{theChosenUserCard.userName}</div>
                                     </li>
                                     <li className="card__content-item">
                                         <div className="card__content-header">Phone: </div>
-                                        <div className="card__content-body">(+84) 797 347XXX</div>
+                                        <div className="card__content-body">{theChosenUserCard.userPhone}</div>
                                     </li>
                                     <li className="card__content-item">
                                         <div className="card__content-header">Place: </div>
-                                        <div className="card__content-body">Ho Chi Minh City</div>
+                                        <div className="card__content-body">{theChosenUserCard.userAddress}</div>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="card__footer">
-                                <div className="card__content-header">You can call me by: </div>
-                                <div className="card__content-body">Lilyofthevalley</div>
+                                <div className="card__content-header">{theChosenUserCard.userName}'s role: </div>
+                                <div className="card__content-body">{theChosenUserCard.userRole}</div>
                             </div>
 
                             <div className="card__expiry">
@@ -78,31 +109,47 @@ function Card() {
                                 <FontAwesomeIcon icon={faInfinity} className="icon-card-expiry" />
                             </div>
 
-                            <div className="card__disc">
+                            <button onClick={handleCapture} className="card__disc">
                                 <FontAwesomeIcon icon={faCompactDisc} />
-                            </div>
+                            </button>
 
                         </div>
-                        <div className="card__side card__backside">
+                        <div ref={captureBackRef} className="card__side card__backside">
                             <div className="card__header">
                                 <div className="card__text-header">PERSONAL CARD</div>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-solid fa-star"></i>
+                                <FontAwesomeIcon icon={faStar} className="icon__card__header" />
+                                <FontAwesomeIcon icon={faStar} className="icon__card__header" />
+                                <FontAwesomeIcon icon={faStar} className="icon__card__header" />
                             </div>
 
                             <label for="btn-flip" className="card__QR">
                                 <FontAwesomeIcon icon={faQrcode} />
                             </label>
 
-                            <div className="card__social-preview">
-                                <FontAwesomeIcon icon={faUser} />
-                            </div>
-
                             <div className="card__title-social">
-                                <div className="card__text-title-social">Activity History</div>
-
+                                <div className="card__text-title-social">Staff Card</div>
                             </div>
+
+
+                            <div className="card__social">
+
+                                <div className="card__social-preview">
+                                    <FontAwesomeIcon icon={faUser} />
+
+                                </div>
+
+                                <span>
+                                    Hi <span>
+                                        {theChosenUserCard.userName}
+                                    </span>
+                                    , your role as
+                                    <span>
+                                        {theChosenUserCard.userRole}
+                                    </span>
+                                    is vital to our success. We're excited to have you on the team!
+                                </span>
+                            </div>
+
 
                             {/* <div className="card__information-social">
                                 <ul className="card__social">
