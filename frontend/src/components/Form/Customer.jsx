@@ -85,7 +85,7 @@ function Customer() {
 
 
     function handleSearch() {
-        fetch('http://localhost:5000/bills?customerPhone=' + phone)
+        fetch('http://localhost:5000/bills/' + phone)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
