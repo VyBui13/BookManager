@@ -48,6 +48,70 @@ class CustomerService {
             }
         }
     }
+
+    async getAllCustomers() {
+        try {
+            const customers = await Customer.find();
+            return {
+                status: 'success',
+                message: 'Get all customers successfully',
+                data: customers,
+            }
+        } catch (err) {
+            return {
+                status: 'error',
+                message: err.message,
+            }
+        }
+    }
+
+    async getAmount() {
+        try {
+            const amount = await Customer.countDocuments();
+            return {
+                status: 'success',
+                message: 'Get amount successfully',
+                data: amount,
+            }
+        } catch (err) {
+            return {
+                status: 'error',
+                message: err.message,
+            }
+        }
+    }
+
+    async updateCustomer({ customer, paymentFee }) {
+        try {
+
+            const theChosenCustomer = await Customer.findOne({ _id: customer._id });
+            if (!theChosenCustomer) {
+                return {
+                    status: 'warning',
+                    message: 'No customer found',
+                };
+            }
+            theChosenCustomer.customerCurrentDebt = Number(theChosenCustomer.customerCurrentDebt) - Number(paymentFee);
+            theChosenCustomer.customerUpdatedDateTime = new Date();
+            theChosenCustomer.customerEmail = customer.customerEmail;
+            theChosenCustomer.customerAddress = customer.customerAddress;
+            theChosenCustomer.customerName = customer.customerName;
+            theChosenCustomer.customerPhone = customer.customerPhone;
+            await theChosenCustomer.save();
+
+
+            return {
+                status: 'success',
+                message: 'Update customer successfully',
+            }
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message,
+            }
+        }
+    }
 }
 
 module.exports = new CustomerService;

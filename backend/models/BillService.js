@@ -53,10 +53,10 @@ class BillService {
         }
     }
 
-    async getBillByCustomer(customerPhone) {
+    async getBillByCustomer({ phone }) {
         try {
 
-            const query = { customerPhone: customerPhone };
+            const query = { customerPhone: phone };
             const customer = await Customer.findOne(query);
 
             if (!customer) {
@@ -131,11 +131,38 @@ class BillService {
 
             return {
                 status: 'success',
-                message: `Get ${customerPhone}'s successfully`,
+                message: `Get ${phone}'s successfully`,
                 customer: customer,
                 billList: newBillList,
             }
         } catch (err) {
+            return {
+                status: 'error',
+                message: err.message,
+            }
+        }
+    }
+
+    async updateBill({ billID, paymentFee }) {
+        try {
+            const bill = await Bill.findOne({ _id: billID });
+            if (!bill) {
+                return {
+                    status: 'warning',
+                    message: 'No bill found',
+                };
+            }
+
+            bill.billPayment = Number(bill.billPayment) + Number(paymentFee);
+            await bill.save();
+
+            return {
+                status: 'success',
+                message: 'Update bill successfully',
+            }
+
+        }
+        catch (err) {
             return {
                 status: 'error',
                 message: err.message,
