@@ -30,6 +30,20 @@ class RuleController {
             });
         }
     }
+
+    async checkRules(req, res) {
+        try {
+            const { minInputBook, maxStoredBook, minStoredAfterSelling, maxBoughtBook, allowDebt } = req.body;
+            const result = await RuleService.checkRules({ minInputBook, maxStoredBook, minStoredAfterSelling, maxBoughtBook, allowDebt });
+            res.status(200).json(result);
+        }
+        catch (err) {
+            res.status(500).json({
+                status: 'error',
+                message: err.message,
+            });
+        }
+    }
 }
 
 module.exports = new RuleController;
