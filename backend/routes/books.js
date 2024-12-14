@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const BooksController = require('../controllers/BookController');
+const BookController = require('../controllers/BookController');
 
-router.get('/', BooksController.getCollection);
-router.get('/top', BooksController.getTop);
-router.get('/kinds', BooksController.getKinds);
-router.get('/search', BooksController.search);
-router.get('/amount', BooksController.getAmount);
-router.post('/', BooksController.postColletion);
-router.post('/rule', BooksController.checkRule);
-router.post('/price', BooksController.setPrice);
+router.get('/', BookController.getCollection);
+router.get('/top', BookController.getTop);
+router.get('/kinds', BookController.getKinds);
+router.get('/search', BookController.search);
+router.get('/amount', BookController.getAmount);
+router.post('/', BookController.postColletion);
+router.post('/rule', BookController.checkRule);
+router.post('/price', BookController.setPrice);
 
 module.exports = router;
