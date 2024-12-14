@@ -2,24 +2,22 @@ import { useState } from 'react';
 import '../styles/InputNumberRange.css';
 import { useNotification } from './NotificationContext';
 
-function InputNumberRange({ label, min, max, value, setValue, setRegulation, step }) {
+function InputNumberRange({ label, min, max, value, setValue, rules, setRules, step }) {
     const { notify } = useNotification();
     const [valueInput, setValueInput] = useState(value);
     function handleSave() {
         if (valueInput < min || valueInput > max) {
-            notify({ type: 'error', message: 'Invalid value' });
+            notify({ type: 'error', msg: 'Invalid value' });
             return;
         }
-        setRegulation(
-            (prev) => {
-                return {
-                    ...prev,
-                    [label.charAt(0).toLowerCase() + label.slice(1)]: valueInput
-                }
+        setRules(
+            {
+                ...rules,
+                [label.charAt(0).toLowerCase() + label.slice(1)]: Number(valueInput)
             }
         );
         setValue(null);
-        notify({ type: 'success', message: 'Save successfully' });
+        notify({ type: 'success', msg: 'Save successfully' });
     }
 
     function handleCancel() {

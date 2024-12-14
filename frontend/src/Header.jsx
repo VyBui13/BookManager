@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import './styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, faSun, faMoon, faSliders } from '@fortawesome/free-solid-svg-icons'
 import { useNotification } from './components/NotificationContext.jsx'
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
@@ -113,8 +113,16 @@ function Header() {
 
                     {authorization.setting && <div className="header__item">
                         <div className="header__icon">
-                            <Link to="/regulation">
+                            <Link to="/setting">
                                 <FontAwesomeIcon icon={faGear} className="icon__header" />
+                            </Link>
+                        </div>
+                    </div>}
+
+                    {authorization.setting && <div className="header__item">
+                        <div className="header__icon">
+                            <Link to="/staff">
+                                <FontAwesomeIcon icon={faSliders} className="icon__header" />
                             </Link>
                         </div>
                     </div>}

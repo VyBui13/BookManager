@@ -3,7 +3,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: var(--item-color);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: var(--border-radius);
@@ -12,7 +12,7 @@
 .input__title {
     font-size: 20px;
     font-weight: 700;
-    color: #664AFF;
+    color: var(--main-color);
     text-align: center;
     margin-bottom: 10px;
     text-transform: capitalize;
@@ -30,7 +30,7 @@
     border: none;
     outline: none;
     background-color: rgba(0, 0, 0, 0.3);
-    color: #664AFF;
+    color: var(--main-color);
     font-size: 18px;
     font-weight: 700;
     text-align: center;
@@ -61,7 +61,7 @@
     left: 0;
     top: -50px;
     transform: translateX(-50%) scale(0);
-    color: #fff;
+    color: var(--text-in-background-color);
     text-align: center;
     font-size: 12px;
     opacity: 0;
@@ -82,7 +82,8 @@
     transform: translate(-50%, -50%) rotate(45deg);
     width: 40px;
     height: 40px;
-    background-color: #664AFF;
+    background-color: var(--main-color);
+    color: var(--text-color);
     z-index: -1;
     border: 2px solid #fff;
     border-top-left-radius: 50%;
@@ -105,7 +106,7 @@
 .range .range__field .range__field__value {
     font-size: 18px;
     font-weight: 700;
-    color: #664AFF;
+    color: var(--main-color);
     text-align: center;
     width: 60px;
 }
@@ -118,7 +119,7 @@
     height: 2px;
     background-color: #63636366;
     cursor: pointer;
-    accent-color: #664AFF;
+    accent-color: var(--main-color);
     -webkit-appearance: none;
 }
 
@@ -128,7 +129,7 @@ input[type=range]::-webkit-slider-thumb {
     width: 5px;
     border-radius: 2px;
     border: 1px solid #fff;
-    background-color: #664AFF;
+    background-color: var(--main-color);
 }
 
 .input__button {
@@ -142,7 +143,7 @@ input[type=range]::-webkit-slider-thumb {
     margin: 0 5px;
     padding: 5px;
     background-color: var(--main-color);
-    color: #fff;
+    color: var(--text-in-background-color);
     font-size: 14px;
     font-weight: 700;
     border: none;
@@ -153,7 +154,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .input__button button:first-child {
-    background-color: #fff;
+    background-color: var(--background-color);
     border-color: var(--main-color);
     color: var(--main-color);
 }

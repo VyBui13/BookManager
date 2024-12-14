@@ -71,7 +71,7 @@
     border: 4px solid var(--text-in-card-header-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     /* background: var(--main-card-color); */
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/pic/img/background_card_2.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/background-card.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
