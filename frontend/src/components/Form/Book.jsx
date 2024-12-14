@@ -5,12 +5,10 @@ import '../../styles/Book.css';
 import BookImportForm from '../BookImportForm.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faFolder } from '@fortawesome/free-solid-svg-icons'
-import { useConfigContext } from '../ConfigContext.jsx'
 
 function Book() {
     const { notify } = useNotification();
     const [booksImport, setBooksImport] = useState([]);
-    const { regulation } = useConfigContext();
     const [addAuthor, setAddAuthor] = useState('');
     const [addKind, setAddKind] = useState('');
     const [isImportForm, setIsImportForm] = useState(false);
@@ -35,42 +33,42 @@ function Book() {
             return;
         }
 
-        if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
-            notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
-            return;
-        }
+        // if (Number(book.bookAmount) < Number(regulation.bookMinAmountInput)) {
+        //     notify({ type: 'warning', msg: 'The minimum number of import amount books is ' + regulation.bookMinAmountInput });
+        //     return;
+        // }
 
-        fetch('http://localhost:5000/books/rule', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...book, bookMaxAmountAllow: regulation.bookMaxAmountAllow })
-        }).then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    if (booksImport.length === 0) {
-                        setBooksImport([...booksImport, book]);
-                    } else {
-                        const checkBook = booksImport.find(item => item.bookName === book.bookName);
-                        if (checkBook) {
-                            const newBooksImport = booksImport.map(item => {
-                                if (item.bookName === book.bookName) {
-                                    return { ...item, bookAmount: item.bookAmount + book.bookAmount };
-                                }
-                                return item;
-                            });
-                            setBooksImport(newBooksImport);
-                        } else {
-                            setBooksImport([...booksImport, book]);
-                        }
-                    }
-                    notify({ type: data.status, msg: "Add book in form successfully" });
-                } else {
-                    notify({ type: data.status, msg: data.message });
-                }
-            })
-            .catch((error) => {
-                notify({ type: 'error', msg: error.message });
-            });
+        // fetch('http://localhost:5000/books/rule', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ ...book, bookMaxAmountAllow: regulation.bookMaxAmountAllow })
+        // }).then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'success') {
+        //             if (booksImport.length === 0) {
+        //                 setBooksImport([...booksImport, book]);
+        //             } else {
+        //                 const checkBook = booksImport.find(item => item.bookName === book.bookName);
+        //                 if (checkBook) {
+        //                     const newBooksImport = booksImport.map(item => {
+        //                         if (item.bookName === book.bookName) {
+        //                             return { ...item, bookAmount: item.bookAmount + book.bookAmount };
+        //                         }
+        //                         return item;
+        //                     });
+        //                     setBooksImport(newBooksImport);
+        //                 } else {
+        //                     setBooksImport([...booksImport, book]);
+        //                 }
+        //             }
+        //             notify({ type: data.status, msg: "Add book in form successfully" });
+        //         } else {
+        //             notify({ type: data.status, msg: data.message });
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         notify({ type: 'error', msg: error.message });
+        //     });
     }
 
     function handleSummit() {

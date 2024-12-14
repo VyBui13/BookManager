@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from './components/NotificationContext';
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx';
+import { useConfig } from './components/ConfigContext.jsx';
 
 function Dashboard() {
     const { setAuthorization, setUser } = useAuthorizations();
-    const { notify } = useNotification();
+    const { setRules } = useConfig();
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -30,7 +31,18 @@ function Dashboard() {
                 } else {
                     setAuthorization(data.authorization);
                     setUser(data.user);
+
                     setIsAuthenticated(true);
+                    fetch('http://localhost:5000/rules')
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status === 'error') {
+                                console.log(data.message);
+                                return;
+                            }
+                            setRules(data.data);
+                        });
+
                 }
             })
             .catch((err) => {

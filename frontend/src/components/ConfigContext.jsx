@@ -3,19 +3,19 @@ import React, { createContext, useState, useContext } from 'react';
 const ConfigContext = createContext();
 
 export const ConfigProvider = ({ children }) => {
-    const [regulation, setRegulation] = useState({
-        bookMinAmountInput: 150,
-        bookMaxAmountAllow: 300,
-        debtMax: 20000,
-        bookMinAmountAfterSell: 20,
-        checkFee: true,
+    const [rules, setRules] = useState({
+        minInputBook: 150,
+        maxStoredBook: 300,
+        minStoredAfterSelling: 20000,
+        maxBoughtBook: 20,
+        allowDebt: true,
     });
 
     return (
-        <ConfigContext.Provider value={{ regulation, setRegulation }}>
+        <ConfigContext.Provider value={{ rules, setRules }}>
             {children}
         </ConfigContext.Provider>
     );
 };
 
-export const useConfigContext = () => useContext(ConfigContext);
+export const useConfig = () => useContext(ConfigContext);

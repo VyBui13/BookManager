@@ -5,43 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from '../components/EachPageHeader.jsx'
 import { useNotification } from '../components/NotificationContext.jsx'
+import { useConfig } from '../components/ConfigContext.jsx'
 
 function Regulation() {
     const { notify } = useNotification();
-    const [rules, setRules] = useState({
-        bookMinImportAmount: 0,
-        bookMinStoredAmount: 0,
-        debtMax: 0,
-        bookMinAmountAfterSell: 0,
-        checkFee: true
-    });
+    const { rules, setRules } = useConfig();
     const [value, setValue] = useState(null);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/regulation')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.status === 'success') {
-                    setRules(data.data);
-                }
-                else {
-                    console.log(data.message);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []); // []: run only once
-
-
     function handleSubmit() {
-        fetch('http://localhost:5000/regulation/edition', {
+        fetch('http://localhost:5000/rules', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ rules: rules })
+            body: JSON.stringify({ ...rules })
         })
             .then(response => response.json())
             .then(data => {
@@ -97,23 +74,23 @@ function Regulation() {
                             </div>
                             <div className="setting__item-content-value">
                                 <div className="value">
-                                    {rules.bookMinImportAmount}
+                                    {rules.minInputBook}
                                 </div>
                                 <button onClick={
-                                    () => handleClick("BookMinImportAmount", rules.bookMinImportAmount, 1, 500, 1)
+                                    () => handleClick("minInputBook", rules.minInputBook, 1, 500, 1)
                                 }>+</button>
                             </div>
                         </div>
                         <div className="setting__item-content">
                             <div className="setting__item-content-title">
-                                The maximum number of present amount books
+                                The maximum number of present stored books
                             </div>
                             <div className="setting__item-content-value">
                                 <div className="value">
-                                    {rules.bookMinStoredAmount}
+                                    {rules.maxStoredBook}
                                 </div>
                                 <button onClick={
-                                    () => handleClick("BookMinStoredAmount", rules.bookMinStoredAmount, 1, 500, 1)
+                                    () => handleClick("maxStoredBook", rules.maxStoredBook, 1, 500, 1)
                                 }>+</button>
                             </div>
                         </div>
@@ -125,28 +102,28 @@ function Regulation() {
                         </div>
                         <div className="setting__item-content">
                             <div className="setting__item-content-title">
-                                The debt maximum amount of customer
+                                The minimum number of stored books after selling
                             </div>
                             <div className="setting__item-content-value">
                                 <div className="value">
-                                    {rules.debtMax}
+                                    {rules.minStoredAfterSelling}
                                 </div>
                                 <button onClick={
-                                    () => handleClick("DebtMax", rules.debtMax, 10000, 500000, 10000)
+                                    () => handleClick("minStoredAfterSelling", rules.minStoredAfterSelling, 1, 500, 1)
                                 }>+</button>
                             </div>
                         </div>
 
                         <div className="setting__item-content">
                             <div className="setting__item-content-title">
-                                The minimum number of present amount books
+                                The maximum number of bought books
                             </div>
                             <div className="setting__item-content-value">
                                 <div className="value">
-                                    {rules.bookMinAmountAfterSell}
+                                    {rules.maxBoughtBook}
                                 </div>
                                 <button onClick={
-                                    () => handleClick("BookMinAmountAfterSell", rules.bookMinAmountAfterSell, 1, 500, 1)
+                                    () => handleClick("maxBoughtBook", rules.maxBoughtBook, 1, 500, 1)
                                 }>+</button>
                             </div>
                         </div>
@@ -162,13 +139,13 @@ function Regulation() {
                             </div>
                             <div className="setting__item-content-value">
                                 <div className="value">
-                                    {rules.checkFee ? "Yes" : "No"}
+                                    {rules.allowDebt ? "Yes" : "No"}
                                 </div>
                                 <button onClick={
                                     () => {
                                         setRules({
                                             ...rules,
-                                            checkFee: !rules.checkFee
+                                            allowDebt: !rules.allowDebt
                                         })
                                     }
                                 }>+</button>

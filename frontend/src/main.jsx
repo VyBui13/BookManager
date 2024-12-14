@@ -6,25 +6,28 @@ import { NotificationProvider } from './components/NotificationContext.jsx';
 import Notify from './components/Notify.jsx';
 import { AuthorizationProvider } from './components/AuthorizationContext.jsx'
 import { ConfirmPromptProvider } from './components/ConfirmPromptContext.jsx';
+import { ConfigProvider } from './components/ConfigContext.jsx'
 import ConfirmPrompt from './components/ConfirmPrompt.jsx';
 
 function MainApp() {
   return (
     <BrowserRouter>
       <AuthorizationProvider>
-        <ConfirmPromptProvider>
-          <NotificationProvider>
-            <ConfirmPrompt />
-            <Notify />
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/*" element={
-                <Dashboard />
-              }
-              />
-            </Routes>
-          </NotificationProvider>
-        </ConfirmPromptProvider>
+        <ConfigProvider>
+          <ConfirmPromptProvider>
+            <NotificationProvider>
+              <ConfirmPrompt />
+              <Notify />
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={
+                  <Dashboard />
+                }
+                />
+              </Routes>
+            </NotificationProvider>
+          </ConfirmPromptProvider>
+        </ConfigProvider>
       </AuthorizationProvider>
 
     </BrowserRouter>
