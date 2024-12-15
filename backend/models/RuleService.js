@@ -49,57 +49,53 @@ class RuleService {
         }
     }
 
-    async checkRules({ minInputBook, maxStoredBook, minStoredAfterSelling, maxBoughtBook, allowDebt }) {
+    async checkRules({ currentAmount, amountInputBook, amountBoughtBook }) {
         try {
             const rules = await Rule.find();
             if (rules.length === 0) {
                 return {
-                    status: 'error',
+                    status: 'warning',
                     message: 'No rules found',
                 };
             }
             const rule = rules[0];
-            if (minInputBook) {
-                if (minInputBook < rule.minInputBook) {
+            if (amountInputBook) {
+                if (currentAmount > rule.maxStoredBook) {
                     return {
-                        status: 'error',
+                        status: 'warning',
+                        message: `Maximum stored book is ${rule.maxStoredBook}`,
+                    };
+                }
+
+                if (amountInputBook < rule.minInputBook) {
+                    return {
+                        status: 'warning',
                         message: `Minimum input book is ${rule.minInputBook}`,
                     };
                 }
             }
 
-            if (maxStoredBook) {
-                if (maxStoredBook > rule.maxStoredBook) {
+
+
+            if (amountBoughtBook) {
+                if (amountBoughtBook < currentAmount) {
                     return {
                         status: 'error',
-                        message: `Maximum stored book is ${rule.maxStoredBook}`,
+                        message: `Amount bought book must be greater than current amount`,
                     };
                 }
-            }
 
-            if (minStoredAfterSelling) {
-                if (minStoredAfterSelling < rule.minStoredAfterSelling) {
+                if (amountBoughtBook > rule.maxBoughtBook) {
                     return {
-                        status: 'error',
-                        message: `Minimum stored after selling is ${rule.minStoredAfterSelling}`,
-                    };
-                }
-            }
-
-            if (maxBoughtBook) {
-                if (maxBoughtBook > rule.maxBoughtBook) {
-                    return {
-                        status: 'error',
+                        status: 'warning',
                         message: `Maximum bought book is ${rule.maxBoughtBook}`,
                     };
                 }
-            }
 
-            if (allowDebt) {
-                if (allowDebt !== rule.allowDebt) {
+                if (currentAmount - amountBoughtBook < rule.minStoredAfterSelling) {
                     return {
-                        status: 'error',
-                        message: `Allow debt is ${rule.allowDebt}`,
+                        status: 'warning',
+                        message: `Minimum stored after selling is ${rule.minStoredAfterSelling}`,
                     };
                 }
             }

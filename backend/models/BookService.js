@@ -223,6 +223,30 @@ class BookService {
         };
 
     }
+
+    async getAmountBook({ bookName, bookKind, bookAuthor }) {
+        try {
+            const query = { bookName: bookName, bookKind: bookKind, bookAuthor: bookAuthor };
+            const book = await Book.findOne(query);
+            if (!book) {
+                return {
+                    status: 'success',
+                    message: 'New book',
+                    data: 0,
+                };
+            }
+            return {
+                status: 'success',
+                message: 'Book found',
+                data: book.bookCurrentAmount,
+            };
+        } catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            };
+        }
+    }
 }
 
 module.exports = new BookService;

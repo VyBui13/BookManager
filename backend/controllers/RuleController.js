@@ -1,5 +1,5 @@
 const RuleService = require('../models/RuleService');
-
+const BookService = require('../models/BookService');
 class RuleController {
     async getRules(req, res) {
         try {
@@ -33,8 +33,9 @@ class RuleController {
 
     async checkRules(req, res) {
         try {
-            const { minInputBook, maxStoredBook, minStoredAfterSelling, maxBoughtBook, allowDebt } = req.body;
-            const result = await RuleService.checkRules({ minInputBook, maxStoredBook, minStoredAfterSelling, maxBoughtBook, allowDebt });
+            const { bookName, bookKind, bookAuthor, amountInputBook, amountBoughtBook } = req.body;
+            const currentAmount = await BookService.getAmountBook({ bookName, bookKind, bookAuthor });
+            const result = await RuleService.checkRules({ currentAmount: currentAmount.data, amountInputBook, amountBoughtBook });
             res.status(200).json(result);
         }
         catch (err) {
