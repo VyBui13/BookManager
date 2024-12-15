@@ -7,9 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
 import { getDate } from '../../utils/DateCurrent.js';
+import { useConfig } from '../ConfigContext.jsx';
 
 function Bill() {
     const { notify } = useNotification();
+    const { rules } = useConfig();
     const [bill, setBill] = useState({
         bookList: [],
         customerName: '',
@@ -216,6 +218,10 @@ function Bill() {
                                     <div className="booklist__button">
                                         <div onClick={
                                             () => {
+                                                if (bill.bookList.length > rules.maxBoughtBook) {
+                                                    notify({ type: 'error', msg: `You can only buy ${rules.maxBoughtBook} books at a time!` });
+                                                    return;
+                                                }
                                                 books.forEach((item) => {
                                                     if (item._id === book._id) {
                                                         setBook({

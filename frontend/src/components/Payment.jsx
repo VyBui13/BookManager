@@ -111,7 +111,7 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                                         <p>Total</p>
                                         <p>{formatCurrency(totalPayment(payment.bookList))}</p>
                                     </div>
-                                    <div className="payment__caculation__item">
+                                    {/* {rules.allowDebt !== true && <div className="payment__caculation__item">
                                         <p>Payment</p>
 
                                         <input
@@ -121,11 +121,16 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                                             }}
                                             type="text" />
 
+                                    </div>} */}
+
+                                    <div className="payment__caculation__item">
+                                        <p>Payment</p>
+                                        <p>{formatCurrency(totalPayment(payment.bookList))}</p>
                                     </div>
 
                                     <div className="payment__caculation__item">
-                                        <p>Change</p>
-                                        <p>{formatCurrency(Number(fee) - totalPayment(payment.bookList))}</p>
+                                        <p>Staff</p>
+                                        <p>{user.userName}</p>
                                     </div>
                                 </div>
                             </div>

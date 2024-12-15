@@ -1,8 +1,10 @@
 import '../styles/BillAmount.css';
 import { useState } from 'react';
 import { useNotification } from './NotificationContext';
+import { useConfig } from "./ConfigContext";
 
 function BillAmount(props) {
+    const { rules } = useConfig();
     const { notify } = useNotification();
     const [book, setBook] = useState(props.book);
     function handleSave() {
@@ -13,6 +15,10 @@ function BillAmount(props) {
         }
         if (Number(book.amountBought) > Number(book.amountAvailable)) {
             notify({ type: 'error', msg: 'Please enter a number which above ' + book.amountAvailable });
+            return;
+        }
+        if (Number(book.amountAvailable) - Number(book.amountBought) < rules.minStoredAfterSelling) {
+            notify({ type: 'warning', msg: 'The number of book after selling must be above ' + rules.minStoredAfterSelling });
             return;
         }
         const existingBookIndex = newArray.findIndex(item => item._id === book._id);
