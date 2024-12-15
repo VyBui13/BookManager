@@ -1,7 +1,6 @@
-const Rule = require('./schema/Rule');
+const Rule = require('../../schema/Rule');
 
 async function seedRule() {
-    await Rule.deleteMany({});
 
     const newRule = new Rule({
         minInputBook: 150,
@@ -12,7 +11,6 @@ async function seedRule() {
     });
 
     await newRule.save();
-    console.log('Rule seeded');
 }
 
 module.exports = { seedRule };

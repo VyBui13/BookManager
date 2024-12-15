@@ -1,4 +1,4 @@
-const User = require('./schema/User');
+const User = require('../../schema/User');
 const bcrypt = require('bcrypt');
 
 async function hashPassword(password) {
@@ -14,8 +14,6 @@ async function hashPassword(password) {
 
 async function seedUser() {
     const password = await hashPassword('1');
-
-    await User.deleteMany({});
 
     const users = [
         {

@@ -1,14 +1,7 @@
-const Book = require('./schema/Book');
-const { getDate, getTime } = require('./utils/DateUtils');
+const Book = require('../../schema/Book');
+const { getDate, getTime } = require('../../utils/DateUtils');
 
-async function seed() {
-    const dateNow = new Date();
-
-    const currentDate = getDate(dateNow);
-    const currentTime = getTime(dateNow);
-    console.log(currentDate, currentTime);
-    await Book.deleteMany({});
-
+async function seedBook() {
     const books = [
         {
             bookName: "The Great Gatsby",
@@ -101,5 +94,5 @@ async function seed() {
 }
 
 module.exports = {
-    seed
+    seedBook
 };
