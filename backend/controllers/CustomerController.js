@@ -4,10 +4,8 @@ const PaymentService = require('../models/PaymentService');
 class CustomerController {
     async addBill(req, res) {
         try {
-            const billData = req.body;
-            const { bookList, customerName, customerPhone, totalPrice, payment, userID } = billData;
-            const addCustomerStatus = await CustomerService.addNewCustomer({ customerName, customerPhone });
-            console.log(addCustomerStatus);
+            const { bookList, customerName, customerPhone, totalPrice, payment, userID } = req.body;
+            const addCustomerStatus = await CustomerService.addCustomer({ customerName, customerPhone, totalPrice });
             if (addCustomerStatus.status === 'error') {
                 res.status(400).json(addCustomerStatus);
                 return;

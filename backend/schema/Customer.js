@@ -22,11 +22,6 @@ const CustomerSchema = new Schema({
         default: '',
     },
 
-    customerBeginningDebt: {
-        type: Number,
-        default: 0,
-    },
-
     customerCurrentDebt: {
         type: Number,
         default: 0,

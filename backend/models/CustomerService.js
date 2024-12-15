@@ -30,13 +30,21 @@ class CustomerService {
         }
     }
 
-    async addNewCustomer({ customerName, customerPhone }) {
+    async addCustomer({ customerName, customerPhone, totalPrice }) {
         try {
-            const customer = new Customer({
-                customerName: customerName,
-                customerPhone: customerPhone,
-            });
-            await customer.save();
+            const theChosenCustomer = await Customer.findOne({ customerPhone: customerPhone });
+            if (theChosenCustomer) {
+                theChosenCustomer.customerCurrentDebt = Number(theChosenCustomer.customerCurrentDebt) + Number(totalPrice);
+                theChosenCustomer.customerUpdatedDateTime = new Date();
+                await theChosenCustomer.save();
+            } else {
+                const customer = new Customer({
+                    customerName: customerName,
+                    customerPhone: customerPhone,
+                    customerCurrentDebt: totalPrice,
+                });
+                await customer.save();
+            }
             return {
                 status: 'success',
                 message: 'Add new customer successfully',
