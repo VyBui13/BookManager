@@ -134,13 +134,14 @@ function Customer() {
 
             <div className="customer">
                 <div className="customer__left">
+                    {bill && <span>{bill.length}</span>}
                     <div className="customer__info">
                         <div className="customer__title">
+                            <div className="logo__shop">B</div>
                             <span>
                                 Customer's Payment
                             </span>
 
-                            <div className="logo__shop">B</div>
                         </div>
                         <div className="customer__info__wrapper">
 
@@ -177,7 +178,7 @@ function Customer() {
                                 </div>
 
                                 <div className="customer__input">
-                                    <span>Bill</span>
+                                    <span>Bill {indexBill + 1}</span>
                                     <input
                                         value={bill === null ? '' : bill[indexBill].billTotalPrice - bill[indexBill].billPayment}
                                         type="text" disabled />
