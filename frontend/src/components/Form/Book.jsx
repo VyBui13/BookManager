@@ -38,37 +38,36 @@ function Book() {
         //     return;
         // }
 
-        // fetch('http://localhost:5000/books/rule', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ ...book, bookMaxAmountAllow: regulation.bookMaxAmountAllow })
-        // }).then(response => response.json())
-        //     .then(data => {
-        //         if (data.status === 'success') {
-        //             if (booksImport.length === 0) {
-        //                 setBooksImport([...booksImport, book]);
-        //             } else {
-        //                 const checkBook = booksImport.find(item => item.bookName === book.bookName);
-        //                 if (checkBook) {
-        //                     const newBooksImport = booksImport.map(item => {
-        //                         if (item.bookName === book.bookName) {
-        //                             return { ...item, bookAmount: item.bookAmount + book.bookAmount };
-        //                         }
-        //                         return item;
-        //                     });
-        //                     setBooksImport(newBooksImport);
-        //                 } else {
-        //                     setBooksImport([...booksImport, book]);
-        //                 }
-        //             }
-        //             notify({ type: data.status, msg: "Add book in form successfully" });
-        //         } else {
-        //             notify({ type: data.status, msg: data.message });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         notify({ type: 'error', msg: error.message });
-        //     });
+        fetch('http://localhost:5000/rules/checking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bookName: book.bookName, bookKind: book.bookKind, bookAuthor: book.bookAuthor, amountInputBook: book.bookAmount })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (booksImport.length === 0) {
+                        setBooksImport([...booksImport, book]);
+                    } else {
+                        const checkBook = booksImport.find(item => item.bookName === book.bookName);
+                        if (checkBook) {
+                            const newBooksImport = booksImport.map(item => {
+                                if (item.bookName === book.bookName) {
+                                    return { ...item, bookAmount: item.bookAmount + book.bookAmount };
+                                }
+                                return item;
+                            });
+                            setBooksImport(newBooksImport);
+                        } else {
+                            setBooksImport([...booksImport, book]);
+                        }
+                    }
+                }
+                notify({ type: data.status, msg: data.message });
+
+            })
+            .catch((error) => {
+                notify({ type: 'error', msg: error.message });
+            });
     }
 
     function handleSummit() {

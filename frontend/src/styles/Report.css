@@ -1,14 +1,16 @@
 .report {
     margin-top: 30px;
+    padding-bottom: 10px;
     width: 100%;
     background-color: var(--item-color);
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
-    height: calc(100vh - 170px);
+    height: calc(100vh - 160px);
 }
 
 .report .report__header {
     display: flex;
+    height: 50px;
     justify-content: space-between;
     align-items: center;
     border-top-left-radius: var(--border-radius);
@@ -90,16 +92,18 @@
 
 .report .report__body {
     width: 100%;
-    height: calc(100% - 70px);
-    padding: 20px;
-    overflow: auto;
+    height: calc(100% - 50px);
+    padding: 10px 20px;
+    /* overflow: auto; */
+    position: relative;
 }
 
-.report .report__body::-webkit-scrollbar {
-    width: 10px;
+/* .report .report__body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
 }
 
 .report .report__body::-webkit-scrollbar-thumb {
     background-color: var(--main-scroll-color);
     border-radius: 10px;
-}
+} */

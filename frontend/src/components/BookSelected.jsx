@@ -25,7 +25,11 @@ function BookSelected({ bookPrice, setBookPrice, setBooks }) {
             })
             .then(response => response.json())
             .then(data => {
-                setBooks(data);
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
                 setBookPrice({});
             })
             .catch(error => {
