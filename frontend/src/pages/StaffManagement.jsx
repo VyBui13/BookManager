@@ -44,7 +44,11 @@ function StaffManagement({ setIsHide }) {
         fetch('http://localhost:5000/users/list')
             .then(response => response.json())
             .then(data => {
-                setUsers(data)
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setUsers(data.data);
             })
             .catch(err => {
                 console.log(err)

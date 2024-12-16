@@ -61,6 +61,31 @@ function Home() {
                     ...prevDetail,
                     totalBook: data2.data,
                 }));
+
+                const res3 = await fetch("http://localhost:5000/customers/amount");
+                const data3 = await res3.json();
+
+                if (data3.status === 'error') {
+                    console.log(data3.message);
+                    return;
+                }
+                setDetail((prevDetail) => ({
+                    ...prevDetail,
+                    totalCustomer: data3.data,
+                }));
+
+                const res4 = await fetch("http://localhost:5000/users/amount?role=staff");
+                const data4 = await res4.json();
+
+                if (data4.status === 'error') {
+                    console.log(data4.message);
+                    return;
+                }
+                setDetail((prevDetail) => ({
+                    ...prevDetail,
+                    totalStaff: data4.data,
+                }));
+
             } catch (error) {
                 console.log(error);
             } finally {
