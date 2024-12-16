@@ -8,6 +8,7 @@ import { AuthorizationProvider } from './components/AuthorizationContext.jsx'
 import { ConfirmPromptProvider } from './components/ConfirmPromptContext.jsx';
 import { ConfigProvider } from './components/ConfigContext.jsx'
 import ConfirmPrompt from './components/ConfirmPrompt.jsx';
+import { LoadingProvider } from './components/LoadingContext.jsx';
 
 function MainApp() {
   return (
@@ -16,20 +17,21 @@ function MainApp() {
         <ConfigProvider>
           <ConfirmPromptProvider>
             <NotificationProvider>
-              <ConfirmPrompt />
-              <Notify />
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/*" element={
-                  <Dashboard />
-                }
-                />
-              </Routes>
+              <LoadingProvider>
+                <ConfirmPrompt />
+                <Notify />
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/*" element={
+                    <Dashboard />
+                  }
+                  />
+                </Routes>
+              </LoadingProvider>
             </NotificationProvider>
           </ConfirmPromptProvider>
         </ConfigProvider>
       </AuthorizationProvider>
-
     </BrowserRouter>
   );
 }

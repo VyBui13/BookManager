@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from "../components/EachPageHeader";
 import NothingDisplay from "../components/NothingDisplay";
+import { useLoading } from "../components/LoadingContext";
 
 function Home() {
+    const { setIsLoading } = useLoading();
     const [books, setBooks] = useState([]);
     const [detail, setDetail] = useState({
         totalBook: 0,
@@ -38,63 +40,35 @@ function Home() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:5000/books/top?limit=10")
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const res = await fetch("http://localhost:5000/books/top?limit=10");
+                const data = await res.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setBooks(data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-            ;
-    }, []);
 
-    useEffect(() => {
-        fetch("http://localhost:5000/books/amount")
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.status === 'error') {
-                    console.log(data.message);
+                const res2 = await fetch("http://localhost:5000/books/amount");
+                const data2 = await res2.json();
+                if (data2.status === 'error') {
+                    console.log(data2.message);
                     return;
                 }
                 setDetail((prevDetail) => ({
                     ...prevDetail,
-                    totalBook: data.data,
+                    totalBook: data2.data,
                 }));
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.log(error);
-            });
-    }, []);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    useEffect(() => {
-        fetch("http://localhost:5000/customers/generaldetail")
-            .then((res) => res.json())
-            .then((data) => {
-                setDetail((prevDetail) => ({
-                    ...prevDetail,
-                    totalIncome: data.totalFee,
-                    totalCustomer: data.totalCustomer,
-                }));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        fetch("http://localhost:5000/users/amount?role=staff")
-            .then((res) => res.json())
-            .then((data) => {
-                setDetail((prevDetail) => ({
-                    ...prevDetail,
-                    totalStaff: data.totalUser,
-                }));
-            })
+        fetchData();
     }, []);
 
     return (
@@ -209,7 +183,6 @@ function Home() {
 
 
                     <div className="home__recent__body">
-                        {books.length === 0 && <NothingDisplay />}
                         <div className="home__recent__table">
                             <div className="home__recent__field home__recent__headerfield">
                                 <div className="home__recent__attribute">
@@ -227,6 +200,7 @@ function Home() {
                             </div>
 
                             <div className="home__data">
+                                {books.length === 0 && <NothingDisplay />}
 
                                 {books.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map((book) => {
                                     return (

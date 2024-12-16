@@ -7,8 +7,11 @@ import { useNotification } from './components/NotificationContext';
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx';
 import { useConfig } from './components/ConfigContext.jsx';
+import { useLoading } from './components/LoadingContext.jsx';
+import Loading from './components/Loading.jsx';
 
 function Dashboard() {
+    const { isLoading } = useLoading();
     const { setAuthorization, setUser } = useAuthorizations();
     const { setRules } = useConfig();
     const navigate = useNavigate();
@@ -60,6 +63,7 @@ function Dashboard() {
                             <Header />
                         </div>
                         <div id="content">
+                            {isLoading && <Loading />}
                             <App />
                         </div>
                     </>}
