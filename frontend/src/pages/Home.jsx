@@ -1,7 +1,7 @@
 import "../styles/Home.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faUserTie } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faUserTie, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from "../components/EachPageHeader";
 import NothingDisplay from "../components/NothingDisplay";
 
@@ -11,11 +11,34 @@ function Home() {
         totalBook: 0,
         totalIncome: 0,
         totalCustomer: 0,
-        totalStaff: 0
+        totalStaff: 0,
     });
-    const [customers, setCustomers] = useState([]);
+    const [page, setPage] = useState(1);
+
+    function calculateItemsPerPage() {
+        const screenHeight = window.innerHeight;
+        if (screenHeight >= 900) return 10;
+        if (screenHeight >= 800) return 8;
+        if (screenHeight >= 768) return 6;
+        if (screenHeight >= 600) return 4;
+        return 3;
+    }
+
+    const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
+    function increasePage() {
+        if (page < Math.ceil(books.length / amountItem)) {
+            setPage(page + 1);
+        }
+    }
+
+    function decreasePage() {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
+
     useEffect(() => {
-        fetch("http://localhost:5000/books/top?limit=7")
+        fetch("http://localhost:5000/books/top?limit=10")
             .then((res) => res.json())
             .then((data) => {
                 if (data.status === 'error') {
@@ -203,34 +226,37 @@ function Home() {
                                 </div>
                             </div>
 
-                            {books.map((book) => {
-                                return (
-                                    <div className="home__recent__field home__recent__valuefield" key={book._id}>
-                                        <div className="home__recent__attribute">
-                                            <span>
-                                                {book.bookName}
-                                            </span>
-                                        </div>
-                                        <div className="home__recent__attribute">
-                                            <span>
-                                                {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
-                                            </span>
-                                        </div>
-                                        <div className="home__recent__attribute">
-                                            <span>
-                                                {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
-                                            </span>
-                                        </div>
-                                        <div className="home__recent__attribute">
-                                            <span>
-                                                {book.bookCurrentAmount}
-                                            </span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            <div className="home__data">
 
-                            {books.length !== 0 && <div className="home__recent__field home__recent__valuefield">
+                                {books.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map((book) => {
+                                    return (
+                                        <div className="home__recent__field home__recent__valuefield" key={book._id}>
+                                            <div className="home__recent__attribute">
+                                                <span>
+                                                    {book.bookName}
+                                                </span>
+                                            </div>
+                                            <div className="home__recent__attribute">
+                                                <span>
+                                                    {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
+                                                </span>
+                                            </div>
+                                            <div className="home__recent__attribute">
+                                                <span>
+                                                    {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
+                                                </span>
+                                            </div>
+                                            <div className="home__recent__attribute">
+                                                <span>
+                                                    {book.bookCurrentAmount}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* {books.length !== 0 && <div className="home__recent__field home__recent__valuefield">
                                 <div className="home__recent__attribute">
                                     ...
                                 </div>
@@ -243,7 +269,16 @@ function Home() {
                                 <div className="home__recent__attribute">
                                     ...
                                 </div>
-                            </div>}
+                            </div>} */}
+                        </div>
+
+                        <div className="home__button">
+                            <button className="home__button__control" onClick={decreasePage}>
+                                <FontAwesomeIcon icon={faArrowLeft} className="icon__paging" />
+                            </button>
+                            <button className="home__button__control" onClick={increasePage}>
+                                <FontAwesomeIcon icon={faArrowRight} className="icon__paging" />
+                            </button>
                         </div>
 
                     </div>
