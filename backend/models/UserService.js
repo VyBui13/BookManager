@@ -82,15 +82,28 @@ class UserService {
         }
     }
 
-    async getUsersByRole(role) {
-        const users = await User.find({ userRole: role });
-        return users;
-    }
+    // async getUsersByRole(role) {
+    //     const users = await User.find({ userRole: role });
+    //     return users;
+    // }
 
-    async getAmountUser(role) {
-        const query = { $regex: role, $options: 'i' };
-        const users = await User.find({ userRole: query });
-        return { totalUser: users.length };
+    async getAmountUser({ role }) {
+        try {
+            const query = role ? { userRole: role } : {};
+            const amount = await User.countDocuments(query);
+            return {
+                status: 'success',
+                message: 'Get amount user successfully',
+                data: amount
+            }
+        }
+
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            }
+        }
     }
 
     async editUserInfo(query) {
@@ -113,8 +126,20 @@ class UserService {
     }
 
     async getListUser() {
-        const users = await User.find();
-        return users;
+        try {
+            const users = await User.find();
+            return {
+                status: 'success',
+                message: 'Get list user successfully',
+                data: users
+            }
+        }
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            }
+        }
     }
 
     async addNewUser({ name, phone, email, address, role, dateOfBirth }) {

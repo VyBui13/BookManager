@@ -109,6 +109,30 @@ class CustomerController {
             }
         }
     }
+
+    async getPayments(req, res) {
+        try {
+            const payments = await PaymentService.getPayments();
+            res.status(200).json(payments);
+        } catch (error) {
+            res.status(500).json({
+                status: 'error',
+                message: error.message,
+            });
+        }
+    }
+
+    async getWeeklyIncome(req, res) {
+        try {
+            const weeklyIncome = await PaymentService.getWeeklyIncome();
+            res.status(200).json(weeklyIncome);
+        } catch (error) {
+            res.status(500).json({
+                status: 'error',
+                message: error.message,
+            });
+        }
+    }
 }
 
 module.exports = new CustomerController;

@@ -104,9 +104,12 @@ class UserController {
     }
 
     async getAmountUser(req, res) {
-        const role = req.query.role;
+        let role = null;
+        if (req.query.role) {
+            role = req.query.role
+        }
         try {
-            const amount = await userServiceInstance.getAmountUser(role);
+            const amount = await userServiceInstance.getAmountUser({ role });
             res.status(200).json(amount);
         }
         catch (err) {
