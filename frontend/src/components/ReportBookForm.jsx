@@ -4,6 +4,7 @@ import { useNotification } from './NotificationContext';
 import { getDateTime } from '../utils/DateCurrent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import NothingDisplay from './NothingDisplay';
 
 function ReportBookForm() {
     const { notify } = useNotification();
@@ -52,8 +53,9 @@ function ReportBookForm() {
     return (
         <div className="reportform">
             <div className="reportform__data">
+                {listBook.length === 0 && <NothingDisplay />}
 
-                <div className="reportform__feature reportform__fieldheader">
+                {listBook.length !== 0 && <div className="reportform__feature reportform__fieldheader">
                     <div className="reportform__attribute">
                         Book Name
                     </div>
@@ -69,7 +71,7 @@ function ReportBookForm() {
                     <div className="reportform__attribute">
                         Update Date
                     </div>
-                </div>
+                </div>}
 
                 {listBook.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map((item) => (
                     <div className="reportform__feature reportform__fieldbody" key={item._id}>
