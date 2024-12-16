@@ -1,41 +1,74 @@
 import '../styles/Bookselected.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNotification } from './NotificationContext.jsx';
+import { useLoading } from './LoadingContext.jsx';
 
 function BookSelected({ bookPrice, setBookPrice, setBooks }) {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const [bookSelected, setBookSelected] = useState({ ...bookPrice });
+    const loadingRef = useRef(null);
 
     function handleCancel() {
         setBookPrice({});
     }
 
     function handleSave() {
-        fetch('http://localhost:5000/books/price', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookSelected)
-        })
-            .then(response =>
-                response.json()
-            )
-            .then(data => {
-                notify({ type: data.status, msg: data.message });
-                return fetch('http://localhost:5000/books')
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'error') {
-                    console.log(data.message);
+        const fetchData = async () => {
+            loadingRef.current = setTimeout(() => setIsLoading(true), 500);
+            try {
+                const response = await fetch('http://localhost:5000/books/price', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookSelected)
+                });
+                const data = await response.json();
+                const responseBooks = await fetch('http://localhost:5000/books');
+                const dataBooks = await responseBooks.json();
+                if (dataBooks.status === 'error') {
+                    console.log(dataBooks.message);
                     return;
                 }
-                setBooks(data.data);
+                setBooks(dataBooks.data);
                 setBookPrice({});
-            })
-            .catch(error => {
+                notify({ type: data.status, msg: data.message });
+
+            } catch (error) {
                 console.log(error);
                 notify({ type: error.status, msg: error.message });
-            })
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+        // fetch('http://localhost:5000/books/price', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(bookSelected)
+        // })
+        //     .then(response =>
+        //         response.json()
+        //     )
+        //     .then(data => {
+        //         notify({ type: data.status, msg: data.message });
+        //         return fetch('http://localhost:5000/books')
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'error') {
+        //             console.log(data.message);
+        //             return;
+        //         }
+        //         setBooks(data.data);
+        //         setBookPrice({});
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //         notify({ type: error.status, msg: error.message });
+        //     })
 
     }
 

@@ -284,6 +284,8 @@ function Home() {
                             <button className="home__button__control" onClick={decreasePage}>
                                 <FontAwesomeIcon icon={faArrowLeft} className="icon__paging" />
                             </button>
+                            <span>{page}</span>
+                            <span>{Math.ceil(books.length / amountItem)}</span>
                             <button className="home__button__control" onClick={increasePage}>
                                 <FontAwesomeIcon icon={faArrowRight} className="icon__paging" />
                             </button>

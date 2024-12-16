@@ -1,29 +1,38 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import BookSelected from '../BookSelected';
 import '../../styles/List.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from '../NothingDisplay';
+import { useLoading } from '../LoadingContext';
 
 function setPrice() {
+    const { setIsLoading } = useLoading();
     const [books, setBooks] = useState([]);
     const [bookPrice, setBookPrice] = useState({});
+    const loadingRef = useRef(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            loadingRef.current = setTimeout(() => setIsLoading(true), 500);
+            try {
+                const response = await fetch('http://localhost:5000/books');
+                const data = await response.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setBooks(data.data);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.log(error);
-            });
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }, []); // []: run only once
 
     return (

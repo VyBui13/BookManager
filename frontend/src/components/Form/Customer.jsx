@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser, faArrowLeft, faArrowRight, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from '../NothingDisplay.jsx';
 import { useAuthorizations } from '../AuthorizationContext.jsx';
+import { useLoading } from '../LoadingContext.jsx';
 
 function Customer() {
+    const { setIsLoading } = useLoading();
     const { user } = useAuthorizations();
     const { notify } = useNotification();
     const [payment, setPayment] = useState('');
@@ -23,6 +25,7 @@ function Customer() {
     });
     const [phone, setPhone] = useState('');
     const [indexBill, setIndexBill] = useState(0);
+    const loadingRef = useRef(null);
 
     // if (bill) {
     //     console.log(bill.billBookList[0]);
@@ -30,25 +33,28 @@ function Customer() {
 
 
     function handleSubmit() {
-        fetch('http://localhost:5000/payments', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                customer: customer,
-                billID: bill[indexBill]._id,
-                paymentFee: payment,
-                userID: user._id,
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
+                const res = await fetch('http://localhost:5000/payments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customer: customer,
+                        billID: bill[indexBill]._id,
+                        paymentFee: payment,
+                        userID: user._id,
+                    })
+                });
+
+                const data = await res.json();
+
                 if (data.status === 'error') {
-                    notify({ type: 'error', msg: data.message });
+                    console.log(data.message);
                     return;
                 }
-                notify({ type: 'success', msg: data.message });
                 setPayment('');
                 setBill(null);
                 setCustomer({
@@ -58,11 +64,18 @@ function Customer() {
                     customerAddress: '',
                     customerCurrentDebt: '',
                 });
-            })
-            .catch((err) => {
-                notify({ type: 'error', msg: err.message });
+                notify({ type: 'success', msg: data.message });
             }
-            )
+            catch (err) {
+                console.log(err.message);
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
     }
 
     function handleIncreaseIndex() {
@@ -85,47 +98,45 @@ function Customer() {
 
 
     function handleSearch() {
-        fetch('http://localhost:5000/bills/' + phone)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
+                const res = await fetch('http://localhost:5000/bills/' + phone);
+                const data = await res.json();
+
                 if (data.status === 'error') {
                     notify({ type: 'error', msg: data.message });
                     return;
                 }
                 setCustomer(data.customer);
                 setBill(data.billList);
-            })
-            .catch((err) => {
+            }
+            catch (err) {
                 notify({ type: 'error', msg: err.message });
             }
-            );
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+        // fetch('http://localhost:5000/bills/' + phone)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         if (data.status === 'error') {
+        //             notify({ type: 'error', msg: data.message });
+        //             return;
+        //         }
+        //         setCustomer(data.customer);
+        //         setBill(data.billList);
+        //     })
+        //     .catch((err) => {
+        //         notify({ type: 'error', msg: err.message });
+        //     }
+        //     );
     };
-
-    // function handleSummit() {
-    //     fetch('http://localhost:5000/customers/fee', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ ...customer, payment: payment }),
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data.status, data.message);
-    //             notify({ type: data.status, msg: data.message });
-    //             setCustomer({
-    //                 customerName: '',
-    //                 customerEmail: '',
-    //                 customerPhone: '',
-    //                 customerAddress: '',
-    //                 customerCurrentDebt: ''
-    //             });
-    //             setPayment('');
-    //         })
-    //         .catch((err) => {
-    //             notify({ type: 'error', msg: err.message });
-    //         });
-
-    // }
 
     const datenow = new Date();
     const current = getDateTime(datenow);

@@ -4,7 +4,7 @@ import '../../styles/Form.css';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faMagnifyingGlass, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
 import { getDate } from '../../utils/DateCurrent.js';
 import { useConfig } from '../ConfigContext.jsx';
@@ -23,6 +23,29 @@ function Bill() {
     const [books, setBooks] = useState([]);
     const [isHidePayment, setIsHidePayment] = useState(true);
     const loadingRef = useRef(null);
+
+    const [page, setPage] = useState(1);
+    function calculateItemsPerPage() {
+        const screenHeight = window.innerHeight;
+        if (screenHeight >= 900) return 13;
+        if (screenHeight >= 800) return 11;
+        if (screenHeight >= 768) return 9;
+        if (screenHeight >= 600) return 7;
+        return 5;
+    }
+
+    const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
+    function increasePage() {
+        if (page < Math.ceil(books.length / amountItem)) {
+            setPage(page + 1);
+        }
+    }
+
+    function decreasePage() {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -235,83 +258,68 @@ function Bill() {
                 </div>
 
                 <div className="bill__booklist">
-                    <div className="booklist">
-                        {
-                            books.map(book => (
-                                <div className="booklist__item" key={book._id}>
-                                    <div className="booklist__icon">
-                                        <FontAwesomeIcon icon={faBook} className='icon__card' />
-                                    </div>
-
-                                    <div className="booklist__header">
-                                        <div className="booklist__bookname">
-                                            {book.bookName}
-                                        </div>
-                                    </div>
-
-                                    <div className="booklist__content">
-
-                                        <div className="booklist__price">
-                                            <span>
-                                                {new Intl.NumberFormat('de-DE').format(book.bookPrice)} VND
-                                            </span>
-                                        </div>
-
-                                        <div className="booklist__detail">
-                                            Latest updated date: {getDate(new Date(book.bookUpdatedDateTime))}
-                                        </div>
-
-                                        <div className="booklist__detail">
-                                            Author: {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
-                                        </div>
-
-                                        <div className="booklist__detail">
-                                            Kind: {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
-                                        </div>
-
-                                        <div className="booklist__detail">
-                                            Amount:
-                                            <span>{book.bookCurrentAmount}</span>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="booklist__button">
-                                        <div onClick={
-                                            () => {
-                                                if (bill.bookList.length > rules.maxBoughtBook) {
-                                                    notify({ type: 'error', msg: `You can only buy ${rules.maxBoughtBook} books at a time!` });
-                                                    return;
-                                                }
-                                                books.forEach((item) => {
-                                                    if (item._id === book._id) {
-                                                        setBook({
-                                                            _id: item._id,
-                                                            bookName: item.bookName,
-                                                            bookKind: item.bookKind,
-                                                            bookAuthor: item.bookAuthor,
-                                                            bookPrice: item.bookPrice,
-                                                            amountBought: 0,
-                                                            amountAvailable: item.bookCurrentAmount,
-                                                        });
-                                                        return;
-                                                    }
-                                                });
-                                            }
-                                        }
-                                            className="booklist__buttonwrapper">
-                                            <span>+</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        }
+                    <div className="bill__booklist__header">
+                        <div className="bill__booklist__attribute">
+                            ID
+                        </div>
+                        <div className="bill__booklist__attribute">
+                            Name
+                        </div>
+                        <div className="bill__booklist__attribute">
+                            Num
+                        </div>
                     </div>
 
+                    <div className="bill__booklist__data">
+                        {books.slice((page - 1) * amountItem, page * amountItem).map((book, index) => (
+                            <button onClick={
+                                () => {
+                                    if (bill.bookList.length > rules.maxBoughtBook) {
+                                        notify({ type: 'error', msg: `You can only buy ${rules.maxBoughtBook} books at a time!` });
+                                        return;
+                                    }
+                                    books.forEach((item) => {
+                                        if (item._id === book._id) {
+                                            setBook({
+                                                _id: item._id,
+                                                bookName: item.bookName,
+                                                bookKind: item.bookKind,
+                                                bookAuthor: item.bookAuthor,
+                                                bookPrice: item.bookPrice,
+                                                amountBought: 0,
+                                                amountAvailable: item.bookCurrentAmount,
+                                            });
+                                            return;
+                                        }
+                                    });
+                                }
+                            } className="bill__booklist__item" key={book._id}>
+                                <div className="bill__booklist__attribute">
+                                    {book._id.slice(-5)}
+                                </div>
+                                <div className="bill__booklist__attribute">
+                                    {book.bookName}
+                                </div>
+                                <div className="bill__booklist__attribute">
+                                    {book.bookCurrentAmount}
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="bill__booklist__button">
+                        <button onClick={decreasePage}>
+                            <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
+                        </button>
+                        <span>{page}</span>
+
+                        <span>{Math.ceil(books.length / amountItem)}</span>
+
+                        <button onClick={increasePage}>
+                            <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
+                        </button>
+                    </div>
                 </div>
-
-
-
 
             </div >
 
@@ -320,3 +328,31 @@ function Bill() {
 };
 
 export default Bill;
+
+{/* <div className="booklist__button">
+    <div onClick={
+        () => {
+            if (bill.bookList.length > rules.maxBoughtBook) {
+                notify({ type: 'error', msg: `You can only buy ${rules.maxBoughtBook} books at a time!` });
+                return;
+            }
+            books.forEach((item) => {
+                if (item._id === book._id) {
+                    setBook({
+                        _id: item._id,
+                        bookName: item.bookName,
+                        bookKind: item.bookKind,
+                        bookAuthor: item.bookAuthor,
+                        bookPrice: item.bookPrice,
+                        amountBought: 0,
+                        amountAvailable: item.bookCurrentAmount,
+                    });
+                    return;
+                }
+            });
+        }
+    }
+        className="booklist__buttonwrapper">
+        <span>+</span>
+    </div>
+</div> */}
