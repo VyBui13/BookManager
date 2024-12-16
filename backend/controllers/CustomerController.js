@@ -5,13 +5,34 @@ class CustomerController {
     async addBill(req, res) {
         try {
             const { bookList, customerName, customerPhone, totalPrice, payment, userID } = req.body;
-            const addCustomerStatus = await CustomerService.addCustomer({ customerName, customerPhone, totalPrice });
+            const addCustomerStatus = await CustomerService.addCustomer({ customerName, customerPhone, totalPrice, payment });
             if (addCustomerStatus.status === 'error') {
                 res.status(400).json(addCustomerStatus);
                 return;
             }
+
             const addBillstatus = await BillService.addBill({ bookList, customerPhone, totalPrice, payment, userID });
-            res.status(200).json(addBillstatus);
+            if (addBillstatus.status === 'error') {
+                res.status(400).json(addBillstatus);
+                return;
+            }
+
+            if (payment) {
+                const addPaymentStatus = await PaymentService.addPayment({ billID: addBillstatus.billID, paymentFee: payment, userID });
+                if (addPaymentStatus.status === 'error') {
+                    return res.status(400).json(addPaymentStatus);
+                }
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'Create bill and payment successfully',
+                });
+
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Create bill successfully',
+            });
         }
         catch (err) {
             res.status(500).json({

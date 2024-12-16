@@ -15,7 +15,7 @@ function Prompt({ message, action, onConfirm, onCancel }) {
                         <button onClick={onCancel}>Cancel</button>
                         <button onClick={async () => {
                             await onConfirm();
-                            onCancel();
+                            await onCancel();
                             // setInterval(() => {
                             //     window.location.reload();
                             // }, 3000);

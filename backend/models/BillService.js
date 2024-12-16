@@ -39,10 +39,12 @@ class BillService {
                 billCreatedUser: userID,
             });
 
-            await newBill.save();
+            const newBillDB = await newBill.save();
+            // const billID = await Bill.findOne({ customerID: customerID, billTotalPrice: totalPrice, billPayment: payment, billCreatedUser: userID });
             return {
                 status: 'success',
                 message: 'Add bill successfully',
+                billID: newBillDB._id,
             }
 
         } catch (err) {

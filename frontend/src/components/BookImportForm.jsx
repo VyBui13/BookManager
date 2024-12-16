@@ -1,17 +1,20 @@
 import '../styles/BookImportForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import NothingDisplay from './NothingDisplay';
 import { useNotification } from './NotificationContext';
 import { useConfirmPrompt } from './ConfirmPromptContext';
 import { useAuthorizations } from './AuthorizationContext';
+import { useLoading } from './LoadingContext';
 
 function BookImportForm({ bookList, setBookList, setIsImportForm }) {
+    const { setIsLoading } = useLoading();
     const { user } = useAuthorizations();
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const [books, setBooks] = useState(bookList);
+    const loadingRef = useRef(null);
 
     function handleCancel() {
         setIsImportForm(false);
@@ -25,24 +28,50 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
     function handleImport() {
         if (books.length === 0) {
             notify({ type: 'error', msg: 'No books are available to import!' });
+            return;
         }
-        else {
-            fetch('http://localhost:5000/books', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookList: books, userID: user._id })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    notify({ type: data.status, msg: data.message });
-                    setBookList([]);
-                    setIsImportForm(false);
-                })
-                .catch((error) => {
-                    notify({ type: 'error', msg: error.message });
+
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+
+                const res = await fetch('http://localhost:5000/books', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bookList: books, userID: user._id })
                 });
+                const data = await res.json();
+
+                notify({ type: data.status, msg: data.message });
+                setBookList([]);
+                setIsImportForm(false);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
         }
+        fetchData();
+
+        // fetch('http://localhost:5000/books', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ bookList: books, userID: user._id })
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         notify({ type: data.status, msg: data.message });
+        //         setBookList([]);
+        //         setIsImportForm(false);
+        //     })
+        //     .catch((error) => {
+        //         notify({ type: 'error', msg: error.message });
+        //     });
+
     }
 
     return (

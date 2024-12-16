@@ -1,41 +1,49 @@
 import '../../styles/Formhome.css';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Line, Pie } from 'react-chartjs-2'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useLoading } from '../LoadingContext';
 
 function Formhome() {
+    const { setIsLoading } = useLoading();
     const [books, setBooks] = useState([]);
     const [chartBookQuantityData, setChartBookQuantityData] = useState({ labels: [], datasets: [] });
     const [incomes, setIncomes] = useState([]);
     const [chartIncomeData, setChartIncomeData] = useState({ labels: [], datasets: [] });
+    const loadingRef = useRef(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'error') {
-                    console.log(data.message);
-                    return;
-                }
-                setBooks(data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        fetch('http://localhost:5000/payments/weekly-income')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'error') {
-                    console.log(data.message);
-                    return;
-                }
-                setIncomes(data.data);
-                console.log(data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
 
+                const res1 = await fetch('http://localhost:5000/books');
+                const data1 = await res1.json();
+                if (data1.status === 'error') {
+                    console.log(data1.message);
+                    return;
+                }
+                setBooks(data1.data);
+
+                const res2 = await fetch('http://localhost:5000/payments/weekly-income');
+                const data2 = await res2.json();
+                if (data2.status === 'error') {
+                    console.log(data2.message);
+                    return;
+                }
+                setIncomes(data2.data);
+            }
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }, []);
 
 

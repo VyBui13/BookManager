@@ -1,5 +1,5 @@
 import "../styles/Home.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faUserTie, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from "../components/EachPageHeader";
@@ -7,7 +7,7 @@ import NothingDisplay from "../components/NothingDisplay";
 import { useLoading } from "../components/LoadingContext";
 
 function Home() {
-    const { setIsLoading } = useLoading();
+    const { isLoading, setIsLoading } = useLoading();
     const [books, setBooks] = useState([]);
     const [detail, setDetail] = useState({
         totalBook: 0,
@@ -39,10 +39,18 @@ function Home() {
         }
     }
 
+    const loadingRef = useRef(null);
+
+    // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setIsLoading(true);
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+
+
                 const res = await fetch("http://localhost:5000/books/top?limit=10");
                 const data = await res.json();
                 if (data.status === 'error') {
@@ -89,6 +97,7 @@ function Home() {
             } catch (error) {
                 console.log(error);
             } finally {
+                clearTimeout(loadingRef.current);
                 setIsLoading(false);
             }
         };

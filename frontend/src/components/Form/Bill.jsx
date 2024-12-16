@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Bill.css';
@@ -8,8 +8,10 @@ import { faBook, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
 import { getDate } from '../../utils/DateCurrent.js';
 import { useConfig } from '../ConfigContext.jsx';
+import { useLoading } from '../LoadingContext.jsx';
 
 function Bill() {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const { rules } = useConfig();
     const [bill, setBill] = useState({
@@ -20,48 +22,107 @@ function Bill() {
     const [book, setBook] = useState({});
     const [books, setBooks] = useState([]);
     const [isHidePayment, setIsHidePayment] = useState(true);
+    const loadingRef = useRef(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+                const response = await fetch('http://localhost:5000/books');
+                const data = await response.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setBooks(data.data);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.log(error);
-            });
+            } finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+
+        // fetch('http://localhost:5000/books')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'error') {
+        //             console.log(data.message);
+        //             return;
+        //         }
+        //         setBooks(data.data);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
     }, []); //
 
     function handleSummit() {
         if (bill.customerName === '') {
             notify({ type: 'error', msg: 'Please fill customer name!' });
+            return;
         }
-        else if (bill.bookList.length === 0) {
+        if (bill.customerPhone === '') {
+            notify({ type: 'error', msg: 'Please fill customer phone!' });
+            return;
+        }
+        if (bill.bookList.length === 0) {
             notify({ type: 'error', msg: 'Please choose book!' });
+            return;
         }
-        else {
-            fetch('http://localhost:5000/customers/checking', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    customerName: bill.customerName,
-                    customerPhone: bill.customerPhone,
-                }),
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.status === 'error') {
-                        notify({ type: 'error', msg: data.message });
-                        return;
-                    }
-                    setIsHidePayment(false);
-                })
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+                const response = await fetch('http://localhost:5000/customers/checking', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customerName: bill.customerName,
+                        customerPhone: bill.customerPhone,
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.status === 'error') {
+                    notify({ type: 'error', msg: data.message });
+                    return;
+                }
+                setIsHidePayment(false);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
         }
+
+        fetchData();
+
+        // fetch('http://localhost:5000/customers/checking', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         customerName: bill.customerName,
+        //         customerPhone: bill.customerPhone,
+        //     }),
+        // }).then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'error') {
+        //             notify({ type: 'error', msg: data.message });
+        //             return;
+        //         }
+        //         setIsHidePayment(false);
+        //     })
     }
 
     return (

@@ -79,7 +79,7 @@
 .payment .payment__body {}
 
 .payment .payment__body .payment__customer__detail {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .payment .payment__body .payment__customer__detail h5 {

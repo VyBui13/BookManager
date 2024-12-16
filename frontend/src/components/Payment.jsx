@@ -1,5 +1,5 @@
 import "../styles/Payment.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { getDateTime } from "../utils/DateCurrent";
 import { formatCurrency } from "../utils/FormatCurrency";
 import { useNotification } from "./NotificationContext";
@@ -7,8 +7,12 @@ import { useConfirmPrompt } from "./ConfirmPromptContext";
 import { useAuthorizations } from "./AuthorizationContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import { useConfig } from "./ConfigContext";
+import { useLoading } from "./LoadingContext";
 
 function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
+    const { rules } = useConfig();
+    const { setIsLoading } = useLoading();
     const { user } = useAuthorizations();
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
@@ -26,27 +30,47 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
     }
 
     const totalPrice = totalPayment(payment.bookList);
+    const loadingRef = useRef(null);
 
     function handleExport() {
-        // if (fee < totalPrice) {
-        //     notify({ type: 'error', msg: 'Payment is not enough!' });
-        //     return;
-        // }
+        if (rules.allowDebt !== true && Number(fee) < Number(totalPrice)) {
+            notify({ type: 'error', msg: 'You need to pay ' + formatCurrency(Number(totalPrice) - Number(fee)) + ' more to export this bill!' });
+            return;
+        }
 
-        fetch('http://localhost:5000/bills/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...payment, userID: user._id, totalPrice: totalPrice, payment: fee }),
-        }).then(response => response.json())
-            .then(data => {
-                notify({ type: data.status, msg: data.message });
+        if (Number(fee) > Number(totalPrice)) {
+            notify({ type: 'error', msg: 'Payment must be equal to ' + formatCurrency(totalPrice) + '!' });
+            return;
+        }
+
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+
+                const res = await fetch('http://localhost:5000/bills', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ...payment, userID: user._id, totalPrice: totalPrice, payment: fee }),
+                });
+                const data = await res.json();
+                // console.log('after fetching')
+
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    setIsHidePayment(true);
+                    return;
+                }
+
                 setBill({
                     customerName: '',
                     customerPhone: '',
                     bookList: [],
                 });
+
                 const newBookList = bookList.map((book) => {
                     const newBook = { ...book };
                     const foundBook = payment.bookList.find((item) => item._id === book._id);
@@ -56,12 +80,19 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                     return newBook;
                 });
                 setBookList(newBookList);
+                notify({ type: data.status, msg: data.message });
                 setIsHidePayment(true);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                setIsLoading(false);
+            }
+        }
 
-            })
-            .catch((error) => {
-                notify({ type: 'error', msg: error.message });
-            });
+        fetchData();
     }
 
     return (
@@ -80,7 +111,9 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                         <div className="payment__customer__detail">
                             <h5>Customer: {payment.customerName} - {payment.customerPhone}</h5>
                         </div>
-
+                        <div className="payment__customer__detail">
+                            <h5>Staff: {user.userName}</h5>
+                        </div>
                         <div className="payment__book__temp">
 
                             <div className="payment__book__detail">
@@ -111,27 +144,28 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                                         <p>Total</p>
                                         <p>{formatCurrency(totalPayment(payment.bookList))}</p>
                                     </div>
-                                    {/* {rules.allowDebt !== true && <div className="payment__caculation__item">
+                                    {rules.allowDebt !== true && <div className="payment__caculation__item">
                                         <p>Payment</p>
 
                                         <input
                                             value={fee}
                                             onChange={(e) => {
+                                                if (!Number.isInteger(Number(e.target.value)) || Number(e.target.value) < 0) {
+                                                    setFee('');
+                                                    notify({ type: 'error', msg: 'Please enter a valid number' });
+                                                    return;
+                                                }
                                                 setFee(e.target.value)
                                             }}
                                             type="text" />
 
-                                    </div>} */}
+                                    </div>}
 
                                     <div className="payment__caculation__item">
                                         <p>Payment</p>
                                         <p>{formatCurrency(totalPayment(payment.bookList))}</p>
                                     </div>
 
-                                    <div className="payment__caculation__item">
-                                        <p>Staff</p>
-                                        <p>{user.userName}</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
