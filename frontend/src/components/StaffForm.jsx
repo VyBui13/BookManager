@@ -106,11 +106,16 @@ function StaffForm({ setIsForm, setUsers }) {
 
                             <div class="form__inputbox">
                                 <span class="form__detail">Role</span>
-                                <input
+                                <select
                                     value={staff.role}
                                     onChange={(e) => setStaff({ ...staff, role: e.target.value })}
-                                    type="text" required />
-                                <div class="form__labelline">Enter staff role</div>
+                                    required
+                                >
+                                    <option value="" disabled>SELECT ROLE</option>
+                                    <option value="staff">STAFF</option>
+                                    <option value="admin">ADMIN</option>
+                                    <option value="manager">MANAGER</option>
+                                </select>
                             </div>
 
                             <div class="form__inputbox">

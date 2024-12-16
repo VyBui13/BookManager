@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faScrewdriverWrench, faUser, faX, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faScrewdriverWrench, faUser, faX, faGear, faArrowLeft, faArrowRight, faUserTie, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import '../styles/StaffManagement.css'
 import { useState, useEffect } from 'react'
 import StaffForm from '../components/StaffForm'
@@ -15,6 +15,30 @@ function StaffManagement({ setIsHide }) {
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const [theChosenUser, setTheChosenUser] = useState({});
     const [theChosenUserCard, setTheChosenUserCard] = useState({});
+
+    const [page, setPage] = useState(1);
+
+    function calculateItemsPerPage() {
+        const screenHeight = window.innerHeight;
+        if (screenHeight >= 900) return 16;
+        if (screenHeight >= 800) return 14;
+        if (screenHeight >= 768) return 12;
+        if (screenHeight >= 600) return 10;
+        return 8;
+    }
+
+    const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
+    function increasePage() {
+        if (page < Math.ceil(users.length / amountItem)) {
+            setPage(page + 1);
+        }
+    }
+
+    function decreasePage() {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
 
     useEffect(() => {
         fetch('http://localhost:5000/users/list')
@@ -118,12 +142,14 @@ function StaffManagement({ setIsHide }) {
 
                 <div className="management__right">
                     <div className="management__list">
-                        {users.map(user => (
+                        {users.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map(user => (
                             <div className="management__card" key={user._id}>
                                 <button onClick={() => {
                                     setTheChosenUserCard(user);
                                 }} className="management__card__avatar">
-                                    <FontAwesomeIcon icon={faUser} className='icon__card' />
+                                    {user.userRole.toLowerCase() === 'admin' && <FontAwesomeIcon icon={faUserSecret} className='icon__card' />}
+                                    {user.userRole.toLowerCase() === 'manager' && <FontAwesomeIcon icon={faUserTie} className='icon__card' />}
+                                    {user.userRole.toLowerCase() === 'staff' && <FontAwesomeIcon icon={faUser} className='icon__card' />}
                                 </button>
                                 <div className="clone1">
                                     <span>Export card</span>
@@ -132,7 +158,7 @@ function StaffManagement({ setIsHide }) {
 
                                     <div className="management__card__title">
                                         <h2>
-                                            {user.userName} - {user.userRole}
+                                            {user.userName}
                                         </h2>
                                     </div>
 
@@ -174,6 +200,15 @@ function StaffManagement({ setIsHide }) {
                                 </button>
                             </div>))
                         }
+                    </div>
+
+                    <div className="management__button">
+                        <button onClick={decreasePage} className="management__button__prev">
+                            <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
+                        </button>
+                        <button onClick={increasePage} className="management__button__next">
+                            <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
+                        </button>
                     </div>
                 </div>
             </div>
