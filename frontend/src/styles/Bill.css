@@ -6,12 +6,12 @@
 
 .bill .bill__booklist {
     flex: 3;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 160px);
     overflow: auto;
     margin: 0 20px;
 }
 
-.bill .bill__booklist::-webkit-scrollbar {
+.bill .bill__booklist::-webkit-scrollbar {  
     width: 10px;
 }
 

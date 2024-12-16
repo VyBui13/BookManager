@@ -10,7 +10,7 @@ function FormController() {
     const { authorization } = useAuthorizations();
     return (
         <Routes>
-            <Route path="/" element={<Formhome />}></Route >
+            <Route path="/*" element={<Formhome />}></Route >
             {authorization.createbill && <Route path="/bill" element={<Bill />}></Route>}
             {authorization.importbook && <Route path="/book" element={<Book />}></Route>}
             {authorization.createpayment && <Route path="/customer" element={<Customer />}></Route>}

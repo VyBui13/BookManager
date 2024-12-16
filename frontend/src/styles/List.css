@@ -13,7 +13,7 @@
     background-color: var(--item-color);
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
     position: relative;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 160px);
     z-index: 1;
 }
 

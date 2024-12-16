@@ -1,4 +1,4 @@
-.formhome {
+/* .formhome {
     width: 100%;
     height: 100vh;
     padding: 50px 20px;
@@ -38,4 +38,46 @@
 .formhome .formhome__header .formhome__logo i {
     font-size: 24px;
     color: #fff;
+} */
+
+.formhome {
+    width: 100%;
+    position: relative;
+    height: calc(100vh - 160px);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.formhome__bookquantity {
+    height: 100%;
+    width: 400px;
+    border-radius: var(--border-radius);
+    background-color: var(--item-color);
+    padding: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formhome__income {
+    height: 100%;
+    flex: 1;
+    margin-left: 30px;
+    border-radius: var(--border-radius);
+    background-color: var(--item-color);
+    padding: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formhome .formhome__chart {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

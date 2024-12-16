@@ -259,7 +259,7 @@
     align-items: center;
     z-index: 1;
     overflow: hidden;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 160px);
 }
 
 .book .book__review {
