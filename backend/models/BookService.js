@@ -146,40 +146,49 @@ class BookService {
     }
 
     async searchBook({ keySearch, bookKind, sort, type }) {
-        let bookKindFilter = null;
-        let bookNameFilter = null;
-        let bookAuthorFilter = null;
-        let sortFilter = null;
+        try {
+            let bookKindFilter = null;
+            let bookNameFilter = null;
+            let bookAuthorFilter = null;
+            let sortFilter = null;
 
-        if (keySearch) {
-            const trimKeySearch = keySearch.trim();
-            bookNameFilter = { $regex: trimKeySearch, $options: 'i' };
-            bookAuthorFilter = { $regex: trimKeySearch, $options: 'i' };
+            if (keySearch) {
+                const trimKeySearch = keySearch.trim();
+                bookNameFilter = { $regex: trimKeySearch, $options: 'i' };
+                bookAuthorFilter = { $regex: trimKeySearch, $options: 'i' };
+            }
+
+            if (bookKind) {
+                const bookKindArray = bookKind.split(',');
+                bookKindFilter = { $in: bookKindArray };
+            }
+
+            if (sort) {
+                const sortOption = {};
+                sortOption[sort] = type === 'asc' ? 1 : -1;
+                sortFilter = sortOption;
+            }
+
+
+            let queryConditions = [];
+            if (bookNameFilter) queryConditions.push({ bookName: bookNameFilter });
+            if (bookAuthorFilter) queryConditions.push({ bookAuthor: bookAuthorFilter });
+            if (bookKindFilter) queryConditions.push({ bookKind: bookKindFilter });
+
+            const newBooks = await Book.find(queryConditions.length > 0 ? { $and: queryConditions } : {}).sort(sortFilter);
+
+            return {
+                status: 'success',
+                message: 'Books found',
+                data: newBooks,
+            }
         }
-
-        if (bookKind) {
-            const bookKindArray = bookKind.split(',');
-            bookKindFilter = { $in: bookKindArray };
+        catch (err) {
+            return {
+                status: 'error',
+                message: err.message
+            };
         }
-
-        if (sort) {
-            const sortOption = {};
-            sortOption[sort] = type === 'asc' ? 1 : -1;
-            sortFilter = sortOption;
-        }
-
-
-        let queryConditions = [];
-        if (bookNameFilter) queryConditions.push({ bookName: bookNameFilter });
-        if (bookAuthorFilter) queryConditions.push({ bookAuthor: bookAuthorFilter });
-        if (bookKindFilter) queryConditions.push({ bookKind: bookKindFilter });
-
-
-        const newBooks = Book.find(queryConditions.length > 0 ? { $and: queryConditions } : {});
-        if (sortFilter) {
-            newBooks.sort(sortFilter);
-        }
-        return newBooks;
     }
 
     async getAmount() {
