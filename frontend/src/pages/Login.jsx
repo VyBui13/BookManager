@@ -6,56 +6,73 @@ import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { useLoading } from '../components/LoadingContext';
 
 function Login() {
     const [useraccount, setUseraccount] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const { notify } = useNotification();
+    const { setIsLoading } = useLoading();
 
     function handleSubmit() {
-        fetch('http://localhost:5000/users/login', {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userAccount: useraccount, userPassword: password }),
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'error') {
-                    notify({ type: 'error', msg: data.message });
-                    return;
-                }
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
+            try {
+
+                const res = await fetch('http://localhost:5000/users/login', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userAccount: useraccount, userPassword: password }),
+                });
+
+                const data = await res.json();
                 notify({ type: data.status, msg: data.message });
-                navigate('/');
-            })
-            .catch((err) => {
-                console.log(err);
-                notify({ type: 'error', msg: 'Server error' });
-            });
+                if (data.status === 'success') {
+                    navigate('/');
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+            finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     };
 
     function handleGuest() {
-        fetch('http://localhost:5000/users/login', {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userAccount: "", userPassword: "", isGuest: true }),
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.status === 'error') {
-                    notify({ type: 'error', msg: data.message });
-                    return;
-                }
+        const fetchData = async () => {
+            try {
+                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
+
+                const res = await fetch('http://localhost:5000/users/login', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userAccount: "", userPassword: "", isGuest: true }),
+                });
+
+                const data = await res.json();
                 notify({ type: data.status, msg: data.message });
-                navigate('/');
-            })
-            .catch((err) => {
-                console.log(err);
-                notify({ type: 'error', msg: 'Server error' });
-            });
+                if (data.status === 'success') {
+                    navigate('/');
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+            finally {
+                clearTimeout(loadingRef.current);
+                loadingRef.current = null;
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
     }
 
     return (

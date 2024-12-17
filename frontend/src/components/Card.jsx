@@ -50,7 +50,7 @@ function Card({ theChosenUserCard, setTheChosenUserCard }) {
                                 <FontAwesomeIcon icon={faStar} className="icon__card__header" />
                             </div>
 
-                            <label for="btn-flip" className="card__QR">
+                            <label htmlFor="btn-flip" className="card__QR">
                                 <FontAwesomeIcon icon={faQrcode} />
                             </label>
 
@@ -122,7 +122,7 @@ function Card({ theChosenUserCard, setTheChosenUserCard }) {
                                 <FontAwesomeIcon icon={faStar} className="icon__card__header" />
                             </div>
 
-                            <label for="btn-flip" className="card__QR">
+                            <label htmlFor="btn-flip" className="card__QR">
                                 <FontAwesomeIcon icon={faQrcode} />
                             </label>
 

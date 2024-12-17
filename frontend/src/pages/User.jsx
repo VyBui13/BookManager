@@ -1,15 +1,17 @@
 import "../styles/User.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPencil, faCheck, faCalendar, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPencil, faCheck } from '@fortawesome/free-solid-svg-icons'
 import Calendar from "../components/Calendar";
 import { useAuthorizations } from "../components/AuthorizationContext";
 import { useState } from "react";
 import { useNotification } from "../components/NotificationContext"
 import { getDate } from "../utils/DateCurrent";
+import { useLoading } from "../components/LoadingContext";
 
 function User() {
     const { notify } = useNotification();
     const { user, setUser } = useAuthorizations();
+    const { setIsLoading } = useLoading();
 
     const [isEditableName, setIsEditableName] = useState(false);
     const [isEditableEmail, setIsEditableEmail] = useState(false);
@@ -35,19 +37,28 @@ function User() {
 
     function handleSaveInfo(type, data, setFunction) {
         const url = `http://localhost:5000/users/edit?type=${type}&data=${data}`;
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id: user._id }),
-        })
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => { setIsLoading(true) }, 500);
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: user._id }),
+                });
+
+                const data = await response.json();
                 notify({ type: data.status, msg: data.message });
                 setFunction(false);
-            })
-
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }
 
     return (

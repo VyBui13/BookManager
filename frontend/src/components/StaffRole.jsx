@@ -4,37 +4,47 @@ import { faUser, faUserTie, faUserSecret } from '@fortawesome/free-solid-svg-ico
 import { useState } from 'react';
 import { useNotification } from "./NotificationContext";
 import { useConfirmPrompt } from "./ConfirmPromptContext";
+import { useLoading } from "./LoadingContext";
 
 function StaffRole({ theChosenUser, setTheChosenUser, setUsers }) {
+    const { setIsLoading } = useLoading();
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const [userInfo, setUserInfo] = useState(theChosenUser);
 
     function handleSubmit() {
-        fetch('http://localhost:5000/users/' + userInfo._id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                type: 'role',
-                data: userInfo.userRole,
-            })
-        }
-        )
-            .then(response => response.json())
-            .then(data => {
-                notify({ type: data.status, msg: data.message });
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
+            try {
+                const res = await fetch('http://localhost:5000/users/' + userInfo._id, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'role',
+                        data: userInfo.userRole,
+                    })
+                });
+
+                const data = await res.json();
+
                 if (data.status === 'success') {
                     setUsers((prev) => prev.map(user => user._id === userInfo._id ? userInfo : {
                         ...user
                     }))
                     setTheChosenUser({});
                 }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                notify({ type: data.status, msg: data.message });
+
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }
 
     return (

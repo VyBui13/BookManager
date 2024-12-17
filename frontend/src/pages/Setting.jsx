@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState } from 'react'
 import '../styles/Setting.css'
 import InputNumberRange from '../components/InputNumberRange.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,27 +6,39 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from '../components/EachPageHeader.jsx'
 import { useNotification } from '../components/NotificationContext.jsx'
 import { useConfig } from '../components/ConfigContext.jsx'
+import { useLoading } from '../components/LoadingContext.jsx'
 
 function Regulation() {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const { rules, setRules } = useConfig();
     const [value, setValue] = useState(null);
 
     function handleSubmit() {
-        fetch('http://localhost:5000/rules', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...rules })
-        })
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
+            try {
+
+                const res = await fetch('http://localhost:5000/rules', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ...rules })
+                });
+
+                const data = await res.json();
                 notify({ type: data.status, msg: data.message });
-            })
-            .catch((error) => {
+
+            } catch (error) {
                 console.log(error);
-            });
+            }
+            finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }
 
     function handleClick(label, value, min, max, step) {

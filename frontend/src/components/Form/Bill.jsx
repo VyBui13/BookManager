@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Bill.css';
 import BillAmount from '../BillAmount.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faMagnifyingGlass, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Payment from '../Payment.jsx';
-import { getDate } from '../../utils/DateCurrent.js';
 import { useConfig } from '../ConfigContext.jsx';
 import { useLoading } from '../LoadingContext.jsx';
+import PagingButton from '../PagingButton.jsx';
 
 function Bill() {
     const { setIsLoading } = useLoading();
@@ -22,19 +22,52 @@ function Bill() {
     const [book, setBook] = useState({});
     const [books, setBooks] = useState([]);
     const [isHidePayment, setIsHidePayment] = useState(true);
-    const loadingRef = useRef(null);
 
     const [page, setPage] = useState(1);
     function calculateItemsPerPage() {
         const screenHeight = window.innerHeight;
-        if (screenHeight >= 900) return 13;
-        if (screenHeight >= 800) return 11;
-        if (screenHeight >= 768) return 9;
-        if (screenHeight >= 600) return 7;
+        if (screenHeight >= 900) return 12;
+        if (screenHeight >= 750) return 10;
+        if (screenHeight >= 600) return 8;
         return 5;
     }
 
     const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
+    useEffect(() => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+
+            try {
+                const response = await fetch('http://localhost:5000/books');
+                const data = await response.json();
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setBooks(data.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+
+        const handleResize = () => {
+            setAmountItem(calculateItemsPerPage());
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     function increasePage() {
         if (page < Math.ceil(books.length / amountItem)) {
             setPage(page + 1);
@@ -46,43 +79,6 @@ function Bill() {
             setPage(page - 1);
         }
     }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
-                const response = await fetch('http://localhost:5000/books');
-                const data = await response.json();
-                if (data.status === 'error') {
-                    console.log(data.message);
-                    return;
-                }
-                setBooks(data.data);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                clearTimeout(loadingRef.current);
-                setIsLoading(false);
-            }
-        }
-
-        fetchData();
-
-        // fetch('http://localhost:5000/books')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.status === 'error') {
-        //             console.log(data.message);
-        //             return;
-        //         }
-        //         setBooks(data.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-    }, []); //
 
     function handleSummit() {
         if (bill.customerName === '') {
@@ -98,10 +94,11 @@ function Bill() {
             return;
         }
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
+
                 const response = await fetch('http://localhost:5000/customers/checking', {
                     method: 'POST',
                     headers: {
@@ -122,30 +119,12 @@ function Bill() {
             } catch (error) {
                 console.log(error);
             } finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
 
         fetchData();
-
-        // fetch('http://localhost:5000/customers/checking', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         customerName: bill.customerName,
-        //         customerPhone: bill.customerPhone,
-        //     }),
-        // }).then(response => response.json())
-        //     .then(data => {
-        //         if (data.status === 'error') {
-        //             notify({ type: 'error', msg: data.message });
-        //             return;
-        //         }
-        //         setIsHidePayment(false);
-        //     })
     }
 
     return (
@@ -308,16 +287,7 @@ function Bill() {
                     </div>
 
                     <div className="bill__booklist__button">
-                        <button onClick={decreasePage}>
-                            <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
-                        </button>
-                        <span>{page}</span>
-
-                        <span>{Math.ceil(books.length / amountItem)}</span>
-
-                        <button onClick={increasePage}>
-                            <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
-                        </button>
+                        <PagingButton decreasePage={decreasePage} increasePage={increasePage} currentPage={page} numberPage={Math.ceil(books.length / amountItem)} />
                     </div>
                 </div>
 

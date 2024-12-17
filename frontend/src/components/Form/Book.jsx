@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Book.css';
 import BookImportForm from '../BookImportForm.jsx';
@@ -28,8 +28,6 @@ function Book() {
         bookAmount: 0,
     });
 
-    const loadingRef = useRef(null);
-
     function handleAddBook() {
         if (book.bookName === '' || book.bookKind.length === 0 || book.bookAuthor.length === 0 || book.bookAmount === 0) {
             notify({ type: 'error', msg: 'Please fill all field!' });
@@ -37,10 +35,10 @@ function Book() {
         }
 
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
                 const res = await fetch('http://localhost:5000/rules/checking', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -72,7 +70,7 @@ function Book() {
                 console.error(err);
             }
             finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }

@@ -7,8 +7,11 @@ import { useConfirmPrompt } from '../components/ConfirmPromptContext'
 import { useNotification } from '../components/NotificationContext'
 import StaffRole from '../components/StaffRole'
 import Card from '../components/Card'
+import { useLoading } from '../components/LoadingContext'
+import PagingButton from '../components/PagingButton'
 
 function StaffManagement({ setIsHide }) {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const [users, setUsers] = useState([]);
     const [isForm, setIsForm] = useState(false);
@@ -41,18 +44,39 @@ function StaffManagement({ setIsHide }) {
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/users/list')
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            let loadingRef = null;
+            try {
+                loadingRef = setTimeout(() => {
+                    setIsLoading(true);
+                }, 500);
+                const response = await fetch('http://localhost:5000/users/list');
+                const data = await response.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setUsers(data.data);
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                loadingRef = null;
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+
+        const handleResize = () => {
+            setAmountItem(calculateItemsPerPage());
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, [])
 
     function handleExit() {
@@ -60,25 +84,32 @@ function StaffManagement({ setIsHide }) {
     }
 
     function handleDeleteStaff(id) {
-        fetch('http://localhost:5000/users/' + id, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+            try {
+                const response = await fetch('http://localhost:5000/users/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const data = await response.json();
                 if (data.status === 'success') {
-                    notify({ type: data.status, msg: data.message });
                     setUsers(users.filter(user => user._id !== id));
                 }
-                else {
-                    notify({ type: data.status, msg: data.message });
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                notify({ type: data.status, msg: data.message });
+
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
     }
 
 
@@ -207,12 +238,7 @@ function StaffManagement({ setIsHide }) {
                     </div>
 
                     <div className="management__button">
-                        <button onClick={decreasePage} className="management__button__prev">
-                            <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
-                        </button>
-                        <button onClick={increasePage} className="management__button__next">
-                            <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
-                        </button>
+                        <PagingButton decreasePage={decreasePage} increasePage={increasePage} currentPage={page} numberPage={Math.ceil(users.length / amountItem)} />
                     </div>
                 </div>
             </div>

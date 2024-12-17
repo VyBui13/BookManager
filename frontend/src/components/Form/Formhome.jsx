@@ -1,7 +1,7 @@
 import '../../styles/Formhome.css';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar, Line, Pie } from 'react-chartjs-2'
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoading } from '../LoadingContext';
 
 function Formhome() {
@@ -10,14 +10,13 @@ function Formhome() {
     const [chartBookQuantityData, setChartBookQuantityData] = useState({ labels: [], datasets: [] });
     const [incomes, setIncomes] = useState([]);
     const [chartIncomeData, setChartIncomeData] = useState({ labels: [], datasets: [] });
-    const loadingRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
 
                 const res1 = await fetch('http://localhost:5000/books');
                 const data1 = await res1.json();
@@ -39,7 +38,7 @@ function Formhome() {
                 console.log(err);
             }
             finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }

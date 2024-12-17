@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/BookList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faMagnifyingGlass, faUpLong, faDownLong, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from '../components/EachPageHeader';
 import { useLoading } from '../components/LoadingContext';
+import PagingButton from '../components/PagingButton';
 
 function BookList() {
     const { setIsLoading } = useLoading();
@@ -12,16 +13,8 @@ function BookList() {
     const [kinds, setKinds] = useState([]);
     const [kindsFilter, setKindsFilter] = useState([]);
     const [search, setSearch] = useState('');
-    const loadingRef = useRef(null);
 
     const [page, setPage] = useState(1);
-
-    // function calculateItemsPerPage() {
-    //     const screenHeight = window.innerHeight;
-    //     if (screenHeight >= 900) return 6;
-    //     if (screenHeight >= 768) return 4;
-    //     return 2;
-    // }
 
     const [amountItem, setAmountItem] = useState(2);
     function increasePage() {
@@ -35,7 +28,6 @@ function BookList() {
             setPage(page - 1);
         }
     }
-
 
     function handleSearch(sortFeature, type) {
         let url = 'http://localhost:5000/books/search?';
@@ -70,8 +62,9 @@ function BookList() {
         }
 
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => { setIsLoading(true) }, 500);
             try {
-                loadingRef.current = setTimeout(() => { setIsLoading(true) }, 500);
+
                 const response = await fetch(url);
 
                 const data = await response.json();
@@ -85,7 +78,7 @@ function BookList() {
             } catch (error) {
                 console.log(error);
             } finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
@@ -98,11 +91,10 @@ function BookList() {
     }, [kindsFilter]);
 
 
-    const loading2Ref = useRef(null);
     useEffect(() => {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => { setIsLoading(true) }, 500);
             try {
-                loading2Ref.current = setTimeout(() => { setIsLoading(true) }, 500);
                 const response = await fetch('http://localhost:5000/books/kinds');
 
                 const data = await response.json();
@@ -116,7 +108,7 @@ function BookList() {
             } catch (error) {
                 console.log(error);
             } finally {
-                clearTimeout(loading2Ref.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
@@ -223,63 +215,55 @@ function BookList() {
                     </div>
                 </div>
                 <div className="booklist">
-                    <button onClick={decreasePage}>
-                        <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
-                    </button>
-                    <div className="booklist__data__wrapper">
 
-                        <div className="booklist__data">
-                            {
-                                books.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map(book => (
-                                    <div className="booklist__item" key={book._id}>
-                                        <div className="booklist__icon">
-                                            <FontAwesomeIcon icon={faBook} className='icon__book' />
-                                        </div>
+                    <div className="booklist__data">
+                        {
+                            books.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map(book => (
+                                <div className="booklist__item" key={book._id}>
+                                    <div className="booklist__icon">
+                                        <FontAwesomeIcon icon={faBook} className='icon__book' />
+                                    </div>
 
-                                        <div className="booklist__header">
-                                            <div className="booklist__bookname">
-                                                {book.bookName}
-                                            </div>
-                                        </div>
-
-                                        <div className="booklist__content">
-                                            <div className="booklist__price">
-                                                <span>
-                                                    {new Intl.NumberFormat('de-DE').format(book.bookPrice)} VND
-                                                </span>
-                                            </div>
-
-                                            <div className="booklist__detail">
-                                                Latest udated date: {book.updateDate}
-                                            </div>
-
-                                            <div className="booklist__detail">
-                                                Author: {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
-                                            </div>
-
-                                            <div className="booklist__detail">
-                                                Kind: {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
-                                            </div>
-
-                                            <div className="booklist__detail">
-                                                Amount:
-                                                <span>{book.bookCurrentAmount}</span>
-                                            </div>
-
+                                    <div className="booklist__header">
+                                        <div className="booklist__bookname">
+                                            {book.bookName}
                                         </div>
                                     </div>
-                                ))
-                            }
-                        </div>
 
-                        <div className="booklist__page">
-                            <span>{page}</span> |
-                            <span>{Math.ceil(books.length / amountItem)}</span>
-                        </div>
+                                    <div className="booklist__content">
+                                        <div className="booklist__price">
+                                            <span>
+                                                {new Intl.NumberFormat('de-DE').format(book.bookPrice)} VND
+                                            </span>
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Latest udated date: {book.updateDate}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Author: {book.bookAuthor.slice(0, 2).join(', ')}{book.bookAuthor.length > 2 ? ',...' : ''}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Kind: {book.bookKind.slice(0, 2).join(', ')}{book.bookKind.length > 2 ? ',...' : ''}
+                                        </div>
+
+                                        <div className="booklist__detail">
+                                            Amount:
+                                            <span>{book.bookCurrentAmount}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
-                    <button onClick={increasePage}>
-                        <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
-                    </button>
+
+                    <div className="booklist__page">
+                        <PagingButton page={page} increasePage={increasePage} decreasePage={decreasePage} currentPage={page} numberPage={Math.ceil(books.length / amountItem)} />
+                    </div>
+
                 </div>
             </div>
         </>

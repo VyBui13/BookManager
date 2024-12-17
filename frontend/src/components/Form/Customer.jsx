@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useNotification } from '../NotificationContext.jsx';
 import '../../styles/Form.css';
 import '../../styles/Customer.css';
 import { getDateTime } from "../../utils/DateCurrent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faArrowLeft, faArrowRight, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faArrowLeft, faArrowRight, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from '../NothingDisplay.jsx';
 import { useAuthorizations } from '../AuthorizationContext.jsx';
 import { useLoading } from '../LoadingContext.jsx';
@@ -25,17 +25,11 @@ function Customer() {
     });
     const [phone, setPhone] = useState('');
     const [indexBill, setIndexBill] = useState(0);
-    const loadingRef = useRef(null);
-
-    // if (bill) {
-    //     console.log(bill.billBookList[0]);
-    // }
-
 
     function handleSubmit() {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
             try {
-                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
                 const res = await fetch('http://localhost:5000/payments', {
                     method: 'POST',
                     headers: {
@@ -70,7 +64,7 @@ function Customer() {
                 console.log(err.message);
             }
             finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
@@ -99,8 +93,8 @@ function Customer() {
 
     function handleSearch() {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
             try {
-                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
                 const res = await fetch('http://localhost:5000/bills/' + phone);
                 const data = await res.json();
 
@@ -115,27 +109,12 @@ function Customer() {
                 notify({ type: 'error', msg: err.message });
             }
             finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
 
         fetchData();
-        // fetch('http://localhost:5000/bills/' + phone)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         if (data.status === 'error') {
-        //             notify({ type: 'error', msg: data.message });
-        //             return;
-        //         }
-        //         setCustomer(data.customer);
-        //         setBill(data.billList);
-        //     })
-        //     .catch((err) => {
-        //         notify({ type: 'error', msg: err.message });
-        //     }
-        //     );
     };
 
     const datenow = new Date();

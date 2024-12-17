@@ -1,5 +1,5 @@
 import "../styles/Payment.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { getDateTime } from "../utils/DateCurrent";
 import { formatCurrency } from "../utils/FormatCurrency";
 import { useNotification } from "./NotificationContext";
@@ -30,7 +30,6 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
     }
 
     const totalPrice = totalPayment(payment.bookList);
-    const loadingRef = useRef(null);
 
     function handleExport() {
         if (rules.allowDebt !== true && Number(fee) < Number(totalPrice)) {
@@ -44,10 +43,10 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
         }
 
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
 
                 const res = await fetch('http://localhost:5000/bills', {
                     method: 'POST',
@@ -87,7 +86,7 @@ function Payment({ bookList, setBookList, bill, setBill, setIsHidePayment }) {
                 console.log(error);
             }
             finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }

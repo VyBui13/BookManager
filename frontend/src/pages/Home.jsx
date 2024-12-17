@@ -1,13 +1,14 @@
 import "../styles/Home.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faUserTie, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBook } from '@fortawesome/free-solid-svg-icons'
 import EachPageHeader from "../components/EachPageHeader";
 import NothingDisplay from "../components/NothingDisplay";
 import { useLoading } from "../components/LoadingContext";
+import PagingButton from "../components/PagingButton";
 
 function Home() {
-    const { isLoading, setIsLoading } = useLoading();
+    const { setIsLoading } = useLoading();
     const [books, setBooks] = useState([]);
     const [detail, setDetail] = useState({
         totalBook: 0,
@@ -19,38 +20,21 @@ function Home() {
 
     function calculateItemsPerPage() {
         const screenHeight = window.innerHeight;
-        if (screenHeight >= 900) return 10;
-        if (screenHeight >= 800) return 8;
-        if (screenHeight >= 768) return 6;
-        if (screenHeight >= 600) return 4;
+        if (screenHeight >= 900) return 13;
+        if (screenHeight >= 800) return 11;
+        if (screenHeight >= 700) return 9;
+        if (screenHeight >= 600) return 7;
         return 3;
     }
 
     const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
-    function increasePage() {
-        if (page < Math.ceil(books.length / amountItem)) {
-            setPage(page + 1);
-        }
-    }
-
-    function decreasePage() {
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    }
-
-    const loadingRef = useRef(null);
-
-    // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     useEffect(() => {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
-
-
                 const res = await fetch("http://localhost:5000/books/top?limit=10");
                 const data = await res.json();
                 if (data.status === 'error') {
@@ -97,13 +81,37 @@ function Home() {
             } catch (error) {
                 console.log(error);
             } finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         };
 
         fetchData();
+
+        const handleResize = () => {
+            setAmountItem(calculateItemsPerPage());
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
+
+    function increasePage() {
+        if (page < Math.ceil(books.length / amountItem)) {
+            setPage(page + 1);
+        }
+    }
+
+    function decreasePage() {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
+
+
 
     return (
         <>
@@ -263,32 +271,10 @@ function Home() {
                                     );
                                 })}
                             </div>
-
-                            {/* {books.length !== 0 && <div className="home__recent__field home__recent__valuefield">
-                                <div className="home__recent__attribute">
-                                    ...
-                                </div>
-                                <div className="home__recent__attribute">
-                                    ...
-                                </div>
-                                <div className="home__recent__attribute">
-                                    ...
-                                </div>
-                                <div className="home__recent__attribute">
-                                    ...
-                                </div>
-                            </div>} */}
                         </div>
 
                         <div className="home__button">
-                            <button className="home__button__control" onClick={decreasePage}>
-                                <FontAwesomeIcon icon={faArrowLeft} className="icon__paging" />
-                            </button>
-                            <span>{page}</span>
-                            <span>{Math.ceil(books.length / amountItem)}</span>
-                            <button className="home__button__control" onClick={increasePage}>
-                                <FontAwesomeIcon icon={faArrowRight} className="icon__paging" />
-                            </button>
+                            <PagingButton decreasePage={decreasePage} increasePage={increasePage} currentPage={page} numberPage={Math.ceil(books.length / amountItem)} />
                         </div>
 
                     </div>

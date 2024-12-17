@@ -73,34 +73,34 @@ function Calendar() {
     }
 
     return (
-        <div class="calendar">
-            <div class="calendar__header">
-                <div class="month">{months[currentDate.currentMonth]} {currentDate.currentYear}</div>
-                <div class="btns">
-                    <div class="btn today-btn">
+        <div className="calendar">
+            <div className="calendar__header">
+                <div className="month">{months[currentDate.currentMonth]} {currentDate.currentYear}</div>
+                <div className="btns">
+                    <div className="btn today-btn">
                         <FontAwesomeIcon icon={faCalendarDay} />
-                        {/* <i class="fas fa-calendar-day"></i> */}
+                        {/* <i className="fas fa-calendar-day"></i> */}
                     </div>
-                    <div onClick={hanldePrevMonth} class="btn prev-btn">
+                    <div onClick={hanldePrevMonth} className="btn prev-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
-                        {/* <i class="fas fa-chevron-left"></i> */}
+                        {/* <i className="fas fa-chevron-left"></i> */}
                     </div>
-                    <div onClick={handleNextMonth} class="btn next-btn">
+                    <div onClick={handleNextMonth} className="btn next-btn">
                         <FontAwesomeIcon icon={faChevronRight} />
-                        {/* <i class="fas fa-chevron-right"></i> */}
+                        {/* <i className="fas fa-chevron-right"></i> */}
                     </div>
                 </div>
             </div>
-            <div class="calendar__weekdays">
-                <div class="day">Sun</div>
-                <div class="day">Mon</div>
-                <div class="day">Tue</div>
-                <div class="day">Wed</div>
-                <div class="day">Thu</div>
-                <div class="day">Fri</div>
-                <div class="day">Sat</div>
+            <div className="calendar__weekdays">
+                <div className="day">Sun</div>
+                <div className="day">Mon</div>
+                <div className="day">Tue</div>
+                <div className="day">Wed</div>
+                <div className="day">Thu</div>
+                <div className="day">Fri</div>
+                <div className="day">Sat</div>
             </div>
-            <div class="calendar__days">
+            <div className="calendar__days">
                 {/* Render previous month's days */}
                 {Array.from({ length: currentDate.firstDay.getDay() }, (_, x) => {
                     const prevLastDay = new Date(currentDate.currentYear, currentDate.currentMonth, 0);

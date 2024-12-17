@@ -2,11 +2,12 @@ import '../styles/ReportForm.css';
 import { useState, useEffect } from 'react';
 import { useNotification } from './NotificationContext';
 import { getDateTime } from '../utils/DateCurrent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from './NothingDisplay';
+import PagingButton from './PagingButton';
+import { useLoading } from './LoadingContext';
 
 function ReportBookForm() {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const [listCustomer, setListCustomer] = useState([]);
     const [page, setPage] = useState(1);
@@ -21,21 +22,40 @@ function ReportBookForm() {
     }
 
     const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
-
     useEffect(() => {
-        fetch('http://localhost:5000/customers')
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+            try {
+
+                const response = await fetch('http://localhost:5000/customers');
+                const data = await response.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setListCustomer(data.data);
-            })
-            .catch((error) => {
-                notify({ type: 'error', msg: error.message });
+            } catch (error) {
+                console.log(error);
             }
-            );
+            finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+
+        const handleResize = () => {
+            setAmountItem(calculateItemsPerPage());
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     function increasePage() {
@@ -92,12 +112,7 @@ function ReportBookForm() {
                     </div>
                 ))}
                 <div className="reportform__button">
-                    <button className="btn__report" onClick={decreasePage}>
-                        <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
-                    </button>
-                    <button className="btn__report" onClick={increasePage}>
-                        <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
-                    </button>
+                    <PagingButton page={page} increasePage={increasePage} decreasePage={decreasePage} currentPage={page} numberPage={Math.ceil(listCustomer.length / amountItem)} />
                 </div>
 
             </div>

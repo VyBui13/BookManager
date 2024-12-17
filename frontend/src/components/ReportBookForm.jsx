@@ -1,13 +1,12 @@
 import '../styles/ReportForm.css';
 import { useState, useEffect } from 'react';
-import { useNotification } from './NotificationContext';
 import { getDateTime } from '../utils/DateCurrent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import NothingDisplay from './NothingDisplay';
+import PagingButton from './PagingButton';
+import { useLoading } from './LoadingContext';
 
 function ReportBookForm() {
-    const { notify } = useNotification();
+    const { setIsLoading } = useLoading();
     const [listBook, setListBook] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -19,24 +18,45 @@ function ReportBookForm() {
         if (screenHeight >= 600) return 12;
         return 8;
     }
-
     const [amountItem, setAmountItem] = useState(calculateItemsPerPage());
-
     useEffect(() => {
-        fetch('http://localhost:5000/books')
-            .then(response => response.json())
-            .then(data => {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+            try {
+
+                const response = await fetch('http://localhost:5000/books');
+                const data = await response.json();
                 if (data.status === 'error') {
                     console.log(data.message);
                     return;
                 }
                 setListBook(data.data);
-            })
-            .catch((error) => {
-                notify({ type: 'error', msg: error.message });
+            } catch (error) {
+                console.log(error);
             }
-            );
+            finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+
+        fetchData();
+
+        const handleResize = () => {
+            setAmountItem(calculateItemsPerPage());
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
+
+    // useEffect(() => {
+    // }, []);
 
     function increasePage() {
         if (page < Math.ceil(listBook.length / amountItem)) {
@@ -93,12 +113,7 @@ function ReportBookForm() {
             </div>
 
             <div className="reportform__button">
-                <button className="btn__report" onClick={decreasePage}>
-                    <FontAwesomeIcon icon={faArrowLeft} className='icon__paging' />
-                </button>
-                <button className="btn__report" onClick={increasePage}>
-                    <FontAwesomeIcon icon={faArrowRight} className='icon__paging' />
-                </button>
+                <PagingButton page={page} increasePage={increasePage} decreasePage={decreasePage} currentPage={page} numberPage={Math.ceil(listBook.length / amountItem)} />
             </div>
         </div>
     );

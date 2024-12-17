@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../styles/StaffForm.css";
 import { useNotification } from "./NotificationContext";
+import { useLoading } from "./LoadingContext";
 
 function StaffForm({ setIsForm, setUsers }) {
+    const { setIsLoading } = useLoading();
     const { notify } = useNotification();
     const [staff, setStaff] = useState({
         name: "",
@@ -18,39 +20,40 @@ function StaffForm({ setIsForm, setUsers }) {
     }
 
     function handleAdd() {
-        fetch('http://localhost:5000/users/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(staff),
-        }
-        ).then(responsive => responsive.json())
-            .then(data => {
-                if (data.status === 'success') {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
+            try {
+                const response = await fetch('http://localhost:5000/users/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(staff),
+                });
+                const data = await response.json();
+                if (data.status !== 'success') {
                     notify({ type: data.status, msg: data.message });
-                    fetch('http://localhost:5000/users/list')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'error') {
-                                console.log(data.message);
-                                return;
-                            }
-                            setUsers(data.data)
-                            setIsForm(false);
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
+                    setIsForm(false);
+                    return;
                 }
-                else {
-                    notify({ type: data.status, msg: data.message });
+                const responseUsers = await fetch('http://localhost:5000/users/list');
+                const dataUsers = await responseUsers.json();
+                if (dataUsers.status !== 'success') {
+                    console.log(dataUsers.message);
+                    return;
                 }
-            })
-            .catch(err => {
-                console.log(err);
+                notify({ type: data.status, msg: data.message });
+                setUsers(dataUsers.data)
+                setIsForm(false);
+            } catch (error) {
+                console.log(error);
             }
-            )
+            finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }
 
     // const handleChange = (e) => {

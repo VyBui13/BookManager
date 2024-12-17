@@ -1,7 +1,7 @@
 import '../styles/BookImportForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import NothingDisplay from './NothingDisplay';
 import { useNotification } from './NotificationContext';
 import { useConfirmPrompt } from './ConfirmPromptContext';
@@ -14,7 +14,6 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
     const { setIsConfirmPrompt, setConfirmPromptData } = useConfirmPrompt();
     const { notify } = useNotification();
     const [books, setBooks] = useState(bookList);
-    const loadingRef = useRef(null);
 
     function handleCancel() {
         setIsImportForm(false);
@@ -32,10 +31,10 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
         }
 
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
             try {
-                loadingRef.current = setTimeout(() => {
-                    setIsLoading(true);
-                }, 500);
 
                 const res = await fetch('http://localhost:5000/books', {
                     method: 'POST',
@@ -50,28 +49,11 @@ function BookImportForm({ bookList, setBookList, setIsImportForm }) {
             } catch (err) {
                 console.log(err);
             } finally {
-                clearTimeout(loadingRef.current);
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
         fetchData();
-
-        // fetch('http://localhost:5000/books', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ bookList: books, userID: user._id })
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         notify({ type: data.status, msg: data.message });
-        //         setBookList([]);
-        //         setIsImportForm(false);
-        //     })
-        //     .catch((error) => {
-        //         notify({ type: 'error', msg: error.message });
-        //     });
-
     }
 
     return (
