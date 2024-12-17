@@ -125,9 +125,10 @@ class UserService {
         }
     }
 
-    async getListUser() {
+    async getListUser({ role }) {
         try {
-            const users = await User.find();
+            const query = role ? { userRole: role } : {};
+            const users = await User.find(query);
             return {
                 status: 'success',
                 message: 'Get list user successfully',

@@ -79,8 +79,27 @@ function StaffManagement({ setIsHide }) {
         };
     }, [])
 
-    function handleExit() {
-        setIsHide(true);
+    function handleFilterByRole(role) {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+            try {
+                const response = await fetch('http://localhost:5000/users/list?role=' + role);
+                const data = await response.json();
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setUsers(data.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
     }
 
     function handleDeleteStaff(id) {
@@ -122,7 +141,7 @@ function StaffManagement({ setIsHide }) {
                 {theChosenUser._id && <StaffRole theChosenUser={theChosenUser} setTheChosenUser={setTheChosenUser} setUsers={setUsers} />}
                 <div className="management__left">
                     <div className="management__role">
-                        <button className="management__card">
+                        <button onClick={() => handleFilterByRole("admin")} className="management__card">
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
@@ -132,7 +151,7 @@ function StaffManagement({ setIsHide }) {
                             </div>
                         </button>
 
-                        <button className="management__card">
+                        <button onClick={() => handleFilterByRole("manager")} className="management__card">
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
@@ -142,7 +161,7 @@ function StaffManagement({ setIsHide }) {
                             </div>
                         </button>
 
-                        <button className="management__card">
+                        <button onClick={() => handleFilterByRole("staff")} className="management__card">
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
@@ -163,7 +182,7 @@ function StaffManagement({ setIsHide }) {
                             </div>
                         </button>
 
-                        <button onClick={handleExit} className="management__card">
+                        <button className="management__card">
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
@@ -177,64 +196,67 @@ function StaffManagement({ setIsHide }) {
 
                 <div className="management__right">
                     <div className="management__list">
-                        {users.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map(user => (
-                            <div className="management__card" key={user._id}>
-                                <button onClick={() => {
-                                    setTheChosenUserCard(user);
-                                }} className="management__card__avatar">
-                                    {user.userRole.toLowerCase() === 'admin' && <FontAwesomeIcon icon={faUserSecret} className='icon__card' />}
-                                    {user.userRole.toLowerCase() === 'manager' && <FontAwesomeIcon icon={faUserTie} className='icon__card' />}
-                                    {user.userRole.toLowerCase() === 'staff' && <FontAwesomeIcon icon={faUser} className='icon__card' />}
-                                </button>
-                                <div className="clone1">
-                                    <span>Export card</span>
-                                </div>
-                                <div className="management__card__body">
+                        <div className="management__listwrapper">
 
-                                    <div className="management__card__title">
-                                        <h2>
-                                            {user.userName}
-                                        </h2>
+                            {users.slice((page - 1) * amountItem, (page - 1) * amountItem + amountItem).map(user => (
+                                <div className="management__card" key={user._id}>
+                                    <button onClick={() => {
+                                        setTheChosenUserCard(user);
+                                    }} className="management__card__avatar">
+                                        {user.userRole.toLowerCase() === 'admin' && <FontAwesomeIcon icon={faUserSecret} className='icon__card' />}
+                                        {user.userRole.toLowerCase() === 'manager' && <FontAwesomeIcon icon={faUserTie} className='icon__card' />}
+                                        {user.userRole.toLowerCase() === 'staff' && <FontAwesomeIcon icon={faUser} className='icon__card' />}
+                                    </button>
+                                    <div className="clone1">
+                                        <span>Export card</span>
                                     </div>
+                                    <div className="management__card__body">
 
-                                    <div className="management__card__content">
-                                        <p>
-                                            Email:
-                                            <span>{user.userEmail}</span>
-                                        </p>
+                                        <div className="management__card__title">
+                                            <h2>
+                                                {user.userName}
+                                            </h2>
+                                        </div>
 
-                                        <p>
-                                            Phone:
-                                            <span>{user.userPhone}</span>
-                                        </p>
-                                        <p>
-                                            Address:
-                                            <span>{user.userAddress}</span>
-                                        </p>
+                                        <div className="management__card__content">
+                                            <p>
+                                                Email:
+                                                <span>{user.userEmail}</span>
+                                            </p>
+
+                                            <p>
+                                                Phone:
+                                                <span>{user.userPhone}</span>
+                                            </p>
+                                            <p>
+                                                Address:
+                                                <span>{user.userAddress}</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <button onClick={() => {
-                                    setConfirmPromptData({
-                                        message: `Delete ${user.userName}`,
-                                        action: "Delete",
-                                        onConfirm: () => {
-                                            handleDeleteStaff(user._id);
-                                        },
-                                    });
-                                    setIsConfirmPrompt(true);
-                                }} className="management__card__delete">
-                                    <FontAwesomeIcon icon={faX} className='icon__card__button' />
-                                </button>
+                                    <button onClick={() => {
+                                        setConfirmPromptData({
+                                            message: `Delete ${user.userName}`,
+                                            action: "Delete",
+                                            onConfirm: () => {
+                                                handleDeleteStaff(user._id);
+                                            },
+                                        });
+                                        setIsConfirmPrompt(true);
+                                    }} className="management__card__delete">
+                                        <FontAwesomeIcon icon={faX} className='icon__card__button' />
+                                    </button>
 
-                                <button onClick={
-                                    () => {
-                                        setTheChosenUser(user);
-                                    }
-                                } className="management__card__change">
-                                    <FontAwesomeIcon icon={faGear} className='icon__card__button' />
-                                </button>
-                            </div>))
-                        }
+                                    <button onClick={
+                                        () => {
+                                            setTheChosenUser(user);
+                                        }
+                                    } className="management__card__change">
+                                        <FontAwesomeIcon icon={faGear} className='icon__card__button' />
+                                    </button>
+                                </div>))
+                            }
+                        </div>
                     </div>
 
                     <div className="management__button">

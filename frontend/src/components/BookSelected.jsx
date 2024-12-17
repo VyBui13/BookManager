@@ -49,14 +49,14 @@ function BookSelected({ bookPrice, setBookPrice, setBooks }) {
             <div className="virtual-background">
 
                 <div className="bookprice">
-                    <div className="bookprice__header">
+                    {/* <div className="bookprice__header">
                         <div className="bookprice__title">
                             Price Setting
                             <div className="bookprice__description">
                                 Dashboard
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="bookprice__body">
                         <div className="bookprice__information">
@@ -67,7 +67,10 @@ function BookSelected({ bookPrice, setBookPrice, setBooks }) {
                                     Name
                                 </div>
                                 <div className="bookprice__attribute-value">
-                                    {bookSelected.bookName}
+                                    <input
+                                        value={bookSelected.bookName}
+                                        onChange={(e) => setBookSelected({ ...bookSelected, bookName: e.target.value })}
+                                        type="text" />
                                 </div>
 
                             </div>
@@ -78,7 +81,16 @@ function BookSelected({ bookPrice, setBookPrice, setBooks }) {
                                     Kind
                                 </div>
                                 <div className="bookprice__attribute-value">
-                                    {bookSelected.bookKind}
+                                    {bookSelected.bookKind.map((kind, index) => {
+                                        return (
+                                            <div className="bookprice__kind" key={index}>
+                                                <div className="bookprice__kind__text">
+                                                    {kind}
+                                                </div>
+                                                <button>X</button>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
 
                             </div>
@@ -89,7 +101,16 @@ function BookSelected({ bookPrice, setBookPrice, setBooks }) {
                                     Author
                                 </div>
                                 <div className="bookprice__attribute-value">
-                                    {bookSelected.bookAuthor}
+                                    {bookSelected.bookAuthor.map((author, index) => {
+                                        return (
+                                            <div className="bookprice__kind" key={index}>
+                                                <div className="bookprice__kind__text">
+                                                    {author}
+                                                </div>
+                                                <button>X</button>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
 
                             </div>

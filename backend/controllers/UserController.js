@@ -139,7 +139,8 @@ class UserController {
 
     async getListUser(req, res) {
         try {
-            const users = await userServiceInstance.getListUser();
+            const role = req.query.role ? req.query.role : null;
+            const users = await userServiceInstance.getListUser({ role });
             return res.status(200).json(users);
         }
         catch (err) {

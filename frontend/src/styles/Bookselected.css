@@ -8,6 +8,7 @@
     border-radius: var(--border-radius);
     padding: 20px 30px;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    z-index: 100;
     animation: slideInFromTop 0.3s ease-in-out forwards;
 }
 
@@ -93,19 +94,59 @@
 .bookprice__information .bookprice__attribute .bookprice__attribute-value {
     text-align: center;
     flex: 1;
-    font-weight: 700;
     padding: 6px;
-    color: var(--text-color);
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.bookprice__attribute .bookprice__attribute-value input[type="number"] {
-    width: 100px;
-    font-weight: 700;
-    text-align: center;
-    border: 2px solid var(--text-color);
-    background: transparent;
+.bookprice__attribute-value .bookprice__kind {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
     color: var(--text-color);
+    font-weight: 700;
+    border: 2px solid var(--text-color);
 }
+
+.bookprice__attribute-value .bookprice__kind .bookprice__kind__text {
+    margin-right: 5px;
+}
+
+.bookprice__attribute-value .bookprice__kind button {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 100%;
+}
+
+/* .bookprice__attribute-value .bookprice__kind .bookprice__kind__icon {
+    font-size: 20px;
+    color: var(--main-color);
+} */
+
+.bookprice__information .bookprice__attribute .bookprice__attribute-value input {
+    width: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    color: var(--text-color);
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+    background: transparent;
+}
+
 
 .bookprice__attribute .bookprice__attribute-value input[type="number"]::-webkit-outer-spin-button,
 .bookprice__attribute .bookprice__attribute-value input[type="number"]::-webkit-inner-spin-button {
