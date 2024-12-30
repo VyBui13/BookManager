@@ -1,9 +1,8 @@
 import App from './App.jsx';
 import Header from './Header.jsx';
 import './styles/Dashboard.css'
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from './components/NotificationContext';
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx';
 import { useConfig } from './components/ConfigContext.jsx';
@@ -16,12 +15,11 @@ function Dashboard() {
     const { setRules } = useConfig();
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const loadingRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
             try {
-                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
 
                 const resUser = await fetch('http://localhost:5000/users', {
                     method: 'GET',
@@ -34,6 +32,7 @@ function Dashboard() {
 
 
                 const dataUser = await resUser.json();
+                console.log(dataUser);
                 if (dataUser.status === 'error') {
                     setIsAuthenticated(false);
                     navigate('/login');
@@ -59,8 +58,7 @@ function Dashboard() {
                 navigate('/login');
             }
             finally {
-                clearTimeout(loadingRef.current);
-                loadingRef.current = null;
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }

@@ -79,6 +79,15 @@ class UserController {
                 }
             }
 
+            if (role === "guest") {
+                return res.status(200).json({
+                    status: 'success',
+                    message: 'Authorized',
+                    user: req.user,
+                    authorization: authorization,
+                });
+
+            }
             const userInfo = await userServiceInstance.getUserById(req.user.userId);
             return res.status(200).json({
                 status: 'success',

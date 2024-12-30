@@ -102,6 +102,29 @@ function StaffManagement({ setIsHide }) {
         fetchData();
     }
 
+    function handleReset() {
+        const fetchData = async () => {
+            const loadingRef = setTimeout(() => {
+                setIsLoading(true);
+            }, 500);
+            try {
+                const response = await fetch('http://localhost:5000/users/list');
+                const data = await response.json();
+                if (data.status === 'error') {
+                    console.log(data.message);
+                    return;
+                }
+                setUsers(data.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                clearTimeout(loadingRef);
+                setIsLoading(false);
+            }
+        }
+        fetchData();
+    }
+
     function handleDeleteStaff(id) {
         const fetchData = async () => {
             const loadingRef = setTimeout(() => {
@@ -182,13 +205,13 @@ function StaffManagement({ setIsHide }) {
                             </div>
                         </button>
 
-                        <button className="management__card">
+                        <button className="management__card" onClick={handleReset}>
                             <div className="management__card-icon">
                                 <FontAwesomeIcon icon={faScrewdriverWrench} />
                             </div>
 
                             <div className="management__card-title">
-                                <p>Exit</p>
+                                <p>Reset</p>
                             </div>
                         </button>
                     </div>

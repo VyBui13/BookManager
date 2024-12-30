@@ -7,8 +7,12 @@ import { faHome, faClipboard, faBook, faNewspaper, faGear, faRightFromBracket, f
 import { useNotification } from './components/NotificationContext.jsx'
 import Cookies from 'js-cookie';
 import { useAuthorizations } from './components/AuthorizationContext.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useLoading } from './components/LoadingContext.jsx'
 
 function Header() {
+    const { setIsLoading } = useLoading();
+    const navigate = useNavigate();
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const lightTheme = {
@@ -45,25 +49,52 @@ function Header() {
     const { authorization } = useAuthorizations();
     const { notify } = useNotification();
 
-    function handleLogout(e) {
+    async function handleLogout(e) {
         e.preventDefault();
-        fetch('http://localhost:5000/users/logout', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + Cookies.get('token')
-            },
-        })
-            .then(res => res.json())
-            .then(data => {
-                location.reload(true);
-                notify({ type: data.status, msg: data.message });
-            })
-            .catch((err) => {
-                notify({ type: 'error', msg: err });
+        const loadingRef = setTimeout(() => {
+            setIsLoading(true);
+        }, 500);
+
+        try {
+            const res = await fetch('http://localhost:5000/users/logout', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('token')
+                },
+            });
+
+            const data = await res.json();
+            notify({ type: data.status, msg: data.message });
+            if (data.status === 'error') {
+                return;
             }
-            )
+            navigate('/login');
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+            clearTimeout(loadingRef);
+        }
+
+        // fetch('http://localhost:5000/users/logout', {
+        //     method: 'GET',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer ' + Cookies.get('token')
+        //     },
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         location.reload(true);
+        //         notify({ type: data.status, msg: data.message });
+        //     })
+        //     .catch((err) => {
+        //         notify({ type: 'error', msg: err });
+        //     }
+        //     )
 
     }
 
@@ -130,11 +161,9 @@ function Header() {
 
                 </div>
 
-                <div className="logout">
+                <div className="logout" onClick={handleLogout}>
                     <div className="logout__icon">
-                        <Link to="/login" onClick={handleLogout}>
-                            <FontAwesomeIcon icon={faRightFromBracket} className="icon__header" />
-                        </Link>
+                        <FontAwesomeIcon icon={faRightFromBracket} className="icon__header" />
                     </div>
                 </div>
             </div>

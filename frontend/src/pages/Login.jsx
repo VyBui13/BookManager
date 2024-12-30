@@ -46,8 +46,8 @@ function Login() {
 
     function handleGuest() {
         const fetchData = async () => {
+            const loadingRef = setTimeout(() => setIsLoading(true), 500);
             try {
-                loadingRef.current = setTimeout(() => setIsLoading(true), 500);
 
                 const res = await fetch('http://localhost:5000/users/login', {
                     method: 'POST',
@@ -66,8 +66,7 @@ function Login() {
                 console.log(error);
             }
             finally {
-                clearTimeout(loadingRef.current);
-                loadingRef.current = null;
+                clearTimeout(loadingRef);
                 setIsLoading(false);
             }
         }
